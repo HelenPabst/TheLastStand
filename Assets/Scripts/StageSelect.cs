@@ -8,9 +8,9 @@ public class StageSelect : MonoBehaviour {
 		//Application.LoadLevel("BasicLevel");
 		Application.LoadLevel("Level1Cutscene");
 	}
-	public void OnClickLevel5()
+	public void OnClickLevel3()
 	{
 		//Application.LoadLevel("BasicLevel");
-		Application.LoadLevel("Level5-Temple");
+		Application.LoadLevel("Level3-Temple");
 	}
 }
