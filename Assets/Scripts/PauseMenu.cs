@@ -52,6 +52,7 @@ public class PauseMenu : MonoBehaviour {
 	}
 	public void OnClickMainMenu(){
 		Application.LoadLevel("StartMenu");
+		AudioListener.pause = false;
 	}
 	public void OnClickResume(){
 		Time.timeScale = 1f;//Everything is unfrozen
