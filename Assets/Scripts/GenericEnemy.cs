@@ -3,10 +3,12 @@ using System.Collections;
 
 public class GenericEnemy : GenericCharacter {
 	// Use this for initialization
+	private Animator animator;
 	public Transform sightStart, sightEnd;
 	public bool playerInSight = false;
 	void Start () 
 	{
+		animator = this.GetComponent<Animator>();
 		theta = new Vector3(0, 0, 0);//z value controls rotation, 0 is facing to the right
 		//transform.Rotate(theta);
 	}
@@ -16,17 +18,26 @@ public class GenericEnemy : GenericCharacter {
 	{
 		Raycast ();
 		currentTime += Time.deltaTime;
-		if (currentTime >= fireRate && playerInSight) 
+		if(!this.animator.GetCurrentAnimatorStateInfo(0).IsName("Spawning"))
 		{
-			fireArrow("EnemyArrow");
-			currentTime = 0;
+			if (currentTime >= fireRate && playerInSight) 
+			{
+				//animator.SetBool("Firing", true);
+				fireArrow("EnemyArrow");
+				currentTime = 0;
+				animator.SetBool("Firing", true);
+			}
+			else  
+			{
+				animator.SetBool("Firing",false);
+			}
 		}
-
 		if (health <= 0) 
 		{
 			health = 1;
 			RePool(this.gameObject);
 		}
+		//animator.SetBool("Firing", false);
 	}
 
 	public void OnTriggerEnter2D(Collider2D col) 
