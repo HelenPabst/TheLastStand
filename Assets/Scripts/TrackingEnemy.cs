@@ -3,9 +3,13 @@ using System.Collections;
 
 public class TrackingEnemy : GenericCharacter {
 	Vector3 playerPosition, diff;
+	Player playerScript;
 	float rotation;
 	
-	
+	void Start()
+	{
+		playerScript = (Player)GameObject.Find ("Player").GetComponent ("Player");
+	}
 	// Update is called once per frame
 	void Update () 
 	{
@@ -46,6 +50,8 @@ public class TrackingEnemy : GenericCharacter {
 		if (col.gameObject.tag.Equals("PlayerArrow")) 
 		{
 			health--;
+			playerScript.kills += 1;
+			Debug.Log("Kill confirmed! Kill count is: " + playerScript.kills);
 			RePool(col.gameObject);
 		}
 	}
