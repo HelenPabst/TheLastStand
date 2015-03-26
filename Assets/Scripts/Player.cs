@@ -3,9 +3,9 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Player : GenericCharacter {
-	public float moveSpeed, ammo, ammoLimit;
-	public Text[] livesUI, ammosUI;
-	Text liveUI, ammoUI;
+	public float moveSpeed, ammo, ammoLimit, kills;
+	public Text[] livesUI, ammosUI, killsUI;
+	Text liveUI, ammoUI, killUI;
 	public GameObject controls;
 	Controls script;
 	Vector3 mousePosition, diff, translate;
@@ -20,9 +20,12 @@ public class Player : GenericCharacter {
 		if (!Application.isMobilePlatform) {
 			liveUI = livesUI [0];
 			ammoUI = ammosUI [0];
+			killUI = killsUI [0];
 		} else {
 			liveUI = livesUI [1];
 			ammoUI = ammosUI [1];
+			killUI = killsUI [1];
+			kills = 0;
 			ammo ++;
 		}
 		script = controls.transform.GetComponent<Controls>();
@@ -47,6 +50,7 @@ public class Player : GenericCharacter {
 		}
 		ammoUI.text = "Ammo: " + ammo;
 		liveUI.text = "Lives: " + health;
+		killUI.text = "Kills: " + kills;
 		////////////////////////////////////////////cheat codes!
 		if (Input.GetKey (KeyCode.F) && Input.GetKey (KeyCode.H)) 
 		{

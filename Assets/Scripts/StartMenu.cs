@@ -18,6 +18,20 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickStart()
 	{
 		//Application.LoadLevel("BasicLevel");
+		Application.LoadLevel("Level1Cutscene");
+	}
+	public void OnClickLevelSelect()
+	{
+		//Application.LoadLevel("BasicLevel");
 		Application.LoadLevel("LevelSelectMenu");
+	}
+	public void OnClickOptions()
+	{
+		//Application.LoadLevel("BasicLevel");
+		//Application.LoadLevel("Options");
+	}
+	public void OnClickQuit()
+	{
+		Application.Quit ();
 	}
 }

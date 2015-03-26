@@ -3,10 +3,12 @@ using System.Collections;
 
 public class TripleShotEnemyScript : GenericCharacter {
 				
+	Player playerScript;
 		Vector3 arrowDirMain, arrowDirLeft, arrowDirRight;
 		
 		// Use this for initialization
 		void Start () {
+			playerScript = (Player)GameObject.Find ("Player").GetComponent ("Player");
 			theta = new Vector3(0, 0, Random.value*360);
 			arrowDirMain = new Vector3 (Mathf.Cos(theta.z * Mathf.PI / 180), Mathf.Sin(theta.z * Mathf.PI / 180));
 			arrowDirLeft = new Vector3 (Mathf.Cos((theta.z + 30) * Mathf.PI / 180), Mathf.Sin(theta.z * Mathf.PI / 180));
@@ -33,6 +35,8 @@ public class TripleShotEnemyScript : GenericCharacter {
 		
 		void OnColliderEnter2D(Collider col) {
 			health--;
+			playerScript.kills += 1;
+			Debug.Log("Kill confirmed! Kill count is: " + playerScript.kills);
 			RePool(col.gameObject);
 		}
 	}
