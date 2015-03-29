@@ -24,7 +24,7 @@ public class GenericEnemy : GenericCharacter {
 	void Update () 
 	{
 		Raycast ();
-		Debug.Log (playerInSight);
+		//Debug.Log (playerInSight);
 		currentTime += Time.deltaTime;
 		if(!this.animator.GetCurrentAnimatorStateInfo(0).IsName("Spawning"))
 		{
