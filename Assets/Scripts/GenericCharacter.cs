@@ -32,7 +32,9 @@ public class GenericCharacter : MonoBehaviour
 		arrow.tag = tag;
 	}
 
-	protected void fire2Arrows(string tag) {
+	protected void fire3Arrows(string tag) {
+		fireArrow("EnemyArrow");
+
 		leftArrow = ObjectPool.instance.getObjectForType ("BasicProjectile", true);
 		leftArrow.transform.position = transform.position;
 		leftArrow.transform.rotation = transform.rotation;
