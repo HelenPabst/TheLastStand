@@ -5,9 +5,9 @@ public class GenericCharacter : MonoBehaviour
 {
     public double health, standardHealth, fireRate;
     public float arrowVelocity;
-    protected Vector3 theta, arrowDir, arrowDirLeft, arrowDirRight;
+    protected Vector3 theta, arrowDir;
 	protected double currentTime;
-	protected GameObject arrow, leftArrow, rightArrow;
+	protected GameObject arrow;
     // Shared projectile object pool for all generic characters
 
 	void Start() {
@@ -32,23 +32,7 @@ public class GenericCharacter : MonoBehaviour
 		arrow.tag = tag;
 	}
 
-	protected void fire3Arrows(string tag) {
-		fireArrow("EnemyArrow");
 
-		leftArrow = ObjectPool.instance.getObjectForType ("BasicProjectile", true);
-		leftArrow.transform.position = transform.position;
-		leftArrow.transform.rotation = transform.rotation;
-		arrowDirLeft = new Vector3 (Mathf.Cos (transform.eulerAngles.z * Mathf.PI / 180) - (Mathf.PI / 4), Mathf.Sin (transform.eulerAngles.z * Mathf.PI / 180) - (Mathf.PI / 4));
-		leftArrow.rigidbody2D.velocity = arrowDirLeft * arrowVelocity;
-		leftArrow.tag = tag;
-
-		rightArrow = ObjectPool.instance.getObjectForType ("BasicProjectile", true);
-		rightArrow.transform.position = transform.position;
-		rightArrow.transform.rotation = transform.rotation;
-		arrowDirRight = new Vector3 (Mathf.Cos (transform.eulerAngles.z * Mathf.PI / 180) + (Mathf.PI / 4), Mathf.Sin (transform.eulerAngles.z * Mathf.PI / 180) + (Mathf.PI / 4));
-		rightArrow.rigidbody2D.velocity = arrowDirRight * arrowVelocity;
-		rightArrow.tag = tag;
-	}
 
 	void OnEnable() {
 		health = standardHealth;
