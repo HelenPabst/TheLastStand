@@ -7,31 +7,32 @@ public class BasicProjectile : MonoBehaviour
     private double selfDestructTime;
     private double currentTime;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start()
     {
         selfDestructTime = 5.0f;
-	}
-	
-	// Update is called once per frame
-	void Update () 
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         currentTime += Time.deltaTime;
         if (currentTime + timeSpawned >= timeSpawned + selfDestructTime)
         {
-			currentTime = 0;
-			RemoveArrow();
+            currentTime = 0;
+            RemoveArrow();
         }
-	}
+    }
 
     public void RemoveArrow()
     {
-		this.gameObject.tag = "";
-		ObjectPool.instance.PoolObject(this.gameObject);
+        this.gameObject.tag = "";
+        ObjectPool.instance.PoolObject(this.gameObject);
     }
-	public void OnTriggerEnter2D(Collider2D other)
-	{
-		if (other.tag.Equals ("Obstacle"))
-			RemoveArrow ();
-	}
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag.Equals("Obstacle"))
+            RemoveArrow();
+    }
 }
