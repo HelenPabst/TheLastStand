@@ -33,6 +33,11 @@ public class BasicProjectile : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag.Equals("Obstacle"))
-            RemoveArrow();
+		{
+			////added this for arrow sticking
+			this.gameObject.tag = "StuckArrow";
+			this.rigidbody2D.velocity = new Vector3(0,0,0);
+            //RemoveArrow();
+		}
     }
 }
