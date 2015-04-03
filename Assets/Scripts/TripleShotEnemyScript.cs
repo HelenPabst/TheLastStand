@@ -36,8 +36,9 @@ public class TripleShotEnemyScript : GenericCharacter {
 		//left arrow firing
 		leftArrow = ObjectPool.instance.GetObjectForType("BasicProjectile", true);
 		leftArrow.transform.position = transform.position;
-		leftArrow.transform.rotation = transform.rotation*Quaternion.Euler(0, 0, 0); //multiplies the rotation to angle the arrows
-		//subtracts 15 to shoot arrow diagonally
+		leftArrow.transform.rotation = transform.rotation; //multiplies the rotation to angle the arrows
+		leftArrow.transform.rotation *= Quaternion.Euler (0, 0, 15);
+		//adds 15 to shoot arrow diagonally
 		arrowDirLeft = new Vector3(Mathf.Cos((transform.eulerAngles.z+15) * Mathf.PI/180), Mathf.Sin((transform.eulerAngles.z+15) * Mathf.PI/180));//PI/180 converts to radians
 
 		leftArrow.rigidbody2D.velocity = arrowDirLeft * arrowVelocity;
@@ -45,8 +46,9 @@ public class TripleShotEnemyScript : GenericCharacter {
 		//right arrow firing
 		rightArrow = ObjectPool.instance.GetObjectForType("BasicProjectile", true);
 		rightArrow.transform.position = transform.position;
-		rightArrow.transform.rotation = transform.rotation*Quaternion.Euler(0, 0, 0);//multiplies the rotation to angle the arrows
-		//adds 15 to shoot arrow diagonally
+		rightArrow.transform.rotation = transform.rotation;//multiplies the rotation to angle the arrows
+		rightArrow.transform.rotation *= Quaternion.Euler (0, 0, -15);
+		//subtracts 15 to shoot arrow diagonally
 		arrowDirRight = new Vector3(Mathf.Cos((transform.eulerAngles.z-15)  * Mathf.PI/180), Mathf.Sin((transform.eulerAngles.z-15) * Mathf.PI/180));
 
 		rightArrow.rigidbody2D.velocity = arrowDirRight * arrowVelocity;
