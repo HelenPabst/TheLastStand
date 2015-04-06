@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Player : GenericCharacter
 {
-    public float moveSpeed, ammo, ammoLimit, kills;
+    public float moveSpeed, ammo, ammoLimit, kills, killcap;
     public Text[] livesUI, ammosUI, killsUI;
     Text liveUI, ammoUI, killUI;
     public GameObject controls;
@@ -42,6 +42,7 @@ public class Player : GenericCharacter
         Move();
         RotateToMouse();
         BoundaryCheck();
+		Wincondition ();
         if (Input.GetKey(KeyCode.R) || health <= 0)
         {
             //Replace with an actual trigger i.e. Death
@@ -145,5 +146,25 @@ public class Player : GenericCharacter
         if (ammo > 0)
             ammo += difference;
     }
+	public void Wincondition(){
+		//Level1 win condition
+			if(Application.loadedLevelName == "Level1-Village" && kills>=killcap){
+				Debug.Log("You beat level 1!");
+				Application.LoadLevel ("Level2Cutscene");
+			}
+		//Level2 win condition	
+		else if(Application.loadedLevelName == "Level2-Forest" && kills>=killcap){
+				Debug.Log("You beat level 2!");
+				Application.LoadLevel ("Level3Cutscene");
+		}
+		//Level3 win condition
+		else if(Application.loadedLevelName == "Level3-Temple" && kills>=killcap && health == 1){
+				Debug.Log("You beat level 3! Congrats!");
+				//Application.LoadLevel ("EndingCutscene"); can't load this scene for some reason
+				 Application.LoadLevel ("StartMenu");//placeholder destination
+		}
 
+		
+
+	}
 }
