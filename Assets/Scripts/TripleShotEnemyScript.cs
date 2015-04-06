@@ -4,12 +4,14 @@ using System.Collections;
 public class TripleShotEnemyScript : GenericCharacter {
 				
 		Vector3 arrowDirLeft, arrowDirRight;
+		Player player;
 		public Transform sightStart, sightEnd;
 		public bool playerInSight = false;
 		protected GameObject leftArrow, rightArrow;
 		
 		// Use this for initialization
 		void Start () {
+			player = (Player)GameObject.Find("Player").GetComponent("Player");
 			theta = new Vector3(0, 0, 0);//z value controls rotation, 0 is facing to the right
 			//transform.Rotate(theta);
 		}
@@ -55,10 +57,16 @@ public class TripleShotEnemyScript : GenericCharacter {
 		rightArrow.tag = tag;
 	}
 		
-	void OnColliderEnter2D(Collider col) 
+	public void OnTriggerEnter2D(Collider2D col)
 	{
+		if (col.tag == "EnemyArrow") return;
+		if (col.gameObject.tag.Equals("PlayerArrow"))
+		{
 			health--;
+			player.kills += 1;
+			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
 			RePool(col.gameObject);
+		}
 	}
 	public void Raycast()
 	{
