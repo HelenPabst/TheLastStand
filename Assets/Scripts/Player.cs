@@ -56,7 +56,7 @@ public class Player : GenericCharacter
         {
             Fire();
         }
-        ammoUI.text = "Ammo: " + ammo;
+        //ammoUI.text = "Ammo: " + ammo;
         liveUI.text = "Lives: " + health;
         killUI.text = "Kills: " + kills;
         ////////////////////////////////////////////cheat codes!
