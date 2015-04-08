@@ -33,5 +33,7 @@ public class BasicProjectile : MonoBehaviour
 	{
 		if (other.tag.Equals ("Obstacle"))
 			RemoveArrow ();
+		if (other.tag.Equals("BallistaBolt"))
+		    RemoveArrow ();
 	}
 }

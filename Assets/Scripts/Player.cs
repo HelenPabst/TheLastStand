@@ -105,6 +105,11 @@ public class Player : GenericCharacter {
 			health--;
 			RePool(col.gameObject);
 		}
+		else if(col.gameObject.tag.Equals ("BallistaBolt"))
+		{
+			health-=5;
+			RePool (col.gameObject);
+		}
 	}
 
 	public void BoundaryCheck() 
