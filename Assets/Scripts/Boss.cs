@@ -20,7 +20,6 @@ public class Boss : GenericCharacter {
 		}
 		if (health <= 0) 
 		{
-			//RePool(this.gameObject);
 			Destroy (gameObject);
 			Debug.Log ("Boss is DEAD!!!!");
 		}
