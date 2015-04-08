@@ -4,12 +4,8 @@ using System.Collections;
 public class Boss : GenericCharacter {
 	Vector3 playerPosition, diff;
 	float rotation;
-	public float delay;
 	GameObject boss;
-	void Start() {
-		
-	}
-	
+
 	// Update is called once per frame
 	void Update () 
 	{
