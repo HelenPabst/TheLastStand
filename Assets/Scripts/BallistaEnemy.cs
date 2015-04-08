@@ -46,13 +46,14 @@ public class BallistaEnemy : GenericCharacter {
 		arrow.rigidbody2D.velocity = arrowDir * arrowVelocity;
 		arrow.tag = tag;
 	}
-	new public void OnColliderEnter2D(Collider col) 
+	public void OnColliderEnter2D(Collider col) 
 	{
 		if (col.tag == "BallistaBolt") return;
 		if (col.gameObject.tag.Equals("PlayerArrow")) 
 		{
 			health--;
 			RePool(col.gameObject);
+			Debug.Log("hit");
 		}
 	}
 }
