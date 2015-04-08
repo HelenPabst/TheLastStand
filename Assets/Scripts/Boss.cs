@@ -18,6 +18,7 @@ public class Boss : GenericCharacter {
 	// Update is called once per frame
 	void Update () 
 	{
+		//if(animator.)
 		RotateToPlayer ();
 		theta = new Vector3(0, 0, rotation);//z value controls rotation, 0 is facing to the right
 		currentTime += Time.deltaTime;
@@ -26,9 +27,10 @@ public class Boss : GenericCharacter {
 			if (currentTime >= fireRate)
 			{
 				//animator.SetBool("Firing", true);
-				fireArrow("EnemyArrow");
-				currentTime = 0;
 				animator.SetBool("Firing", true);
+				//fireArrow("EnemyArrow");
+				currentTime = 0;
+
 			}
 			else
 			{
@@ -70,21 +72,27 @@ public class Boss : GenericCharacter {
 	}
 	void SpawnBoss () 
 	{		
-		sPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(200,Screen.width-200), 
-		                                                       Random.Range(200,Screen.height-200), 
-		                                                       Camera.main.farClipPlane/2));
-		//Get he size of a collider at a position
-		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(sPosition,
-		                                                       Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 2);
-		
-		
-		if (hitColliders.Length == 0) {
-			transform.position = sPosition;
+		animator.SetTrigger("Despawning");
+		if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("Spawning")) 
+		{ 
+			sPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(200,Screen.width-200), 
+			                                                       Random.Range(200,Screen.height-200), 
+			                                                       Camera.main.farClipPlane/2));
+			//Get he size of a collider at a position
+			Collider2D[] hitColliders = Physics2D.OverlapCircleAll(sPosition,
+			                                                       Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 2);
 			
-		}
-		
+
+			if (hitColliders.Length == 0) {
+				this.transform.position = sPosition;
+				
+			}
+		} 
+
+		//animator.SetBool("Despawning", false);
 		
 	}
+
 	
 	
 	

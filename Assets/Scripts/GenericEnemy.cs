@@ -33,7 +33,8 @@ public class GenericEnemy : GenericCharacter
             if (currentTime >= fireRate && playerInSight)
             {
                 //animator.SetBool("Firing", true);
-                fireArrow("EnemyArrow");
+				//firing an arrow is now an animator event
+                //fireArrow("EnemyArrow");
                 currentTime = 0;
                 animator.SetBool("Firing", true);
             }
