@@ -9,7 +9,7 @@ public class BallistaProjectile : MonoBehaviour
 	//Use this for initialization
 	void Start () 
 	{
-		selfDestructTime = 5.0f;
+		selfDestructTime = 10.0f;
 	}
 	
 	// Update is called once per frame
@@ -29,11 +29,17 @@ public class BallistaProjectile : MonoBehaviour
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.tag.Equals ("Obstacle"))
-				RemoveArrow ();
-		if (other.gameObject.tag.Equals("EnemyArrow"))
+		if (other.tag.Equals ("Obstacle")) 
 		{
+			////added this for arrow sticking
+			this.gameObject.tag = "StuckArrow";
+			this.rigidbody2D.velocity = new Vector3 (0, 0, 0);
+		}
+		if (other.gameObject.name.Equals("BasicProjectile"))
+		{
+			other.gameObject.tag = "";
 			ObjectPool.instance.PoolObject(other.gameObject);
 		}
 	}
+
 }
