@@ -4,10 +4,11 @@ using System.Collections;
 public class BallistaEnemy : GenericCharacter {
 	Vector3 playerPosition, diff;
 	float rotation;
-
+	private Animator animator;
 	// Update is called once per frame
 	void Start()
 	{
+		animator = this.GetComponent<Animator>();
 		health = standardHealth;
 	}
 	void Update () 
