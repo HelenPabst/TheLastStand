@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class TripleShotEnemyScript : GenericCharacter {
-				
+		private Animator animator;	
 		Vector3 arrowDirLeft, arrowDirRight;
 		Player player;
 		public Transform sightStart, sightEnd;
@@ -10,7 +10,9 @@ public class TripleShotEnemyScript : GenericCharacter {
 		protected GameObject leftArrow, rightArrow;
 		
 		// Use this for initialization
-		void Start () {
+		void Start () 
+		{
+			animator = this.GetComponent<Animator>();
 			player = (Player)GameObject.Find("Player").GetComponent("Player");
 			theta = new Vector3(0, 0, 0);//z value controls rotation, 0 is facing to the right
 			//transform.Rotate(theta);
@@ -22,9 +24,14 @@ public class TripleShotEnemyScript : GenericCharacter {
 			currentTime += Time.deltaTime;
 			if (currentTime >= fireRate && playerInSight) 
 			{
-				fireArrow("EnemyArrow");
-				fireExtraArrows("EnemyArrow");
+				//fireArrow("EnemyArrow");
+				//fireExtraArrows("EnemyArrow");
+				animator.SetBool("Firing", true);
 				currentTime = 0;
+			}
+			else
+			{
+				animator.SetBool("Firing", false);
 			}
 			
 			if (health <= 0) 
