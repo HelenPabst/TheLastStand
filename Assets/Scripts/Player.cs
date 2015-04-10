@@ -82,7 +82,7 @@ public class Player : GenericCharacter
             transform.rotation = Quaternion.Euler(0f, 0f, rotation);
             arrowDir = transform.rotation.eulerAngles;
         }
-        else
+		else if (!Application.isMobilePlatform)
         {
             mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
 
