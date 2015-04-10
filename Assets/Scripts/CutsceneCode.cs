@@ -50,13 +50,17 @@ public class CutsceneCode : MonoBehaviour {
 		//Resize();
 		nextFrameTime = cutsceneTime[0];
 		GetComponent<SpriteRenderer>().sprite = cutsceneSprites[0];
+		/*
 		GetComponent<SpriteRenderer>().color = Color.clear;//start 'faded'
 		doUnfade = true;//fade to image from start
+		*/
 	}
 
 	//
 	void Update(){
+
 		//if fading in or out, the timer does not increment
+		/*
 		if(doFade){
 			FadetoBlack();
 		}
@@ -69,23 +73,29 @@ public class CutsceneCode : MonoBehaviour {
 				doFade = true;
 			}
 		}
+		*/
 
-		/*
 		//succesful no-fading code
 		timer += Time.deltaTime;
-		if(currentImage < cutsceneSprites.Length){
+		if(currentImage < (cutsceneSprites.Length)-1)
+		{
 			if(timer >= nextFrameTime){
 				//needFade = true;
 				currentImage++;
 				nextFrameTime += cutsceneTime[currentImage];
 				GetComponent<SpriteRenderer>().sprite = cutsceneSprites[currentImage];
 			}
+
 		}
 		else{
-			Application.LoadLevel(nextScene.name);
-		}*/
-	}
-
+			if(timer >= nextFrameTime)
+			{
+				Application.LoadLevel(nextScene.name);
+			}
+        }
+        
+    }
+    /*
 	//Code to resize the image.  DOES NOT CURRENTLY WORK.
 	void Resize()
 	{
@@ -118,18 +128,21 @@ public class CutsceneCode : MonoBehaviour {
 		}
 	}
 	//Function for fading to image
-	void FadetoImage(){
+	void FadetoImage()
+	{
 		GetComponent<SpriteRenderer>().color = Color.Lerp(GetComponent<SpriteRenderer>().color, Color.white, fadeSpeed * Time.deltaTime);
 		//Once close enough to fully visable, go fully visable and unset doUnfade to allow counter to run
-		if(GetComponent<SpriteRenderer>().color.a >= 0.95f){
+		if(GetComponent<SpriteRenderer>().color.a >= 0.95f)
+		{
 			GetComponent<SpriteRenderer>().color = Color.white;
 			doUnfade = false;
 		}
-	}
+	}*/
+
 
 	/*old gui code
 	//Keeps the current display updated to the correct image.
-	void OnGUI() {
+	oid OnGUI() {
 		if (Time.time >= nextFrameTime) {
 			currentImage++;
 			if (currentImage < cutsceneImage.Length) {
