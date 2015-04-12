@@ -58,7 +58,7 @@ public class Player : GenericCharacter
         }
         //ammoUI.text = "Ammo: " + ammo;
         liveUI.text = "Lives: " + health;
-        killUI.text = "Kills: " + kills;
+        //killUI.text = "Kills: " + kills;
         ////////////////////////////////////////////cheat codes!
         if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.H))
         {
