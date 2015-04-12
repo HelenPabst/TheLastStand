@@ -2,14 +2,18 @@
 using System.Collections;
 
 public class TripleShotEnemyScript : GenericCharacter {
-				
+		private Animator animator;	
 		Vector3 arrowDirLeft, arrowDirRight;
+		Player player;
 		public Transform sightStart, sightEnd;
 		public bool playerInSight = false;
 		protected GameObject leftArrow, rightArrow;
 		
 		// Use this for initialization
-		void Start () {
+		void Start () 
+		{
+			animator = this.GetComponent<Animator>();
+			player = (Player)GameObject.Find("Player").GetComponent("Player");
 			theta = new Vector3(0, 0, 0);//z value controls rotation, 0 is facing to the right
 			//transform.Rotate(theta);
 		}
@@ -20,9 +24,14 @@ public class TripleShotEnemyScript : GenericCharacter {
 			currentTime += Time.deltaTime;
 			if (currentTime >= fireRate && playerInSight) 
 			{
-				fireArrow("EnemyArrow");
-				fireExtraArrows("EnemyArrow");
+				//fireArrow("EnemyArrow");
+				//fireExtraArrows("EnemyArrow");
+				animator.SetBool("Firing", true);
 				currentTime = 0;
+			}
+			else
+			{
+				animator.SetBool("Firing", false);
 			}
 			
 			if (health <= 0) 
@@ -36,8 +45,9 @@ public class TripleShotEnemyScript : GenericCharacter {
 		//left arrow firing
 		leftArrow = ObjectPool.instance.GetObjectForType("BasicProjectile", true);
 		leftArrow.transform.position = transform.position;
-		leftArrow.transform.rotation = transform.rotation*Quaternion.Euler(0, 0, 0); //multiplies the rotation to angle the arrows
-		//subtracts 15 to shoot arrow diagonally
+		leftArrow.transform.rotation = transform.rotation; //multiplies the rotation to angle the arrows
+		leftArrow.transform.rotation *= Quaternion.Euler (0, 0, 15);
+		//adds 15 to shoot arrow diagonally
 		arrowDirLeft = new Vector3(Mathf.Cos((transform.eulerAngles.z+15) * Mathf.PI/180), Mathf.Sin((transform.eulerAngles.z+15) * Mathf.PI/180));//PI/180 converts to radians
 
 		leftArrow.rigidbody2D.velocity = arrowDirLeft * arrowVelocity;
@@ -45,18 +55,25 @@ public class TripleShotEnemyScript : GenericCharacter {
 		//right arrow firing
 		rightArrow = ObjectPool.instance.GetObjectForType("BasicProjectile", true);
 		rightArrow.transform.position = transform.position;
-		rightArrow.transform.rotation = transform.rotation*Quaternion.Euler(0, 0, 0);//multiplies the rotation to angle the arrows
-		//adds 15 to shoot arrow diagonally
+		rightArrow.transform.rotation = transform.rotation;//multiplies the rotation to angle the arrows
+		rightArrow.transform.rotation *= Quaternion.Euler (0, 0, -15);
+		//subtracts 15 to shoot arrow diagonally
 		arrowDirRight = new Vector3(Mathf.Cos((transform.eulerAngles.z-15)  * Mathf.PI/180), Mathf.Sin((transform.eulerAngles.z-15) * Mathf.PI/180));
 
 		rightArrow.rigidbody2D.velocity = arrowDirRight * arrowVelocity;
 		rightArrow.tag = tag;
 	}
 		
-	void OnColliderEnter2D(Collider col) 
+	public void OnTriggerEnter2D(Collider2D col)
 	{
+		if (col.tag == "EnemyArrow") return;
+		if (col.gameObject.tag.Equals("PlayerArrow"))
+		{
 			health--;
+			player.kills += 1;
+			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
 			RePool(col.gameObject);
+		}
 	}
 	public void Raycast()
 	{

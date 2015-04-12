@@ -24,5 +24,11 @@ public class PlayerHit : MonoBehaviour {
 			playerScript.health--;
 			ObjectPool.instance.PoolObject(col.gameObject);
 		}
+		else if(col.gameObject.tag.Equals("BallistaBolt")) 
+		{
+			Debug.Log("5 Damage Taken!");
+			playerScript.health-=5;
+			ObjectPool.instance.PoolObject(col.gameObject);
+		}
 	}
 }
