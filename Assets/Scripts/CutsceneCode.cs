@@ -16,10 +16,8 @@ public class CutsceneCode : MonoBehaviour {
 	private float nextFrameTime;
 	//Which image the sequence starts on.
 	private int currentImage = 0;
-	//Next scene to load
-	public Object nextScene;
-	//Reference to the fader script, maybe unneccesary
-	//public FaderCode fadeCode;
+	//Next scene to load. Old code, does not work with exe 
+	//public Object nextScene;
 	//Tells if needs to fade
 	private bool doFade = false;
 	//Tells if needs to come back from fade
@@ -47,20 +45,19 @@ public class CutsceneCode : MonoBehaviour {
 
 	//Sets initial values to allow the first cutscene image.
 	void Start(){
-		//Resize();
+		//Resize(); //Does not work, needs to be fixed.
 		nextFrameTime = cutsceneTime[0];
 		GetComponent<SpriteRenderer>().sprite = cutsceneSprites[0];
-		/*
+
 		GetComponent<SpriteRenderer>().color = Color.clear;//start 'faded'
 		doUnfade = true;//fade to image from start
-		*/
+
 	}
 
-	//
+	//Calls fading functions and updates timer
 	void Update(){
 
-		//if fading in or out, the timer does not increment
-		/*
+		//if currently fading in or out, the timer does not increment
 		if(doFade){
 			FadetoBlack();
 		}
@@ -73,8 +70,8 @@ public class CutsceneCode : MonoBehaviour {
 				doFade = true;
 			}
 		}
-		*/
 
+		/*
 		//succesful no-fading code
 		timer += Time.deltaTime;
 		if(currentImage < (cutsceneSprites.Length)-1)
@@ -90,11 +87,13 @@ public class CutsceneCode : MonoBehaviour {
 		else{
 			if(timer >= nextFrameTime)
 			{
-				Application.LoadLevel(nextScene.name);
+				//Application.LoadLevel(nextScene.name);
+				Application.LoadLevel(Application.loadedLevel+1);//Assumes next scene is +1 in build order
 			}
-        }
+        }*/
         
     }
+
     /*
 	//Code to resize the image.  DOES NOT CURRENTLY WORK.
 	void Resize()
@@ -106,13 +105,13 @@ public class CutsceneCode : MonoBehaviour {
 		transform.localScale = new Vector3(
 			worldScreenWidth / sr.sprite.bounds.size.x,
 			worldScreenHeight / sr.sprite.bounds.size.y, 1);
-	}
+	}*/
 
 	//Function for fading to black.  Also handles changing the sprite.  If the current image was the last image, it goes to the next Scene after fading to black.
 	//Works by making the image transparent, exposing the black background.
 	void FadetoBlack(){
 		GetComponent<SpriteRenderer>().color = Color.Lerp(GetComponent<SpriteRenderer>().color, Color.clear, fadeSpeed * Time.deltaTime);
-		//once close enough to transparent, go fully transparent and undergo logic to display next image/go to next Scene
+		//once close enough to transparent, go fully transparent and undergo logic to display next image or go to next Scene
 		if(GetComponent<SpriteRenderer>().color.a <= 0.05f){
 			GetComponent<SpriteRenderer>().color = Color.clear;
 			doFade = false;
@@ -122,7 +121,8 @@ public class CutsceneCode : MonoBehaviour {
 				nextFrameTime += cutsceneTime[currentImage];
 			}
 			else{
-				Application.LoadLevel(nextScene.name);
+				//Application.LoadLevel(nextScene.name);
+				Application.LoadLevel(Application.loadedLevel+1);//Assumes next scene is +1 in build order
 			}
 			doUnfade = true;
 		}
@@ -137,7 +137,7 @@ public class CutsceneCode : MonoBehaviour {
 			GetComponent<SpriteRenderer>().color = Color.white;
 			doUnfade = false;
 		}
-	}*/
+	}
 
 
 	/*old gui code
