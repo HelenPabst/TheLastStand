@@ -34,5 +34,6 @@ public class PlayerCatch : MonoBehaviour {
 				Debug.Log("Ammo is full");
 			}
 		}
+
 	}
 }
