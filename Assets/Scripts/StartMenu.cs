@@ -18,7 +18,7 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickStart()
 	{
 		//Application.LoadLevel("Level1-Village");
-		Application.LoadLevel("LoadingScreenLevel1");
+		Application.LoadLevel("Level1Cutscene");
 	}
 	public void OnClickLevelSelect()
 	{
