@@ -5,19 +5,19 @@ public class StageSelect : MonoBehaviour {
 
 	public void OnClickLevel1()
 	{
-		Application.LoadLevel("Level1-Village");
+		Application.LoadLevel("LoadingScreenLevel1");
 		//Application.LoadLevel("Level1Cutscene");
 	}
 
 	public void OnClickLevel2()
 	{
-		Application.LoadLevel("Level2-Forest");
+		Application.LoadLevel("LoadingScreenLevel2");
 		//Application.LoadLevel("Level2Cutscene");
 	}
 
 	public void OnClickLevel3()
 	{
-		Application.LoadLevel("Level3-Temple");
+		Application.LoadLevel("LoadingScreenLevel3");
 		//Application.LoadLevel("Level3Cutscene");
 	}
 }
