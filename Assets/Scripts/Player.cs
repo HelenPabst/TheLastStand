@@ -54,6 +54,7 @@ public class Player : GenericCharacter
             resetPlayer();
         }
 
+
         //"Fire1" is the left mouse button, left ctrl, or gamepad button 0 (A button on xbox360 remote)
         if (Input.GetButtonDown("Fire1"))//(Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Space))
         {
@@ -125,7 +126,8 @@ public class Player : GenericCharacter
         //set initial health
         health = 10;
     }
-
+	/*
+	 * no longer necessary
     ///cause player damage (collision with box collider)
     public void OnCollisionEnter2D(Collision2D col)
     {
@@ -135,7 +137,7 @@ public class Player : GenericCharacter
             RePool(col.gameObject);
         }
     }
-
+	*/
     public void BoundaryCheck()
     {
         float xboundary = Mathf.Clamp(transform.position.x, minX, maxX);
