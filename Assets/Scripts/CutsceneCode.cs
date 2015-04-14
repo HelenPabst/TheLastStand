@@ -23,7 +23,7 @@ public class CutsceneCode : MonoBehaviour {
 	//Tells if needs to come back from fade
 	private bool doUnfade = false;
 	//Speed at which the image fades in and out
-	private float fadeSpeed = 2.0f;
+	private float fadeSpeed = 4.0f;
 	//Timer
 	private float timer = 0.0f;
 
