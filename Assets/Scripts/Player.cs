@@ -4,12 +4,13 @@ using UnityEngine.UI;
 
 public class Player : GenericCharacter
 {
-    public float moveSpeed, ammo, ammoLimit, kills, killcap;
+	public float moveSpeed, ammo, ammoLimit, kills, killcap;
+	public float acceleration = 35, currentSpeed = 0;
     public Text[] livesUI, ammosUI, killsUI;
     Text liveUI, ammoUI, killUI;
     public GameObject controls;
     Controls script;
-    Vector3 mousePosition, diff, translate;
+    Vector3 mousePosition, diff, translate, temp;
 
     public float minX; //left boundary 
     public float maxX; //right boundary 
@@ -19,6 +20,8 @@ public class Player : GenericCharacter
     // Use this for initialization
     void Start()
     {
+		acceleration *= Time.deltaTime;
+
         if (!Application.isMobilePlatform)
         {
             liveUI = livesUI[0];
@@ -98,8 +101,20 @@ public class Player : GenericCharacter
     private void Move()
     {
         ///works with both keyboard and gamepad
-        translate = script.getTranslate();
-        transform.position += translate * moveSpeed * Time.deltaTime;
+		translate = script.getTranslate ();
+		if (translate != Vector3.zero) {
+			currentSpeed += acceleration;
+			if (currentSpeed >= moveSpeed)
+				currentSpeed = moveSpeed;
+			transform.position += translate * currentSpeed * Time.deltaTime;
+			temp = translate;
+		}
+		else {
+			currentSpeed += -acceleration;
+			if (currentSpeed <= 0)
+				currentSpeed = 0;
+			transform.position += temp * currentSpeed * Time.deltaTime;
+		}
     }
 
 
