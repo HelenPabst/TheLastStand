@@ -30,6 +30,11 @@ public class StartMenu : MonoBehaviour {
 		//Application.LoadLevel("BasicLevel");
 		//Application.LoadLevel("Options");
 	}
+
+	public void OnClickExtras() {
+		Application.LoadLevel ("Gallery");
+	}
+
 	public void OnClickQuit()
 	{
 		Application.Quit ();
