@@ -11,7 +11,7 @@ public class KillCount : MonoBehaviour {
 		playerScript = GameObject.Find("Player").GetComponent<Player>();
 		//playerScript = transform.parent.GetComponent<Player>();
 		kills = (int)playerScript.kills;
-		Debug.Log (kills);
+	
 	}
 	
 	// Update is called once per frame
