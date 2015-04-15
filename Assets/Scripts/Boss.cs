@@ -85,9 +85,14 @@ public class Boss : GenericCharacter {
 			                                                       Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 2);
 			
 			
-			if (hitColliders.Length == 0) {
-				this.transform.position = sPosition;
+			if (hitColliders.Length == 0) 
+			{
+						this.transform.position = sPosition;
 				
+			} 
+			else 
+			{
+				Teleport();
 			}
 
 	}
