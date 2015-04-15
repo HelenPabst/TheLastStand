@@ -43,12 +43,19 @@ public class GenericEnemy : GenericCharacter
                 animator.SetBool("Firing", false);
             }
         }
+
         if (health <= 0)
         {
+			animator.SetBool("Firing", false);
+			animator.SetBool("Despawning", false);
+			player.kills += 1;
+			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
+
             health = 1;
             RePool(this.gameObject);
         }
         //animator.SetBool("Firing", false);
+        
     }
 
     public void OnTriggerEnter2D(Collider2D col)
@@ -56,10 +63,9 @@ public class GenericEnemy : GenericCharacter
         if (col.tag == "EnemyArrow") return;
         if (col.gameObject.tag.Equals("PlayerArrow"))
         {
+			RePool(col.gameObject);
             health--;
-            player.kills += 1;
-            Debug.Log("Kill confirmed! Kill count is: " + player.kills);
-            RePool(col.gameObject);
+
         }
     }
 

@@ -4,10 +4,12 @@ using System.Collections;
 public class BallistaEnemy : GenericCharacter {
 	Vector3 playerPosition, diff;
 	float rotation;
+	Player player;
 	private Animator animator;
 	// Update is called once per frame
 	void Start()
 	{
+		player = (Player)GameObject.Find("Player").GetComponent("Player");
 		animator = this.GetComponent<Animator>();
 		health = standardHealth;
 	}
@@ -25,6 +27,11 @@ public class BallistaEnemy : GenericCharacter {
 		{
 			health = 2;
 			RePool(this.gameObject);
+			animator.SetBool("Firing", false);
+			animator.SetBool("Despawning", false);
+			player.kills += 1;
+			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
+		
 		}
 	}
 	private void RotateToPlayer()

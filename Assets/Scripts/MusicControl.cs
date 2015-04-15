@@ -4,14 +4,14 @@ using System.Collections;
 public class MusicControl : MonoBehaviour {
 	Player playerScript;
 	int health;
-	public AudioSource musicSource;
-	public AudioClip levelMusic;
-	public AudioClip lowHealthMusic;
+	public AudioSource levelMusic;
+	public AudioSource lowHealthMusic;
+	bool lowHealth = false;
 	// Use this for initialization
 	void Start () 
 	{
-		musicSource.clip = levelMusic;
-		musicSource.Play();
+
+		levelMusic.Play();
 		playerScript = GameObject.Find("Player").GetComponent<Player>();
 		health = (int)playerScript.health;
 	}
@@ -20,15 +20,18 @@ public class MusicControl : MonoBehaviour {
 	void Update () 
 	{
 		health = (int)playerScript.health;
-		if (health <= 2 && musicSource.clip == levelMusic) 
+		if (health <= 2 && lowHealth == false) 
 		{
-			musicSource.clip = lowHealthMusic;
-			musicSource.Play();
+			levelMusic.volume=0.4f;
+			lowHealth = true;
+			lowHealthMusic.Play();
 		}
-		else if (health > 2 && musicSource.clip == lowHealthMusic) 
+		else if (health > 2 && lowHealth == true) 
 		{
-			musicSource.clip = levelMusic;	
-			musicSource.Play();
+			levelMusic.volume=1.0f;
+			lowHealth = false;
+			lowHealthMusic.Stop();
+		
 		}
 	}
 }

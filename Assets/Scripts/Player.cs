@@ -11,6 +11,7 @@ public class Player : GenericCharacter
     public GameObject controls;
     Controls script;
     Vector3 mousePosition, diff, translate, temp;
+	bool killedBoss = false;
 
     public float minX; //left boundary 
     public float maxX; //right boundary 
@@ -48,10 +49,13 @@ public class Player : GenericCharacter
 		Wincondition ();
         if (Input.GetKey(KeyCode.R) || health <= 0)
         {
-            //Replace with an actual trigger i.e. Death
-            //change code to jump to game over
-            Application.LoadLevel("GameOver");
-            resetPlayer();
+			if(killedBoss == false)
+			{
+	            //Replace with an actual trigger i.e. Death
+	            //change code to jump to game over
+	            Application.LoadLevel("GameOver");
+	            resetPlayer();
+			}
         }
 
 
@@ -175,7 +179,7 @@ public class Player : GenericCharacter
 				Application.LoadLevel ("Level3Cutscene");
 		}
 		//Level3 win condition
-		else if(Application.loadedLevelName == "Level3-Temple" && kills>=killcap && health == 1){
+		else if(Application.loadedLevelName == "Level3-Temple" && killedBoss ==true && health < 1){
 				Debug.Log("You beat level 3! Congrats!");
 				//Application.LoadLevel ("EndingCutscene"); can't load this scene for some reason
 				 Application.LoadLevel ("EndingCutscene");//placeholder destination
