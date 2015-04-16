@@ -49,6 +49,14 @@ public class Player : GenericCharacter
 		Wincondition ();
         if (Input.GetKey(KeyCode.R) || health <= 0)
         {
+			if(Application.loadedLevelName == "Level3-Temple")
+			{
+				float highScore = PlayerPrefs.GetFloat("High Score");
+				if(kills > highScore)
+				{
+					PlayerPrefs.SetFloat("High Score",kills);
+				}
+			}
 			if(killedBoss == false)
 			{
 	            //Replace with an actual trigger i.e. Death
