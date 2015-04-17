@@ -11,6 +11,7 @@ public class GenericEnemy : GenericCharacter
     RaycastHit hit;
     Vector3 direction;
     float fOV, visibility;
+	public GameObject inkSplatter;
 
     void Start()
     {
@@ -64,6 +65,10 @@ public class GenericEnemy : GenericCharacter
         if (col.gameObject.tag.Equals("PlayerArrow"))
         {
 			RePool(col.gameObject);
+			///causes ink splatter on hit
+			inkSplatter = ObjectPool.instance.GetObjectForType("InkSplatter", true);
+			inkSplatter.transform.position = col.gameObject.transform.position;
+			inkSplatter.transform.rotation = col.gameObject.transform.rotation;
             health--;
 
         }
