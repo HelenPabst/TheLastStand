@@ -67,8 +67,11 @@ public class GenericEnemy : GenericCharacter
 			RePool(col.gameObject);
 			///causes ink splatter on hit
 			inkSplatter = ObjectPool.instance.GetObjectForType("InkSplatter", true);
-			inkSplatter.transform.position = col.gameObject.transform.position;
+			float inkX = col.gameObject.transform.position.x;
+			float inkY = col.gameObject.transform.position.y;
+			inkSplatter.transform.position = new Vector3(inkX,inkY,1.0f);
 			inkSplatter.transform.rotation = col.gameObject.transform.rotation;
+			///end of ink code
             health--;
 
         }
