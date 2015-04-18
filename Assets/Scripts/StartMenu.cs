@@ -13,6 +13,12 @@ public class StartMenu : MonoBehaviour {
 			mobilePanel.SetActive(false);
 			pcPanel.SetActive(true);
 		}
+		//creates a variable for high score if it doesnt exist yet
+		if(!PlayerPrefs.HasKey("High Score")){
+			PlayerPrefs.SetFloat("High Score",0);
+		}
+		Debug.Log ("current high score is "+PlayerPrefs.GetFloat("High Score"));
+
 
 	}
 	public void OnClickStart()

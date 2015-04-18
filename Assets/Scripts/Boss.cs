@@ -7,6 +7,7 @@ public class Boss : GenericCharacter {
 	private Vector2 sPosition;
 	float rotation;
 	GameObject boss;
+	public GameObject inkSplatter;
 
 	// Use this for initialization
 	void Start () 
@@ -68,6 +69,13 @@ public class Boss : GenericCharacter {
 		{
 			health--;
 			RePool(col.gameObject);
+			///causes ink splatter on hit
+			inkSplatter = ObjectPool.instance.GetObjectForType("InkSplatter", true);
+			float inkX = col.gameObject.transform.position.x;
+			float inkY = col.gameObject.transform.position.y;
+			inkSplatter.transform.position = new Vector3(inkX,inkY,1.0f);
+			inkSplatter.transform.rotation = col.gameObject.transform.rotation;
+			///end of ink code
 		}
 	}
 	void SpawnBoss () 

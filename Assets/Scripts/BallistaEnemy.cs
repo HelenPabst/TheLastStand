@@ -6,6 +6,7 @@ public class BallistaEnemy : GenericCharacter {
 	float rotation;
 	Player player;
 	private Animator animator;
+	public GameObject inkSplatter;
 	// Update is called once per frame
 	void Start()
 	{
@@ -61,6 +62,13 @@ public class BallistaEnemy : GenericCharacter {
 		{
 			health--;
 			RePool(col.gameObject);
+			///causes ink splatter on hit
+			inkSplatter = ObjectPool.instance.GetObjectForType("InkSplatter", true);
+			float inkX = col.gameObject.transform.position.x;
+			float inkY = col.gameObject.transform.position.y;
+			inkSplatter.transform.position = new Vector3(inkX,inkY,1.0f);
+			inkSplatter.transform.rotation = col.gameObject.transform.rotation;
+			///end of ink code
 		}
 	}
 }

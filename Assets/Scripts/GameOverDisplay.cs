@@ -4,6 +4,10 @@ using System.Collections;
 public class GameOverDisplay : MonoBehaviour {
 	// Test comment
 	// Use this for initialization
+	void Start()
+	{
+		Debug.Log ( "High Score is: "+PlayerPrefs.GetFloat("High Score"));
+	}
 	public void OnClickRetry()
 	{
 		Application.LoadLevel("Level3-Temple");
