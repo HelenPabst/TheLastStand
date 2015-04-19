@@ -13,7 +13,7 @@ public class Boss : GenericCharacter {
 	void Start () 
 	{
 		animator = this.GetComponent<Animator>();
-		InvokeRepeating ("SpawnBoss",4, Random.Range (4,6));	
+		InvokeRepeating ("Teleport", 6, 5);
 	}
 
 	// Update is called once per frame
@@ -58,7 +58,6 @@ public class Boss : GenericCharacter {
 		diff.Normalize();
 		rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler(0f, 0f, rotation);
-		
 	}
 	
 	
@@ -78,34 +77,43 @@ public class Boss : GenericCharacter {
 			///end of ink code
 		}
 	}
-	void SpawnBoss () 
-	{		
-		animator.SetTrigger("Despawning");
-	}
+
 	void Teleport () 
 	{		
 
+
+		sPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(200,Screen.width-200), 
+	                                                     Random.Range(180,Screen.height-180), 
+	                                                     Camera.main.farClipPlane/2));
+		//Get he size of a collider at a position
+	    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(sPosition,
+			                                                       Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 4);
+        while (hitColliders.Length != 0) {
 			sPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(200,Screen.width-200), 
-			                                                       Random.Range(200,Screen.height-200), 
+			                                                       Random.Range(180,Screen.height-180), 
 			                                                       Camera.main.farClipPlane/2));
 			//Get he size of a collider at a position
-			Collider2D[] hitColliders = Physics2D.OverlapCircleAll(sPosition,
-			                                                       Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 2);
-			
-			
-			if (hitColliders.Length == 0) 
-			{
-						this.transform.position = sPosition;
-				
-			} 
-			else 
-			{
-				Teleport();
-			}
+			hitColliders = Physics2D.OverlapCircleAll(sPosition,
+                                                     Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 4);
+				}
+	    if (hitColliders.Length == 0) {		            
+						//	animator.SetBool ("Despawning", true);
+				StartCoroutine ("DespawnBoss"); 
+		}
+	}
+	//Changing state of the animation
+	IEnumerator DespawnBoss() {
+		animator.SetBool ("Despawning",true);
+		yield return new WaitForSeconds (2.5f);;
+		animator.SetBool ("Despawning", false);
+		this.transform.position = sPosition;
+		animator.SetBool ("Spawning", true);
+		yield return new WaitForSeconds (2f);
+		animator.SetBool ("Spawning", false);
+
+
 
 	}
 
-	
-	
-	
+
 }
