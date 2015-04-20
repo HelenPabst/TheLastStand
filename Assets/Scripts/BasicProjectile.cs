@@ -21,7 +21,7 @@ public class BasicProjectile : MonoBehaviour
 		{
 			if(this.gameObject.particleSystem.isPlaying)
 			{
-				this.gameObject.particleSystem.Pause ();
+				this.gameObject.particleSystem.Stop ();
 			}
 		} 
 		else if(this.gameObject.tag == "PlayerArrow")
