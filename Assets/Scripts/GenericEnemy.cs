@@ -6,7 +6,7 @@ public class GenericEnemy : GenericCharacter
     // Use this for initialization
     private Animator animator;
     Player player;
-    public Transform sightStart, sightEnd;
+    public Transform sightStart1, sightEnd1,sightStart2, sightEnd2,sightStart3,sightEnd3;
     public bool playerInSight = false;
     RaycastHit hit;
     Vector3 direction;
@@ -90,10 +90,26 @@ public class GenericEnemy : GenericCharacter
         //Debug.Log (transform.forward);
         // Debug.Log (Vector3.Angle (direction, transform.forward));
         //draws enemy line of sight in debug scene view
-        Debug.DrawLine(sightStart.position, sightEnd.position, Color.red);
-        //makes player in sight true when player crosses line of sight. 
+       
+		Debug.DrawLine(sightStart1.position, sightEnd1.position, Color.red);
+		Debug.DrawLine(sightStart2.position, sightEnd2.position, Color.green);
+		Debug.DrawLine(sightStart3.position, sightEnd3.position, Color.blue);
+       
+		//makes player in sight true when player crosses line of sight. 
         //layermask makes the line of sight only trigger on objects contained on the "Player" layer
         //only the player itself should be contained on that layer
-        playerInSight = Physics2D.Linecast(sightStart.position, sightEnd.position, 1 << LayerMask.NameToLayer("Player"));
-    }
+        
+			if (Physics2D.Linecast (sightStart1.position, sightEnd1.position, 1 << LayerMask.NameToLayer ("Player"))) {
+			playerInSight = true;
+		} 
+		 else if(Physics2D.Linecast (sightStart2.position, sightEnd2.position, 1 << LayerMask.NameToLayer ("Player"))) {
+			playerInSight = true;
+		} 
+		 else if(Physics2D.Linecast (sightStart3.position, sightEnd3.position, 1 << LayerMask.NameToLayer ("Player"))) {
+			playerInSight = true;
+		} 
+		else {
+			playerInSight = false;
+		}
+	}
 }
