@@ -11,11 +11,26 @@ public class BasicProjectile : MonoBehaviour
     void Start()
     {
         selfDestructTime = 5.0f;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+		if (this.gameObject.tag != "PlayerArrow")
+		{
+			if(this.gameObject.particleSystem.isPlaying)
+			{
+				this.gameObject.particleSystem.Pause ();
+			}
+		} 
+		else if(this.gameObject.tag == "PlayerArrow")
+		{
+			if(this.gameObject.particleSystem.isPaused)
+			{
+				this.gameObject.particleSystem.Play();
+			}
+		}
         currentTime += Time.deltaTime;
         if (currentTime + timeSpawned >= timeSpawned + selfDestructTime)
         {
