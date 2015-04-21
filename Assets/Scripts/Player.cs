@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Player : GenericCharacter
 {
+
+	public static bool isdead = false;
 	public float moveSpeed, ammo, ammoLimit, kills, killcap;
 	public float acceleration = 35, currentSpeed = 0;
     public Text[] livesUI, ammosUI, killsUI;
@@ -21,6 +23,7 @@ public class Player : GenericCharacter
     // Use this for initialization
     void Start()
     {
+		isdead = false;
 		acceleration *= Time.deltaTime;
 
         if (!Application.isMobilePlatform)
@@ -49,6 +52,7 @@ public class Player : GenericCharacter
 		Wincondition ();
         if (Input.GetKey(KeyCode.R) || health <= 0)
         {
+
 			if(Application.loadedLevelName == "Level3-Temple")
 			{
 				float highScore = PlayerPrefs.GetFloat("High Score");
@@ -59,10 +63,11 @@ public class Player : GenericCharacter
 			}
 			if(killedBoss == false)
 			{
+				isdead = true;
 	            //Replace with an actual trigger i.e. Death
 	            //change code to jump to game over
-	            Application.LoadLevel("GameOver");
-	            resetPlayer();
+	            //Application.LoadLevel("GameOver");
+	            //resetPlayer();
 			}
         }
 
