@@ -4,7 +4,7 @@ using System.Collections;
 public class StartMenu : MonoBehaviour {
 
 	public GameObject mobilePanel, pcPanel;
-
+	public GameObject mainPanel, levelSelectPanel;
 	void Start () {
 		if (Application.isMobilePlatform) {
 			mobilePanel.SetActive(true);
@@ -28,8 +28,9 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickLevelSelect()
 	{
+		levelSelectPanel.SetActive(true);
+		mainPanel.SetActive(false);
 
-		Application.LoadLevel("LevelSelectMenu");
 	}
 	public void OnClickOptions()
 	{
@@ -44,5 +45,33 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickQuit()
 	{
 		Application.Quit ();
+	}
+
+	public void OnClickLevel1()
+	{
+		//Application.LoadLevel("LoadingScreenLevel1");
+		Application.LoadLevel("Level1Cutscene");
+	}
+	
+	public void OnClickLevel2()
+	{
+		//Application.LoadLevel("LoadingScreenLevel2");
+		Application.LoadLevel("Level2Cutscene");
+	}
+	
+	public void OnClickLevel3()
+	{
+		//Application.LoadLevel("LoadingScreenLevel3");
+		Application.LoadLevel("Level3Cutscene");
+	}
+	public void OnClickEndless()
+	{
+		//Application.LoadLevel("LoadingScreenLevel3");
+		Application.LoadLevel("Level3-Temple");
+	}
+	public void OnClickMain()
+	{
+		levelSelectPanel.SetActive(false);
+		mainPanel.SetActive(true);
 	}
 }
