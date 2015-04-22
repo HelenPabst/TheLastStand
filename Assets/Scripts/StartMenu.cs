@@ -4,7 +4,8 @@ using System.Collections;
 public class StartMenu : MonoBehaviour {
 
 	public GameObject mobilePanel, pcPanel;
-	public GameObject mainPanel, levelSelectPanel, extrasPanel;
+	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel;
+
 	void Start () {
 		if (Application.isMobilePlatform) {
 			mobilePanel.SetActive(true);
@@ -21,6 +22,7 @@ public class StartMenu : MonoBehaviour {
 
 
 	}
+
 	public void OnClickStart()
 	{
 		//Application.LoadLevel("Level1-Village");
@@ -34,8 +36,9 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickOptions()
 	{
-		//Application.LoadLevel("BasicLevel");
-		//Application.LoadLevel("Options");
+
+		optionsPanel.SetActive(true);
+		mainPanel.SetActive(false);
 	}
 
 	public void OnClickExtras() {
@@ -73,6 +76,7 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickMain()
 	{
+		optionsPanel.SetActive(false);
 		extrasPanel.SetActive(false);
 		levelSelectPanel.SetActive(false);
 		mainPanel.SetActive(true);
@@ -85,4 +89,20 @@ public class StartMenu : MonoBehaviour {
 	{
 		//Application.LoadLevel ("Credits");
     }
+	///////////////options controls
+	public void OnClickSoundOn()
+	{
+		AudioListener.volume = 1;
+
+	}
+	public void OnClickSoundOff()
+	{
+		AudioListener.volume = 0;
+
+	}
+	public void OnClickDelete()
+	{
+		PlayerPrefs.SetFloat ("High Score", 0);
+		Debug.Log ("Score Deleted! Current high score is "+PlayerPrefs.GetFloat("High Score"));
+	}
 }
