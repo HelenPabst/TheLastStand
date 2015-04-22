@@ -6,10 +6,13 @@ public class BasicProjectile : MonoBehaviour
     private double timeSpawned;
     private double selfDestructTime;
     private double currentTime;
+	private Animator animator;
 
     // Use this for initialization
     void Start()
     {
+
+		animator = this.GetComponent<Animator>();
         selfDestructTime = 5.0f;
 
     }
@@ -52,6 +55,7 @@ public class BasicProjectile : MonoBehaviour
 			////added this for arrow sticking
 			this.gameObject.tag = "StuckArrow";
 			this.rigidbody2D.velocity = new Vector3(0,0,0);
+
             //RemoveArrow();
 		}
     }
