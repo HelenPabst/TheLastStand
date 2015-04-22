@@ -4,7 +4,7 @@ using System.Collections;
 public class StartMenu : MonoBehaviour {
 
 	public GameObject mobilePanel, pcPanel;
-	public GameObject mainPanel, levelSelectPanel;
+	public GameObject mainPanel, levelSelectPanel, extrasPanel;
 	void Start () {
 		if (Application.isMobilePlatform) {
 			mobilePanel.SetActive(true);
@@ -39,7 +39,9 @@ public class StartMenu : MonoBehaviour {
 	}
 
 	public void OnClickExtras() {
-		Application.LoadLevel ("Gallery");
+		//Application.LoadLevel ("Gallery");
+		extrasPanel.SetActive(true);
+		mainPanel.SetActive(false);
 	}
 
 	public void OnClickQuit()
@@ -74,4 +76,12 @@ public class StartMenu : MonoBehaviour {
 		levelSelectPanel.SetActive(false);
 		mainPanel.SetActive(true);
 	}
+	public void OnClickGallery()
+	{
+		Application.LoadLevel ("Gallery");
+    }
+	public void OnClickCredits()
+	{
+		//Application.LoadLevel ("Credits");
+    }
 }
