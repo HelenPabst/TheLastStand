@@ -51,8 +51,12 @@ public class PauseMenu : MonoBehaviour {
 		Application.Quit ();
 	}
 	public void OnClickMainMenu(){
-		Application.LoadLevel("StartMenu");
+		GameObject.FindWithTag("Player").GetComponent<Player>().enabled = true;
+		pauseMenu.enabled = false;
 		AudioListener.pause = false;
+		Time.timeScale = 1f;
+		Application.LoadLevel("StartMenu");
+
 	}
 	public void OnClickResume(){
 		Time.timeScale = 1f;//Everything is unfrozen
