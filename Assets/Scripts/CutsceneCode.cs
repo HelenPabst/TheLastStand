@@ -138,6 +138,10 @@ public class CutsceneCode : MonoBehaviour {
 			doUnfade = false;
 		}
 	}
+	public void Change_Scene () 
+	{
+		Application.LoadLevel(Application.loadedLevel+1);
+	}
 
 
 	/*old gui code
