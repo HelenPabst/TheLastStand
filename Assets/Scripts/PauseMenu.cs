@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour {
 
 	public Canvas pauseMenu;
 	public bool paused = false;
+	public GameObject pausePanel,optionsPanel;
 
 
 	void Start(){//This ensures nothing is enabled or frozen on start
@@ -63,6 +64,32 @@ public class PauseMenu : MonoBehaviour {
 		GameObject.FindWithTag("Player").GetComponent<Player>().enabled = true;
 		AudioListener.pause = false;
 		pauseMenu.enabled = false;
+	}
+	public void OnClickOptions()
+	{
+		optionsPanel.SetActive(true);
+		pausePanel.SetActive(false);
+	}
+	public void OnClickSoundOn()
+	{
+		//Play indicator sound
+		AudioListener.volume = 1;
+		
+	}
+	public void OnClickSoundOff()
+	{
+		AudioListener.volume = 0;
+		
+	}
+	public void OnClickDelete()
+	{
+		PlayerPrefs.SetFloat ("High Score", 0);
+		Debug.Log ("Score Deleted! Current high score is "+PlayerPrefs.GetFloat("High Score"));
+	}
+	public void OnClickBack()
+	{
+		optionsPanel.SetActive(false);
+		pausePanel.SetActive(true);
 	}
 
 
