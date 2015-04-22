@@ -73,6 +73,7 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickMain()
 	{
+		extrasPanel.SetActive(false);
 		levelSelectPanel.SetActive(false);
 		mainPanel.SetActive(true);
 	}
