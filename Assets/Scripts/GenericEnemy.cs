@@ -96,14 +96,26 @@ public class GenericEnemy : GenericCharacter
         //layermask makes the line of sight only trigger on objects contained on the "Player" layer
         //only the player itself should be contained on that layer
         
-			if (Physics2D.Linecast (sightStart1.position, sightEnd1.position, 1 << LayerMask.NameToLayer ("Player"))) {
+		if (Physics2D.Linecast (sightStart1.position, sightEnd1.position, 1 << LayerMask.NameToLayer ("Player"))) {
 			playerInSight = true;
+			///causes unit to face player
+			Vector3 dir = player.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		} 
 		 else if(Physics2D.Linecast (sightStart2.position, sightEnd2.position, 1 << LayerMask.NameToLayer ("Player"))) {
 			playerInSight = true;
+			///causes unit to face player
+			Vector3 dir = player.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		} 
 		 else if(Physics2D.Linecast (sightStart3.position, sightEnd3.position, 1 << LayerMask.NameToLayer ("Player"))) {
 			playerInSight = true;
+			///causes unit to face player
+			Vector3 dir = player.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		} 
 		else {
 			playerInSight = false;
