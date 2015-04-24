@@ -10,7 +10,8 @@ public class PlayerCatch : MonoBehaviour {
 	public GameObject controls;
 	// Use this for initialization
 	void Start () {
-		renderer.enabled = false;//makes catch radius invisible
+		renderer.material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
+		//renderer.enabled = false;//makes catch radius invisible
 		playerScript = transform.parent.GetComponent<Player>();
 		controlScript = controls.transform.GetComponent<Controls>();
 	}
