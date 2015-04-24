@@ -14,6 +14,7 @@ public class Player : GenericCharacter
     Controls script;
     Vector3 mousePosition, diff, translate, temp;
 	public bool killedBoss;
+	public bool pause = false;
 
     public float minX; //left boundary 
     public float maxX; //right boundary 
@@ -42,15 +43,19 @@ public class Player : GenericCharacter
             ammo++;
         }
         script = controls.transform.GetComponent<Controls>();
+		pause = (PauseMenu)GameObject.Find("PauseMenu").GetComponent("PauseMenu");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        RotateToMouse();
-        BoundaryCheck();
-		Wincondition ();
+		if (pause == false) 
+		{
+				Move ();
+				RotateToMouse ();
+				BoundaryCheck ();
+				Wincondition ();
+		
         if (health <= 0)
         {
 
@@ -95,6 +100,7 @@ public class Player : GenericCharacter
 			health = 1;
 		}
         /////////////////////////////////////////////////////////
+		}
     }
 
     private void RotateToMouse()

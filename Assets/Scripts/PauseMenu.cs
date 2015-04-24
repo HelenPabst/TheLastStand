@@ -7,9 +7,10 @@ public class PauseMenu : MonoBehaviour {
 	public Canvas pauseMenu;
 	public bool paused = false;
 	public GameObject pausePanel,optionsPanel;
-
+	Player player;
 
 	void Start(){//This ensures nothing is enabled or frozen on start
+		player = (Player)GameObject.Find("Player").GetComponent("Player");
 		GameObject.FindWithTag("Player").GetComponent<Player>().enabled = true;
 		pauseMenu.enabled = false;
 		AudioListener.pause = false;
@@ -30,7 +31,9 @@ public class PauseMenu : MonoBehaviour {
 		{
 			if(Time.timeScale == 0f)
 			{
+
 			GameObject.FindWithTag("Player").GetComponent<Player>().enabled = true;
+			player.pause = false;
 			pauseMenu.enabled = false;
 			AudioListener.pause = false;
 				Time.timeScale = 1f;
@@ -38,6 +41,7 @@ public class PauseMenu : MonoBehaviour {
 			}
 			else
 			{
+			player.pause = true;
 			pauseMenu.enabled = true;
 			GameObject.FindWithTag("Player").GetComponent<Player>().enabled = false;//Player script is paused 
 			Time.timeScale = 0f;//freezes all instances in the game
@@ -53,6 +57,7 @@ public class PauseMenu : MonoBehaviour {
 	}
 	public void OnClickMainMenu(){
 		GameObject.FindWithTag("Player").GetComponent<Player>().enabled = true;
+		player.pause = false;
 		pauseMenu.enabled = false;
 		AudioListener.pause = false;
 		Time.timeScale = 1f;
@@ -62,6 +67,7 @@ public class PauseMenu : MonoBehaviour {
 	public void OnClickResume(){
 		Time.timeScale = 1f;//Everything is unfrozen
 		GameObject.FindWithTag("Player").GetComponent<Player>().enabled = true;
+		player.pause = false;
 		AudioListener.pause = false;
 		pauseMenu.enabled = false;
 	}
