@@ -10,7 +10,6 @@ public class GenericEnemy : GenericCharacter
     public bool playerInSight = false;
     RaycastHit hit;
     Vector3 direction;
-    float fOV, visibility;
 	public GameObject inkSplatter;
 
     void Start()
@@ -19,8 +18,6 @@ public class GenericEnemy : GenericCharacter
         player = (Player)GameObject.Find("Player").GetComponent("Player");
         theta = new Vector3(0, 0, 0);//z value controls rotation, 0 is facing to the right
         //transform.Rotate(theta);
-        fOV = 180;
-        visibility = 100;
     }
 
     // Update is called once per frame

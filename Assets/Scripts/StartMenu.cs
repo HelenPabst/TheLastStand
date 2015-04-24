@@ -4,7 +4,7 @@ using System.Collections;
 public class StartMenu : MonoBehaviour {
 
 	public GameObject mobilePanel, pcPanel;
-	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel;
+	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel;
 
 	void Start () {
 		if (Application.isMobilePlatform) {
@@ -25,8 +25,8 @@ public class StartMenu : MonoBehaviour {
 
 	public void OnClickStart()
 	{
-		//Application.LoadLevel("Level1-Village");
-		Application.LoadLevel("Level1Cutscene");
+		Application.LoadLevel("Level1-Village");
+		//Application.LoadLevel("Level1Cutscene");
 	}
 	public void OnClickLevelSelect()
 	{
@@ -54,20 +54,20 @@ public class StartMenu : MonoBehaviour {
 
 	public void OnClickLevel1()
 	{
-		//Application.LoadLevel("LoadingScreenLevel1");
-		Application.LoadLevel("Level1Cutscene");
+		Application.LoadLevel("Level1-Village");
+		//Application.LoadLevel("Level1Cutscene");
 	}
 	
 	public void OnClickLevel2()
 	{
-		//Application.LoadLevel("LoadingScreenLevel2");
-		Application.LoadLevel("Level2Cutscene");
+		Application.LoadLevel("Level2-Forest");
+		//Application.LoadLevel("Level2Cutscene");
 	}
 	
 	public void OnClickLevel3()
 	{
-		//Application.LoadLevel("LoadingScreenLevel3");
-		Application.LoadLevel("Level3Cutscene");
+		Application.LoadLevel("Level3-Temple");
+		//Application.LoadLevel("Level3Cutscene");
 	}
 	public void OnClickEndless()
 	{
@@ -76,6 +76,7 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickMain()
 	{
+		instructionsPanel.SetActive(false);
 		optionsPanel.SetActive(false);
 		extrasPanel.SetActive(false);
 		levelSelectPanel.SetActive(false);
@@ -89,6 +90,11 @@ public class StartMenu : MonoBehaviour {
 	{
 		//Application.LoadLevel ("Credits");
     }
+	public void OnClickInstructions()
+	{
+		instructionsPanel.SetActive(true);
+	}
+
 	///////////////options controls
 	public void OnClickSoundOn()
 	{
