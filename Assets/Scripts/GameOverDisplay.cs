@@ -38,11 +38,8 @@ public class GameOverDisplay : MonoBehaviour {
 	{
 		Application.Quit ();
 	}
-	public void onClickSelect()
-	{
-		Application.LoadLevel ("LevelSelectMenu");
-	}
-	public void onClickStart()
+
+	public void onClickMain()
 	{
 		Application.LoadLevel ("StartMenu");
 	}
