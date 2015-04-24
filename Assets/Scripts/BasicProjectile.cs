@@ -21,8 +21,16 @@ public class BasicProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		if (this.gameObject.tag != "PlayerArrow")
+		if (this.gameObject.tag == "StuckArrow")
 		{
+			if(this.gameObject.particleSystem.isPlaying)
+			{
+				this.gameObject.particleSystem.Stop ();
+			}
+		} 
+		if (this.gameObject.tag == "EnemyArrow")
+		{
+			animator.SetBool("XunFire",false);
 			if(this.gameObject.particleSystem.isPlaying)
 			{
 				this.gameObject.particleSystem.Stop ();
@@ -30,6 +38,7 @@ public class BasicProjectile : MonoBehaviour
 		} 
 		else if(this.gameObject.tag == "PlayerArrow")
 		{
+			animator.SetBool("XunFire",true);
 			if(this.gameObject.particleSystem.isPaused)
 			{
 				this.gameObject.particleSystem.Play();
@@ -46,6 +55,7 @@ public class BasicProjectile : MonoBehaviour
     public void RemoveArrow()
     {
         this.gameObject.tag = "";
+		animator.speed = 1;
         ObjectPool.instance.PoolObject(this.gameObject);
     }
 
