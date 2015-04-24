@@ -8,10 +8,12 @@ public class Boss : GenericCharacter {
 	float rotation;
 	GameObject boss;
 	public GameObject inkSplatter;
+	Player player;
 
 	// Use this for initialization
 	void Start () 
 	{
+		player = (Player)GameObject.Find("Player").GetComponent("Player");
 		animator = this.GetComponent<Animator>();
 		InvokeRepeating ("Teleport", 6, 5);
 	}
@@ -41,6 +43,7 @@ public class Boss : GenericCharacter {
 
 		if (health <= 0) 
 		{
+			player.killedBoss = true;
 			Destroy (gameObject);
 			Debug.Log ("Boss is DEAD!!!!");
 		}

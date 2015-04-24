@@ -13,7 +13,7 @@ public class Player : GenericCharacter
     public GameObject controls;
     Controls script;
     Vector3 mousePosition, diff, translate, temp;
-	bool killedBoss = false;
+	public bool killedBoss;
 
     public float minX; //left boundary 
     public float maxX; //right boundary 
@@ -23,6 +23,7 @@ public class Player : GenericCharacter
     // Use this for initialization
     void Start()
     {
+		killedBoss = false;
 		isdead = false;
 		acceleration *= Time.deltaTime;
 
@@ -50,7 +51,7 @@ public class Player : GenericCharacter
         RotateToMouse();
         BoundaryCheck();
 		Wincondition ();
-        if (Input.GetKey(KeyCode.R) || health <= 0)
+        if (health <= 0)
         {
 
 			if(Application.loadedLevelName == "Level3-Temple")
@@ -89,6 +90,10 @@ public class Player : GenericCharacter
         {
             ammo = 1000;
         }
+		if (Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.M))
+		{
+			health = 1;
+		}
         /////////////////////////////////////////////////////////
     }
 

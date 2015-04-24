@@ -4,7 +4,7 @@ using System.Collections;
 public class RandomSpawn : MonoBehaviour {
 	
 	private Vector2 sPosition;
-	private Animator animator;
+	//private Animator animator;
 	// Use this for initialization
 	void Start () {
 		InvokeRepeating ("SpawnBoss",4, Random.Range (2,6));	
@@ -24,9 +24,9 @@ public class RandomSpawn : MonoBehaviour {
 		}
 
 		if (hitColliders.Length == 0) {
-			animator.SetBool ("Despawning", true);
+			//animator.SetBool ("Despawning", true);
 			this.transform.position = sPosition;
-			animator.SetBool ("Spawning", true);
+			//animator.SetBool ("Spawning", true);
 		}
 
 	}
