@@ -98,7 +98,7 @@ public class GenericEnemy : GenericCharacter
         
 		if (Physics2D.Linecast (sightStart1.position, sightEnd1.position, 1 << LayerMask.NameToLayer ("Player"))) {
 			playerInSight = true;
-			///causes unit to face player
+			///causes unit to face player. Comment out for staggered tracking
 			Vector3 dir = player.transform.position - transform.position;
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
