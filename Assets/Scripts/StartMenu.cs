@@ -72,7 +72,7 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickEndless()
 	{
 		//Application.LoadLevel("LoadingScreenLevel3");
-		Application.LoadLevel("Level3-Temple");
+		Application.LoadLevel("EndlessMode");
 	}
 	public void OnClickMain()
 	{
