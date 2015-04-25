@@ -38,6 +38,10 @@ public class GameOverDisplay : MonoBehaviour {
 	{
 		Application.Quit ();
 	}
+	public void OnClickHighScore()
+	{
+		Application.LoadLevel ("HighScore");
+	}
 
 	public void onClickMain()
 	{

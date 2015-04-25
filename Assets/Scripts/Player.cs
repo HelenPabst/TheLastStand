@@ -206,7 +206,14 @@ public class Player : GenericCharacter
 		else if(Application.loadedLevelName == "Level3-Temple" && killedBoss ==true && health < 1){
 				Debug.Log("You beat level 3! Congrats!");
 				//Application.LoadLevel ("EndingCutscene"); can't load this scene for some reason
+			if(PlayerPrefs.GetInt ("Endless")==0)
+			{
 				 Application.LoadLevel ("EndingCutscene");//placeholder destination
+			}
+			else
+			{
+				Application.LoadLevel ("HighScore");
+			}
 		}
 
 		

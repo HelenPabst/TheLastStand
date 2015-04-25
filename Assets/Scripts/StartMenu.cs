@@ -15,9 +15,12 @@ public class StartMenu : MonoBehaviour {
 			pcPanel.SetActive(true);
 		}
 		//creates a variable for high score if it doesnt exist yet
-		if(!PlayerPrefs.HasKey("High Score")){
+		PlayerPrefs.SetInt ("Endless", 0);
+		if(!PlayerPrefs.HasKey("High Score"))
+		{
 			PlayerPrefs.SetFloat("High Score",0);
 		}
+
 		Debug.Log ("current high score is "+PlayerPrefs.GetFloat("High Score"));
 
 
@@ -71,8 +74,14 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickEndless()
 	{
-		//Application.LoadLevel("LoadingScreenLevel3");
-		Application.LoadLevel("EndlessMode");
+		PlayerPrefs.SetInt ("Endless", 1);
+		//Application.LoadLevel("EndlessMode");
+		Application.LoadLevel("Level3-Temple");
+	}
+	public void OnClickHighScore()
+	{
+		//Application.LoadLevel("EndlessMode");
+		Application.LoadLevel("HighScore");
 	}
 	public void OnClickMain()
 	{
@@ -111,4 +120,6 @@ public class StartMenu : MonoBehaviour {
 		PlayerPrefs.SetFloat ("High Score", 0);
 		Debug.Log ("Score Deleted! Current high score is "+PlayerPrefs.GetFloat("High Score"));
 	}
+
+
 }
