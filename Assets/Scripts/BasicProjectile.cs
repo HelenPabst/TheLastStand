@@ -6,16 +6,44 @@ public class BasicProjectile : MonoBehaviour
     private double timeSpawned;
     private double selfDestructTime;
     private double currentTime;
+	private Animator animator;
 
     // Use this for initialization
     void Start()
     {
+
+		animator = this.GetComponent<Animator>();
+		animator.speed = 1;
         selfDestructTime = 5.0f;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+		if (this.gameObject.tag == "StuckArrow")
+		{
+			if(this.gameObject.particleSystem.isPlaying)
+			{
+				this.gameObject.particleSystem.Stop ();
+			}
+		} 
+		if (this.gameObject.tag == "EnemyArrow")
+		{
+			animator.SetBool("XunFire",false);
+			if(this.gameObject.particleSystem.isPlaying)
+			{
+				this.gameObject.particleSystem.Stop ();
+			}
+		} 
+		else if(this.gameObject.tag == "PlayerArrow")
+		{
+			animator.SetBool("XunFire",true);
+			if(this.gameObject.particleSystem.isPaused)
+			{
+				this.gameObject.particleSystem.Play();
+			}
+		}
         currentTime += Time.deltaTime;
         if (currentTime + timeSpawned >= timeSpawned + selfDestructTime)
         {
@@ -27,6 +55,7 @@ public class BasicProjectile : MonoBehaviour
     public void RemoveArrow()
     {
         this.gameObject.tag = "";
+		animator.speed = 1;
         ObjectPool.instance.PoolObject(this.gameObject);
     }
 
@@ -37,6 +66,8 @@ public class BasicProjectile : MonoBehaviour
 			////added this for arrow sticking
 			this.gameObject.tag = "StuckArrow";
 			this.rigidbody2D.velocity = new Vector3(0,0,0);
+			animator.speed = 0;
+
             //RemoveArrow();
 		}
     }

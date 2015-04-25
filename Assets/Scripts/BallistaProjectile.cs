@@ -29,11 +29,13 @@ public class BallistaProjectile : MonoBehaviour
 	}
 	void OnTriggerEnter2D(Collider2D other)
 	{
+
 		if (other.tag.Equals ("Obstacle")) 
 		{
+			RemoveArrow();
 			////added this for arrow sticking
-			this.gameObject.tag = "StuckArrow";
-			this.rigidbody2D.velocity = new Vector3 (0, 0, 0);
+			//this.gameObject.tag = "StuckArrow";
+			//this.rigidbody2D.velocity = new Vector3 (0, 0, 0);
 		}
 		if (other.gameObject.name.Equals("BasicProjectile"))
 		{

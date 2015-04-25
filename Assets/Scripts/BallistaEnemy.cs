@@ -20,9 +20,14 @@ public class BallistaEnemy : GenericCharacter {
 		theta = new Vector3(0, 0, rotation);//z value controls rotation, 0 is facing to the right
 		currentTime += Time.deltaTime;
 		if (currentTime >= fireRate) 
-		{
+		{	
+			//animator.SetBool("Firing", true);
 			fireArrow("BallistaBolt");
 			currentTime = 0;			
+		}
+		else
+		{
+			//animator.SetBool("Firing", false);
 		}
 		if (health <= 0) 
 		{

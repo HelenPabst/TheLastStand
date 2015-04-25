@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Player : GenericCharacter
 {
+
+	public static bool isdead = false;
 	public float moveSpeed, ammo, ammoLimit, kills, killcap;
 	public float acceleration = 35, currentSpeed = 0;
     public Text[] livesUI, ammosUI, killsUI;
@@ -11,7 +13,8 @@ public class Player : GenericCharacter
     public GameObject controls;
     Controls script;
     Vector3 mousePosition, diff, translate, temp;
-	bool killedBoss = false;
+	public bool killedBoss;
+	public bool pause = false;
 
     public float minX; //left boundary 
     public float maxX; //right boundary 
@@ -21,6 +24,8 @@ public class Player : GenericCharacter
     // Use this for initialization
     void Start()
     {
+		killedBoss = false;
+		isdead = false;
 		acceleration *= Time.deltaTime;
 
         if (!Application.isMobilePlatform)
@@ -38,17 +43,22 @@ public class Player : GenericCharacter
             ammo++;
         }
         script = controls.transform.GetComponent<Controls>();
+		pause = (PauseMenu)GameObject.Find("PauseMenu").GetComponent("PauseMenu");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        RotateToMouse();
-        BoundaryCheck();
-		Wincondition ();
-        if (Input.GetKey(KeyCode.R) || health <= 0)
+		if (pause == false) 
+		{
+				Move ();
+				RotateToMouse ();
+				BoundaryCheck ();
+				Wincondition ();
+		
+        if (health <= 0)
         {
+
 			if(Application.loadedLevelName == "Level3-Temple")
 			{
 				float highScore = PlayerPrefs.GetFloat("High Score");
@@ -59,10 +69,11 @@ public class Player : GenericCharacter
 			}
 			if(killedBoss == false)
 			{
+				isdead = true;
 	            //Replace with an actual trigger i.e. Death
 	            //change code to jump to game over
-	            Application.LoadLevel("GameOver");
-	            resetPlayer();
+	            //Application.LoadLevel("GameOver");
+	            //resetPlayer();
 			}
         }
 
@@ -84,7 +95,12 @@ public class Player : GenericCharacter
         {
             ammo = 1000;
         }
+		if (Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.M))
+		{
+			health = 1;
+		}
         /////////////////////////////////////////////////////////
+		}
     }
 
     private void RotateToMouse()
