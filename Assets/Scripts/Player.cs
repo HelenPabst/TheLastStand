@@ -4,12 +4,17 @@ using UnityEngine.UI;
 
 public class Player : GenericCharacter
 {
-    public float moveSpeed, ammo, ammoLimit, kills, killcap;
+
+	public static bool isdead = false;
+	public float moveSpeed, ammo, ammoLimit, kills, killcap;
+	public float acceleration = 35, currentSpeed = 0;
     public Text[] livesUI, ammosUI, killsUI;
     Text liveUI, ammoUI, killUI;
     public GameObject controls;
     Controls script;
-    Vector3 mousePosition, diff, translate;
+    Vector3 mousePosition, diff, translate, temp;
+	public bool killedBoss;
+	public bool pause = false;
 
     public float minX; //left boundary 
     public float maxX; //right boundary 
@@ -19,6 +24,10 @@ public class Player : GenericCharacter
     // Use this for initialization
     void Start()
     {
+		killedBoss = false;
+		isdead = false;
+		acceleration *= Time.deltaTime;
+
         if (!Application.isMobilePlatform)
         {
             liveUI = livesUI[0];
@@ -34,22 +43,40 @@ public class Player : GenericCharacter
             ammo++;
         }
         script = controls.transform.GetComponent<Controls>();
+		pause = (PauseMenu)GameObject.Find("PauseMenu").GetComponent("PauseMenu");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        RotateToMouse();
-        BoundaryCheck();
-		Wincondition ();
-        if (Input.GetKey(KeyCode.R) || health <= 0)
+		if (pause == false) 
+		{
+				Move ();
+				RotateToMouse ();
+				BoundaryCheck ();
+				Wincondition ();
+		
+        if (health <= 0)
         {
-            //Replace with an actual trigger i.e. Death
-            //change code to jump to game over
-            Application.LoadLevel("GameOver");
-            resetPlayer();
+
+			if(Application.loadedLevelName == "Level3-Temple")
+			{
+				float highScore = PlayerPrefs.GetFloat("High Score");
+				if(kills > highScore)
+				{
+					PlayerPrefs.SetFloat("High Score",kills);
+				}
+			}
+			if(killedBoss == false)
+			{
+				isdead = true;
+	            //Replace with an actual trigger i.e. Death
+	            //change code to jump to game over
+	            //Application.LoadLevel("GameOver");
+	            //resetPlayer();
+			}
         }
+
 
         //"Fire1" is the left mouse button, left ctrl, or gamepad button 0 (A button on xbox360 remote)
         if (Input.GetButtonDown("Fire1"))//(Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Space))
@@ -58,7 +85,7 @@ public class Player : GenericCharacter
         }
         //ammoUI.text = "Ammo: " + ammo;
         liveUI.text = "Lives: " + health;
-        killUI.text = "Kills: " + kills;
+        //killUI.text = "Kills: " + kills;
         ////////////////////////////////////////////cheat codes!
         if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.H))
         {
@@ -68,7 +95,12 @@ public class Player : GenericCharacter
         {
             ammo = 1000;
         }
+		if (Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.M))
+		{
+			health = 1;
+		}
         /////////////////////////////////////////////////////////
+		}
     }
 
     private void RotateToMouse()
@@ -98,8 +130,20 @@ public class Player : GenericCharacter
     private void Move()
     {
         ///works with both keyboard and gamepad
-        translate = script.getTranslate();
-        transform.position += translate * moveSpeed * Time.deltaTime;
+		translate = script.getTranslate ();
+		if (translate != Vector3.zero) {
+			currentSpeed += acceleration;
+			if (currentSpeed >= moveSpeed)
+				currentSpeed = moveSpeed;
+			transform.position += translate * currentSpeed * Time.deltaTime;
+			temp = translate;
+		}
+		else {
+			currentSpeed += -acceleration;
+			if (currentSpeed <= 0)
+				currentSpeed = 0;
+			transform.position += temp * currentSpeed * Time.deltaTime;
+		}
     }
 
 
@@ -110,7 +154,8 @@ public class Player : GenericCharacter
         //set initial health
         health = 10;
     }
-
+	/*
+	 * no longer necessary
     ///cause player damage (collision with box collider)
     public void OnCollisionEnter2D(Collision2D col)
     {
@@ -120,7 +165,7 @@ public class Player : GenericCharacter
             RePool(col.gameObject);
         }
     }
-
+	*/
     public void BoundaryCheck()
     {
         float xboundary = Mathf.Clamp(transform.position.x, minX, maxX);
@@ -158,7 +203,7 @@ public class Player : GenericCharacter
 				Application.LoadLevel ("Level3Cutscene");
 		}
 		//Level3 win condition
-		else if(Application.loadedLevelName == "Level3-Temple" && kills>=killcap && health == 1){
+		else if(Application.loadedLevelName == "Level3-Temple" && killedBoss ==true && health < 1){
 				Debug.Log("You beat level 3! Congrats!");
 				//Application.LoadLevel ("EndingCutscene"); can't load this scene for some reason
 				 Application.LoadLevel ("EndingCutscene");//placeholder destination

@@ -4,10 +4,13 @@ using System.Collections;
 public class BallistaEnemy : GenericCharacter {
 	Vector3 playerPosition, diff;
 	float rotation;
+	Player player;
 	private Animator animator;
+	public GameObject inkSplatter;
 	// Update is called once per frame
 	void Start()
 	{
+		player = (Player)GameObject.Find("Player").GetComponent("Player");
 		animator = this.GetComponent<Animator>();
 		health = standardHealth;
 	}
@@ -17,14 +20,24 @@ public class BallistaEnemy : GenericCharacter {
 		theta = new Vector3(0, 0, rotation);//z value controls rotation, 0 is facing to the right
 		currentTime += Time.deltaTime;
 		if (currentTime >= fireRate) 
-		{
+		{	
+			//animator.SetBool("Firing", true);
 			fireArrow("BallistaBolt");
 			currentTime = 0;			
+		}
+		else
+		{
+			//animator.SetBool("Firing", false);
 		}
 		if (health <= 0) 
 		{
 			health = 2;
 			RePool(this.gameObject);
+			animator.SetBool("Firing", false);
+			animator.SetBool("Despawning", false);
+			player.kills += 1;
+			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
+		
 		}
 	}
 	private void RotateToPlayer()
@@ -54,6 +67,13 @@ public class BallistaEnemy : GenericCharacter {
 		{
 			health--;
 			RePool(col.gameObject);
+			///causes ink splatter on hit
+			inkSplatter = ObjectPool.instance.GetObjectForType("InkSplatter", true);
+			float inkX = col.gameObject.transform.position.x;
+			float inkY = col.gameObject.transform.position.y;
+			inkSplatter.transform.position = new Vector3(inkX,inkY,1.0f);
+			inkSplatter.transform.rotation = col.gameObject.transform.rotation;
+			///end of ink code
 		}
 	}
 }

@@ -17,13 +17,13 @@ public class CutsceneCode : MonoBehaviour {
 	//Which image the sequence starts on.
 	private int currentImage = 0;
 	//Next scene to load. Old code, does not work with exe 
-	//public Object nextScene;
+	public string nextScene;
 	//Tells if needs to fade
 	private bool doFade = false;
 	//Tells if needs to come back from fade
 	private bool doUnfade = false;
 	//Speed at which the image fades in and out
-	private float fadeSpeed = 2.0f;
+	private float fadeSpeed = 4.0f;
 	//Timer
 	private float timer = 0.0f;
 
@@ -122,7 +122,7 @@ public class CutsceneCode : MonoBehaviour {
 			}
 			else{
 				//Application.LoadLevel(nextScene.name);
-				Application.LoadLevel(Application.loadedLevel+1);//Assumes next scene is +1 in build order
+				Application.LoadLevel(nextScene);//Assumes next scene is +1 in build order
 			}
 			doUnfade = true;
 		}
@@ -137,6 +137,10 @@ public class CutsceneCode : MonoBehaviour {
 			GetComponent<SpriteRenderer>().color = Color.white;
 			doUnfade = false;
 		}
+	}
+	public void Change_Scene () 
+	{
+		Application.LoadLevel(nextScene);
 	}
 
 
