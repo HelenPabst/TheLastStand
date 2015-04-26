@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameOverDisplay : MonoBehaviour {
@@ -6,7 +7,7 @@ public class GameOverDisplay : MonoBehaviour {
 	// Use this for initialization
 
 	public Canvas gameOver;
-
+	public Transform highScoreButton;
 	
 	void Start()
 	{
@@ -23,6 +24,10 @@ public class GameOverDisplay : MonoBehaviour {
 	
 			Debug.Log ("you are dead");
 			gameOver.enabled = true;
+			if(PlayerPrefs.GetInt ("Endless")==0)
+			{
+				highScoreButton.GetComponent<Button>().enabled = false; 
+			}
 		} else {
 			gameOver.enabled = false;
 			GameObject.FindWithTag("Player").GetComponent<Player>().enabled = true;
@@ -36,15 +41,18 @@ public class GameOverDisplay : MonoBehaviour {
 	}
 	public void OnClickQuit()
 	{
+		PlayerPrefs.SetInt ("Endless",0);
 		Application.Quit ();
 	}
 	public void OnClickHighScore()
 	{
+		PlayerPrefs.SetInt ("Endless",0);
 		Application.LoadLevel ("HighScore");
 	}
 
 	public void onClickMain()
 	{
+		PlayerPrefs.SetInt ("Endless", 0);
 		Application.LoadLevel ("StartMenu");
 	}
 }
