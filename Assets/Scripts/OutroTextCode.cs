@@ -23,7 +23,6 @@ public class OutroTextCode : MonoBehaviour {
 	//
 	void Start () {
 		fader = transform.parent.gameObject.GetComponent<LevelEndFader>();
-		//fader = GameObject.FindObjectOfType ("FadeImage").GetComponent<LevelEndFader> ();
 		/*
 		player = (Player)GameObject.Find("Player").GetComponent("Player");
 
@@ -34,6 +33,9 @@ public class OutroTextCode : MonoBehaviour {
 	
 	// 
 	void Update () {
+		if(fader){
+
+		}
 		/*if(textFade){
 
 		}
