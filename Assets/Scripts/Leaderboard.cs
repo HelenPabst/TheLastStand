@@ -12,11 +12,12 @@ public class Leaderboard : MonoBehaviour {
 	float userScore;
 	string userName;
 	public Text rank1Text, rank2Text, rank3Text, rank4Text,rank5Text,rank6Text,rank7Text,rank8Text,rank9Text,rank10Text,userScoreDisplay;
-	public GameObject inputPanel;
+	public GameObject inputPanel, yourScorePanel;
 	public InputField initialInput;
 	public Button submitButton = null;
 	void Start () 
 	{
+		yourScorePanel.SetActive(true);
 		topTen = new float[] {PlayerPrefs.GetFloat("Score 1"),PlayerPrefs.GetFloat("Score 2"),PlayerPrefs.GetFloat("Score 3"),
 				PlayerPrefs.GetFloat("Score 4"),PlayerPrefs.GetFloat("Score 5"),PlayerPrefs.GetFloat("Score 6"),
 				PlayerPrefs.GetFloat("Score 7"),PlayerPrefs.GetFloat("Score 8"),PlayerPrefs.GetFloat("Score 9"),
@@ -30,6 +31,10 @@ public class Leaderboard : MonoBehaviour {
 
 		inputPanel.SetActive(false);
 		userScore = PlayerPrefs.GetFloat("High Score");
+		if (userScore == 0) 
+		{
+			yourScorePanel.SetActive(false);
+		}
 		userScoreDisplay.text = (""+PlayerPrefs.GetFloat("High Score")+"");
 		SetLeaderboard ();
 		DisplayLeaderboard ();
