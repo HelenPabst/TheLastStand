@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Boss : GenericCharacter {
+public class Boss1 : GenericCharacter {
 	private Animator animator;
 	Vector3 playerPosition, diff;
 	private Vector2 sPosition;
@@ -9,15 +9,15 @@ public class Boss : GenericCharacter {
 	GameObject boss;
 	public GameObject inkSplatter;
 	Player player;
-
+	
 	// Use this for initialization
 	void Start () 
 	{
 		player = (Player)GameObject.Find("Player").GetComponent("Player");
 		animator = this.GetComponent<Animator>();
-		InvokeRepeating ("Teleport", 6, 7);
+		InvokeRepeating ("Teleport", 6, 5);
 	}
-
+	
 	// Update is called once per frame
 	void Update () 
 	{
@@ -33,14 +33,14 @@ public class Boss : GenericCharacter {
 				animator.SetBool("Firing", true);
 				//fireArrow("EnemyArrow");
 				currentTime = 0;
-
+				
 			}
 			else
 			{
 				animator.SetBool("Firing", false);
 			}
 		}
-
+		
 		if (health <= 0) 
 		{
 			player.killedBoss = true;
@@ -80,27 +80,27 @@ public class Boss : GenericCharacter {
 			///end of ink code
 		}
 	}
-
+	
 	void Teleport () 
 	{		
-
-
+		
+		
 		sPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(200,Screen.width-200), 
-	                                                     Random.Range(180,Screen.height-180), 
-	                                                     Camera.main.farClipPlane/2));
+		                                                       Random.Range(180,Screen.height-180), 
+		                                                       Camera.main.farClipPlane/2));
 		//Get he size of a collider at a position
-	    Collider2D[] hitColliders = Physics2D.OverlapCircleAll(sPosition,
-			                                                       Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 4);
-        while (hitColliders.Length != 0) {
+		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(sPosition,
+		                                                       Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 4);
+		while (hitColliders.Length != 0) {
 			sPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(200,Screen.width-200), 
 			                                                       Random.Range(180,Screen.height-180), 
 			                                                       Camera.main.farClipPlane/2));
 			//Get he size of a collider at a position
 			hitColliders = Physics2D.OverlapCircleAll(sPosition,
-                                                     Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 4);
-				}
-	    if (hitColliders.Length == 0) {		            
-						//	animator.SetBool ("Despawning", true);
+			                                          Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 4);
+		}
+		if (hitColliders.Length == 0) {		            
+			//	animator.SetBool ("Despawning", true);
 			StartCoroutine ("DespawnBoss"); 
 		}
 	}
@@ -110,17 +110,16 @@ public class Boss : GenericCharacter {
 		yield return new WaitForSeconds (1.5f);
 		renderer.enabled = false;
 		collider2D.enabled = false;
-		yield return new WaitForSeconds (1.0f);
+		yield return new WaitForSeconds (0.5f);
 		animator.SetBool ("Despawning", false);
-		yield return new WaitForSeconds (1.0f);
 		this.transform.position = sPosition;
-		yield return new WaitForSeconds (1.0f);
+		yield return new WaitForSeconds (0.5f);
 		renderer.enabled = true;
 		collider2D.enabled = true;
 		animator.SetBool ("Spawning", true);
 		yield return new WaitForSeconds (2f);
 		animator.SetBool ("Spawning", false);
-
+		
 	}
-
+	
 }
