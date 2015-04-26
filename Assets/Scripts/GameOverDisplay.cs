@@ -7,7 +7,7 @@ public class GameOverDisplay : MonoBehaviour {
 	// Use this for initialization
 
 	public Canvas gameOver;
-	public Transform highScoreButton;
+	public GameObject highScoreButton;
 	
 	void Start()
 	{
@@ -27,7 +27,7 @@ public class GameOverDisplay : MonoBehaviour {
 			gameOver.enabled = true;
 			if(PlayerPrefs.GetInt ("Endless")==0)
 			{
-				highScoreButton.GetComponent<Button>().enabled = false; 
+				highScoreButton.transform.gameObject.SetActive(false); 
 			}
 		} else {
 			gameOver.enabled = false;
