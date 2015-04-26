@@ -14,6 +14,7 @@ public class GameOverDisplay : MonoBehaviour {
 		GameObject.FindWithTag("Player").GetComponent<Player>().enabled = true;
 		gameOver.enabled = false;
 		Debug.Log ( "High Score is: "+PlayerPrefs.GetFloat("High Score"));
+		Debug.Log (PlayerPrefs.GetInt ("Endless"));
 	}
 
 	void Update(){
