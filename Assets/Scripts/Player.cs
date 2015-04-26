@@ -15,6 +15,8 @@ public class Player : GenericCharacter
     Vector3 mousePosition, diff, translate, temp;
 	public bool killedBoss;
 	public bool pause = false;
+	//flag used to signal level end
+	public bool levelFinish = false;
 
     public float minX; //left boundary 
     public float maxX; //right boundary 
@@ -195,12 +197,14 @@ public class Player : GenericCharacter
 		//Level1 win condition
 			if(Application.loadedLevelName == "Level1-Village" && kills>=killcap){
 				Debug.Log("You beat level 1!");
-				Application.LoadLevel ("Level2Cutscene");
+				//Application.LoadLevel ("Level2Cutscene");
+				levelFinish = true;
 			}
 		//Level2 win condition	
 		else if(Application.loadedLevelName == "Level2-Forest" && kills>=killcap){
 				Debug.Log("You beat level 2!");
-				Application.LoadLevel ("Level3Cutscene");
+				//Application.LoadLevel ("Level3Cutscene");
+				levelFinish = true;
 		}
 		//Level3 win condition
 		else if(Application.loadedLevelName == "Level3-Temple" && killedBoss ==true && health < 1){

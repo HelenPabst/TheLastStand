@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class IntroTextCode : MonoBehaviour {
@@ -9,9 +10,9 @@ public class IntroTextCode : MonoBehaviour {
 	//if the text should stay up and paused
 	private bool textStay = true;
 	//a reference to the image
-	private Images thisText;
+	private Image thisText;
 	//Speed at which the image fades out
-	private float fadeSpeed = 4.0f;
+	private float fadeSpeed = 1.0f;
 	//backup for normal deltaTime
 	private float myDelta;
 	//reference to the player
@@ -21,31 +22,37 @@ public class IntroTextCode : MonoBehaviour {
 	void Start () {
 		player = (Player)GameObject.Find("Player").GetComponent("Player");
 		player.pause = true;
-		thisText = gameObject.GetComponent<Image>();//Does not recognize Image as valid, not sure what else to use
+		thisText = gameObject.GetComponent<Image>();
 		myDelta = Time.deltaTime;
 		Time.timeScale = 0f;//freezes all instances in the game
 	}
 
 	//
 	void Update () {
+		//keeps text up and pauses action in first few seconds
 		if (textStay) {
+			//after a few seconds, unpause and start fading
 			if (textCounter >= countFin) {
 				textStay = false;
 				Time.timeScale = 1f;
-				player.pause = true;
-			} else {
+				player.pause = false;
+			}
+			//measure how long has been paused and keeps paused
+			else {
 				textCounter = textCounter + myDelta;//Time.deltaTime;
+				player.pause = true;
 			}
 		} 
+		//text fades after a few seconds
 		else {
 			FadetoClear();
 		}
 	}
 
-	//sprite version
+	//fades out the intro text, then disables text when done
 	void FadetoClear(){
-		GetComponent<SpriteRenderer>().color = Color.Lerp(thisText.color, Color.clear, fadeSpeed * Time.deltaTime);
-		if(thisText.color.a >= 0.05f)
+		thisText.color = Color.Lerp(thisText.color, Color.clear, fadeSpeed * Time.deltaTime);
+		if(thisText.color.a <= 0.35f)
 		{
 			thisText.color = Color.clear;
 			gameObject.SetActive(false);
