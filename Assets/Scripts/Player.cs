@@ -18,6 +18,10 @@ public class Player : GenericCharacter
 	//flag used to signal level end
 	public bool levelFinish = false;
 
+	public Texture2D cursorTexture;
+	public CursorMode cursorMode = CursorMode.Auto;
+	public Vector2 hotSpot = Vector2.zero;
+
     public float minX; //left boundary 
     public float maxX; //right boundary 
     public float minY; //up boundary 
@@ -26,6 +30,7 @@ public class Player : GenericCharacter
     // Use this for initialization
     void Start()
     {
+		Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 		killedBoss = false;
 		isdead = false;
 		acceleration *= Time.deltaTime;
@@ -193,6 +198,14 @@ public class Player : GenericCharacter
         if (ammo > 0)
             ammo += difference;
     }
+	/*cursor code
+	void OnMouseEnter() {
+		Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+	}
+	void OnMouseExit() {
+		Cursor.SetCursor(null, Vector2.zero, cursorMode);
+	}
+	*/
 	public void Wincondition(){
 		//Level1 win condition
 			if(Application.loadedLevelName == "Level1-Village" && kills>=killcap){
