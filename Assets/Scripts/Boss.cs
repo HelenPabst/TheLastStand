@@ -9,12 +9,15 @@ public class Boss : GenericCharacter {
 	GameObject boss;
 	public GameObject inkSplatter;
 	Player player;
+	public AudioClip death;
+	AudioSource audio;
 
 	// Use this for initialization
 	void Start () 
 	{
 		player = (Player)GameObject.Find("Player").GetComponent("Player");
 		animator = this.GetComponent<Animator>();
+		audio = GetComponent<AudioSource>();
 		InvokeRepeating ("Teleport", 6, 7);
 	}
 
@@ -44,6 +47,8 @@ public class Boss : GenericCharacter {
 		if (health <= 0) 
 		{
 			player.killedBoss = true;
+			//(clip, volume)
+			audio.PlayOneShot(death, 0.5F);
 			Destroy (gameObject);
 			Debug.Log ("Boss is DEAD!!!!");
 		}
