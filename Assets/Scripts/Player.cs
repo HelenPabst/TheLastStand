@@ -198,12 +198,14 @@ public class Player : GenericCharacter
 			if(Application.loadedLevelName == "Level1-Village" && kills>=killcap){
 				Debug.Log("You beat level 1!");
 				//Application.LoadLevel ("Level2Cutscene");
+				Application.LoadLevel ("Level2-Forest");
 				levelFinish = true;
 			}
 		//Level2 win condition	
 		else if(Application.loadedLevelName == "Level2-Forest" && kills>=killcap){
 				Debug.Log("You beat level 2!");
 				//Application.LoadLevel ("Level3Cutscene");
+			Application.LoadLevel ("Level3-Temple");
 				levelFinish = true;
 		}
 		//Level3 win condition
