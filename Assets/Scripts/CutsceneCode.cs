@@ -16,7 +16,7 @@ public class CutsceneCode : MonoBehaviour {
 	private float nextFrameTime;
 	//Which image the sequence starts on.
 	private int currentImage = 0;
-	//Next scene to load. Old code, does not work with exe 
+	//Next scene to load.
 	public string nextScene;
 	//Tells if needs to fade
 	private bool doFade = false;
@@ -122,7 +122,7 @@ public class CutsceneCode : MonoBehaviour {
 			}
 			else{
 				//Application.LoadLevel(nextScene.name);
-				Application.LoadLevel(nextScene);//Assumes next scene is +1 in build order
+				Application.LoadLevel(nextScene);
 			}
 			doUnfade = true;
 		}

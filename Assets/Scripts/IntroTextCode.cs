@@ -6,7 +6,7 @@ public class IntroTextCode : MonoBehaviour {
 	//A time counter that runs independantly of the Time
 	private float textCounter = 0.0f;
 	//how long the text stays up and paused
-	private float countFin = 2.0f;
+	private float countFin = 3.0f;
 	//if the text should stay up and paused
 	private bool textStay = true;
 	//a reference to the image

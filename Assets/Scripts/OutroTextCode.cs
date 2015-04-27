@@ -8,10 +8,10 @@ public class OutroTextCode : MonoBehaviour {
 	//how long the text stays up and paused
 	private float countFin = 2.0f;
 	//if the text should begin to fade
-	private bool textFade = false;
+	private bool textFade = false;*/
 	//a reference to the image
 	private Image thisText;
-	//Speed at which the image fades out
+	/*//Speed at which the image fades out
 	private float fadeSpeed = 1.0f;
 	//backup for normal deltaTime
 	private float myDelta;
@@ -20,9 +20,10 @@ public class OutroTextCode : MonoBehaviour {
 	//Reference to the fader
 	LevelEndFader fader;
 
-	//
+	//make references to objects
 	void Start () {
-		fader = transform.parent.gameObject.GetComponent<LevelEndFader>();
+		fader = gameObject.GetComponentInChildren<LevelEndFader>();
+		thisText = gameObject.GetComponent<Image>();
 		/*
 		player = (Player)GameObject.Find("Player").GetComponent("Player");
 
@@ -31,10 +32,11 @@ public class OutroTextCode : MonoBehaviour {
 		*/
 	}
 	
-	// 
+	// make outro visable and pause scene
 	void Update () {
-		if(fader){
-
+		if(fader.endMessage){
+			thisText.color = Color.white;
+			Time.timeScale = 0f;
 		}
 		/*if(textFade){
 
