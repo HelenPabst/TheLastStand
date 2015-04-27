@@ -95,16 +95,16 @@ public class Leaderboard : MonoBehaviour {
 
 	void DisplayLeaderboard()
 	{
-		rank1Text.text = ("#1:  "+(topUsers[0])+"----------------"+(topTen[0])+"");
-		rank2Text.text = ("#2:  "+(topUsers[1])+"----------------"+(topTen[1])+"");
-		rank3Text.text = ("#3:  "+(topUsers[2])+"----------------"+(topTen[2])+"");
-		rank4Text.text = ("#4:  "+(topUsers[3])+"----------------"+(topTen[3])+"");
-		rank5Text.text = ("#5:  "+(topUsers[4])+"----------------"+(topTen[4])+"");
-		rank6Text.text = ("#6:  "+(topUsers[5])+"----------------"+(topTen[5])+"");
-		rank7Text.text = ("#7:  "+(topUsers[6])+"----------------"+(topTen[6])+"");
-		rank8Text.text = ("#8:  "+(topUsers[7])+"----------------"+(topTen[7])+"");
-		rank9Text.text = ("#9:  "+(topUsers[8])+"----------------"+(topTen[8])+"");
-		rank10Text.text = ("#10:"+(topUsers[9])+"----------------"+(topTen[9])+"");
+		rank1Text.text = ("#1:  "+(topUsers[0])+"-----------"+(topTen[0])+"");
+		rank2Text.text = ("#2:  "+(topUsers[1])+"-----------"+(topTen[1])+"");
+		rank3Text.text = ("#3:  "+(topUsers[2])+"-----------"+(topTen[2])+"");
+		rank4Text.text = ("#4:  "+(topUsers[3])+"-----------"+(topTen[3])+"");
+		rank5Text.text = ("#5:  "+(topUsers[4])+"-----------"+(topTen[4])+"");
+		rank6Text.text = ("#6:  "+(topUsers[5])+"-----------"+(topTen[5])+"");
+		rank7Text.text = ("#7:  "+(topUsers[6])+"-----------"+(topTen[6])+"");
+		rank8Text.text = ("#8:  "+(topUsers[7])+"-----------"+(topTen[7])+"");
+		rank9Text.text = ("#9:  "+(topUsers[8])+"-----------"+(topTen[8])+"");
+		rank10Text.text = ("#10:"+(topUsers[9])+"-----------"+(topTen[9])+"");
 		
 		
 	}

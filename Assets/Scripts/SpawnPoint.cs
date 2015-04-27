@@ -31,10 +31,13 @@ public class SpawnPoint : MonoBehaviour {
 	void Update() {
 		Collider2D[] hitCollidersEnemy = Physics2D.OverlapCircleAll (sPosition, 1);
 		Timer += Time.deltaTime;
-    	if (!EnemyCheck && totalSpawns > 0) {
+		if (!EnemyCheck && (totalSpawns > 0|| totalSpawns == -1)) {
 			spawnedObject = ObjectPool.instance.GetObjectForType (spawnEnemy.name, true); // Spawns enemy in game
 	    	Timer = initialSpawnDelay;
-	    	totalSpawns--;
+			if(totalSpawns > 0)
+			{
+	    		totalSpawns--;
+			}
 			spawnedObject.transform.position = transform.position;
 			spawnedObject.transform.rotation = transform.rotation;
 			EnemyCheck = true;
@@ -50,9 +53,12 @@ public class SpawnPoint : MonoBehaviour {
 	}
 	//For initial spawn
 	void SpawnEnemy() {
-		if (Timer > initialSpawnDelay && totalSpawns > 0) {
+		if (Timer > initialSpawnDelay && (totalSpawns > 0 || totalSpawns == -1)) {
 			spawnedObject = ObjectPool.instance.GetObjectForType (spawnEnemy.name, true); // Spawns enemy in game
-			totalSpawns--;
+			if(totalSpawns > 0)
+			{
+				totalSpawns--;
+			}
 			spawnedObject.transform.position = transform.position;
 			spawnedObject.transform.rotation = transform.rotation;
 			EnemyCheck = true;
