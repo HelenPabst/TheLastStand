@@ -142,6 +142,10 @@ public class CutsceneCode : MonoBehaviour {
 	{
 		Application.LoadLevel(nextScene);
 	}
+	void PanImage()
+	{
+
+	}
 
 
 	/*old gui code
