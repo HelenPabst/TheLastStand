@@ -3,14 +3,14 @@ using System.Collections;
 
 public class CreditsText : MonoBehaviour {
 	
-	public GameObject camera;
+
 	public int speed = -18;
 	public string level;
 	
 	
 	void Update () {
 		
-		this.transform.Translate (Vector3.down * Time.deltaTime * speed);
+		this.transform.Translate (Vector3.up * Time.deltaTime * speed);
 		
 	}
 	

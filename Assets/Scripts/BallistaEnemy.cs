@@ -21,13 +21,13 @@ public class BallistaEnemy : GenericCharacter {
 		currentTime += Time.deltaTime;
 		if (currentTime >= fireRate) 
 		{	
-			//animator.SetBool("Firing", true);
-			fireArrow("BallistaBolt");
+			animator.SetBool("Firing", true);
+			//fireArrow("BallistaBolt");
 			currentTime = 0;			
 		}
 		else
 		{
-			//animator.SetBool("Firing", false);
+			animator.SetBool("Firing", false);
 		}
 		if (health <= 0) 
 		{
@@ -52,7 +52,15 @@ public class BallistaEnemy : GenericCharacter {
 		rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler(0f, 0f, rotation);
 	}
-	new protected void fireArrow(string tag) {
+	/*new public void fireArrow(string tag) {
+		arrow = ObjectPool.instance.GetObjectForType("BallistaProjectile", true);
+		arrow.transform.position = transform.position;
+		arrow.transform.rotation = transform.rotation;
+		arrowDir = new Vector3(Mathf.Cos(transform.eulerAngles.z * Mathf.PI/180), Mathf.Sin(transform.eulerAngles.z * Mathf.PI/180));
+		arrow.rigidbody2D.velocity = arrowDir * arrowVelocity;
+		arrow.tag = tag;
+	}*/
+	public void fireBolt(string tag) {
 		arrow = ObjectPool.instance.GetObjectForType("BallistaProjectile", true);
 		arrow.transform.position = transform.position;
 		arrow.transform.rotation = transform.rotation;

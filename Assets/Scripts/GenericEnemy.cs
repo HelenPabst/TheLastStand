@@ -53,7 +53,7 @@ public class GenericEnemy : GenericCharacter
             RePool(this.gameObject);
         }
         //animator.SetBool("Firing", false);
-        
+
     }
 
     public void OnTriggerEnter2D(Collider2D col)
