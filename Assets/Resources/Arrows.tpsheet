@@ -1,0 +1,14 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# http://www.codeandweb.com/texturepacker/unity
+#
+# Sprite sheet: Arrows.png (256 x 512)
+# $TexturePacker:SmartUpdate:a89bc0d509743d74051bd86706af6c74:2f8911a64900479b61c87969f3f08eef:a648233581358332010e382ddc16cafe$
+#
+
+0-Spinning-Arrow-gif;2;40;55;470;0.4909090909090909;0.5276595744680851
+1-Spinning-Arrow-gif;59;62;41;448;0.5365853658536586;0.5089285714285714
+2-Spinning-Arrow-gif;102;64;19;446;0.631578947368421;0.5112107623318385
+3-Spinning-Arrow-gif;123;91;32;419;0.609375;0.5059665871121719

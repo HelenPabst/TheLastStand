@@ -7,6 +7,7 @@ public class GalleryControl : MonoBehaviour {
 	Sprite[] Cindy;
 	Sprite[] Coleton;
 	Sprite[] Ellen;
+	Sprite[] Erin;
 	Sprite[] Francis;
 	Sprite[] Gil;
 	Sprite[] Jamie;
@@ -33,6 +34,7 @@ public class GalleryControl : MonoBehaviour {
 		Cindy = Resources.LoadAll<Sprite>("Cindy Phung");
 		Coleton = Resources.LoadAll<Sprite>("Coleton Palmer");
 		Ellen = Resources.LoadAll<Sprite>("Ellen Wong");
+		Erin = Resources.LoadAll<Sprite>("Erin Emre");
 		Francis = Resources.LoadAll<Sprite>("Francis Basco");
 		Gil = Resources.LoadAll<Sprite>("Gil Ona");
 		Jamie = Resources.LoadAll<Sprite>("Jamie Strassenburg");
@@ -59,6 +61,7 @@ public class GalleryControl : MonoBehaviour {
 		case "Cindy": CurrentSet = Cindy; break;
 		case "Coleton": CurrentSet = Coleton; break;
 		case "Ellen": CurrentSet = Ellen; break;
+		case "Erin": CurrentSet = Erin; break;
 		case "Francis": CurrentSet = Francis; break;
 		case "Gil": CurrentSet = Gil; break;
 		case "Jamie": CurrentSet = Jamie; break;
