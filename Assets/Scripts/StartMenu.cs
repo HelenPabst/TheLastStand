@@ -5,9 +5,17 @@ public class StartMenu : MonoBehaviour {
 
 	public GameObject mobilePanel, pcPanel;
 	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel;
+	public bool clickedStart;
 
 	void Start () {
-
+		if (Application.isMobilePlatform) {
+			mobilePanel.SetActive(true);
+			pcPanel.SetActive(false);
+		} else {
+			mobilePanel.SetActive(false);
+			pcPanel.SetActive(true);
+		}
+		clickedStart = false;
 		//creates a variable for high score if it doesnt exist yet
 		PlayerPrefs.SetInt ("Endless", 0);
 		//reset player score to 0 at start
@@ -18,20 +26,28 @@ public class StartMenu : MonoBehaviour {
 
 
 	}
-	void AddOpeningPanels()
-	{
-		if (Application.isMobilePlatform) {
-			mobilePanel.SetActive(true);
-			pcPanel.SetActive(false);
-		} else {
-			mobilePanel.SetActive(false);
-			pcPanel.SetActive(true);
-		}
-	}
 
 	public void OnClickStart()
 	{
-		Application.LoadLevel("Level1-Village");
+		//Application.LoadLevel("Level1-Village");
+		clickedStart = true;
+		instructionsPanel.SetActive(true);
+
+		//Application.LoadLevel("Level1Cutscene");
+	}
+	public void OnClickDone()
+	{
+
+
+		if(clickedStart==true)
+		{
+			Application.LoadLevel("Level1-Village");
+		}
+		else
+		{
+			instructionsPanel.SetActive(false);
+		}
+		
 		//Application.LoadLevel("Level1Cutscene");
 	}
 	public void OnClickLevelSelect()
