@@ -8,6 +8,7 @@ public class PlayerCatch : MonoBehaviour {
 	Controls controlScript;
 	GenericEnemy enemyScript;
 	public GameObject controls;
+
 	// Use this for initialization
 	void Start () {
 		renderer.material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
@@ -27,6 +28,7 @@ public class PlayerCatch : MonoBehaviour {
 			{
 				if(playerScript.ammo < playerScript.ammoLimit )
 				{
+
 					ObjectPool.instance.PoolObject(col.gameObject);
 					playerScript.ammo++;
 					Debug.Log("Arrow Caught. New Ammo is :"+ playerScript.ammo);
