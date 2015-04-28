@@ -7,13 +7,7 @@ public class StartMenu : MonoBehaviour {
 	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel;
 
 	void Start () {
-		if (Application.isMobilePlatform) {
-			mobilePanel.SetActive(true);
-			pcPanel.SetActive(false);
-		} else {
-			mobilePanel.SetActive(false);
-			pcPanel.SetActive(true);
-		}
+
 		//creates a variable for high score if it doesnt exist yet
 		PlayerPrefs.SetInt ("Endless", 0);
 		//reset player score to 0 at start
@@ -23,6 +17,16 @@ public class StartMenu : MonoBehaviour {
 		Debug.Log ("current high score is "+PlayerPrefs.GetFloat("High Score"));
 
 
+	}
+	void AddOpeningPanels()
+	{
+		if (Application.isMobilePlatform) {
+			mobilePanel.SetActive(true);
+			pcPanel.SetActive(false);
+		} else {
+			mobilePanel.SetActive(false);
+			pcPanel.SetActive(true);
+		}
 	}
 
 	public void OnClickStart()
