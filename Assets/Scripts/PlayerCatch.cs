@@ -8,9 +8,11 @@ public class PlayerCatch : MonoBehaviour {
 	Controls controlScript;
 	GenericEnemy enemyScript;
 	public GameObject controls;
-
+	//public AudioClip arrowCatch;
+	//AudioSource audio;
 	// Use this for initialization
 	void Start () {
+		//audio = GetComponent<AudioSource>();
 		renderer.material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
 		//renderer.enabled = false;//makes catch radius invisible
 		playerScript = transform.parent.GetComponent<Player>();
@@ -28,7 +30,7 @@ public class PlayerCatch : MonoBehaviour {
 			{
 				if(playerScript.ammo < playerScript.ammoLimit )
 				{
-
+					//audio.PlayOneShot(arrowCatch);
 					ObjectPool.instance.PoolObject(col.gameObject);
 					playerScript.ammo++;
 					Debug.Log("Arrow Caught. New Ammo is :"+ playerScript.ammo);

@@ -27,13 +27,13 @@ public class Player : GenericCharacter
     public float minY; //up boundary 
     public float maxY; //down boundary
 
-	public AudioClip arrowCatch;
-	AudioSource audio;
+	//public AudioClip arrowCatch;
+	//AudioSource audio;
 
     // Use this for initialization
     void Start()
     {
-		audio = GetComponent<AudioSource>();
+		//audio = GetComponent<AudioSource>();
 		Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 		killedBoss = false;
 		isdead = false;
