@@ -19,8 +19,7 @@ public class Player : GenericCharacter
 	public bool levelFinish = false;
 
 	public Texture2D cursorTexture;
-	public CursorMode cursorMode = CursorMode.Auto;
-	public Vector2 hotSpot = Vector2.zero;
+
 
     public float minX; //left boundary 
     public float maxX; //right boundary 
@@ -34,7 +33,7 @@ public class Player : GenericCharacter
     void Start()
     {
 		//audio = GetComponent<AudioSource>();
-		Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+
 		killedBoss = false;
 		isdead = false;
 		acceleration *= Time.deltaTime;

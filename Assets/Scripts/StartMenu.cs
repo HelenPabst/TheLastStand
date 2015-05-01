@@ -6,8 +6,10 @@ public class StartMenu : MonoBehaviour {
 	public GameObject mobilePanel, pcPanel;
 	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel;
 	public bool clickedStart;
+	StartMenuScroll menuScroll;
 
 	void Start () {
+		menuScroll = (StartMenuScroll)GameObject.Find("MenuScroll").GetComponent("StartMenuScroll");
 		if (Application.isMobilePlatform) {
 			mobilePanel.SetActive(true);
 			pcPanel.SetActive(false);
