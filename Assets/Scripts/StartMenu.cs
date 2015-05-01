@@ -6,17 +6,11 @@ public class StartMenu : MonoBehaviour {
 	public GameObject mobilePanel, pcPanel;
 	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel;
 	public bool clickedStart;
-	StartMenuScroll menuScroll;
+
 
 	void Start () {
-		menuScroll = (StartMenuScroll)GameObject.Find("MenuScroll").GetComponent("StartMenuScroll");
-		if (Application.isMobilePlatform) {
-			mobilePanel.SetActive(true);
-			pcPanel.SetActive(false);
-		} else {
-			mobilePanel.SetActive(false);
-			pcPanel.SetActive(true);
-		}
+	
+		Invoke ("DisplayMenu",1.0f);
 		clickedStart = false;
 		//creates a variable for high score if it doesnt exist yet
 		PlayerPrefs.SetInt ("Endless", 0);
@@ -27,6 +21,16 @@ public class StartMenu : MonoBehaviour {
 		Debug.Log ("current high score is "+PlayerPrefs.GetFloat("High Score"));
 
 
+	}
+	public void DisplayMenu()
+	{
+		if (Application.isMobilePlatform) {
+			mobilePanel.SetActive(true);
+			pcPanel.SetActive(false);
+		} else {
+			mobilePanel.SetActive(false);
+			pcPanel.SetActive(true);
+		}
 	}
 
 	public void OnClickStart()
