@@ -122,7 +122,7 @@ public class StartMenu : MonoBehaviour {
     }
 	public void OnClickCredits()
 	{
-		//Application.LoadLevel ("Credits");
+		Application.LoadLevel ("Credits");
     }
 	public void OnClickInstructions()
 	{
