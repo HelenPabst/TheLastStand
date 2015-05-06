@@ -3,13 +3,26 @@ using System.Collections;
 
 public class StartMenu : MonoBehaviour {
 
-	public GameObject mobilePanel, pcPanel;
-	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel;
+	public GameObject mobilePanel, pcPanel, pcLogo, mobileLogo, pcScroll, mobileScroll;
+	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel, 
+	mainMobilePanel, levelMobilePanel, extrasMobilePanel, optionsMobilePanel;
 	public bool clickedStart;
 
 
 	void Start () {
+		if (Application.isMobilePlatform) {
+			mobileScroll.SetActive(true);
+			mobileLogo.SetActive(true);
+			pcScroll.SetActive(false);
+			pcLogo.SetActive(false);
 	
+		} else {
+
+			mobileScroll.SetActive(false);
+			mobileLogo.SetActive(false);
+			pcScroll.SetActive(true);
+			pcLogo.SetActive(true);
+		}
 		Invoke ("DisplayMenu",1.0f);
 		clickedStart = false;
 		//creates a variable for high score if it doesnt exist yet
@@ -28,6 +41,7 @@ public class StartMenu : MonoBehaviour {
 			mobilePanel.SetActive(true);
 			pcPanel.SetActive(false);
 		} else {
+
 			mobilePanel.SetActive(false);
 			pcPanel.SetActive(true);
 		}
@@ -58,21 +72,44 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickLevelSelect()
 	{
-		levelSelectPanel.SetActive(true);
-		mainPanel.SetActive(false);
+		if (Application.isMobilePlatform) {
+			levelMobilePanel.SetActive(true);
+			mainMobilePanel.SetActive(false);
+			
+		} else {
+			
+			levelSelectPanel.SetActive(true);
+			mainPanel.SetActive(false);
+		}
+
 
 	}
 	public void OnClickOptions()
 	{
+		if (Application.isMobilePlatform) {
+			optionsMobilePanel.SetActive(true);
+			mainMobilePanel.SetActive(false);
+			
+		} else {
+			
+			optionsPanel.SetActive(true);
+			mainPanel.SetActive(false);
+		}
 
-		optionsPanel.SetActive(true);
-		mainPanel.SetActive(false);
 	}
 
-	public void OnClickExtras() {
-		//Application.LoadLevel ("Gallery");
-		extrasPanel.SetActive(true);
-		mainPanel.SetActive(false);
+	public void OnClickExtras() 
+	{
+		if (Application.isMobilePlatform) {
+			extrasMobilePanel.SetActive(true);
+			mainMobilePanel.SetActive(false);
+			
+		} else {
+			
+			extrasPanel.SetActive(true);
+			mainPanel.SetActive(false);
+		}
+
 	}
 
 	public void OnClickQuit()
@@ -110,11 +147,22 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickMain()
 	{
-		instructionsPanel.SetActive(false);
-		optionsPanel.SetActive(false);
-		extrasPanel.SetActive(false);
-		levelSelectPanel.SetActive(false);
-		mainPanel.SetActive(true);
+		if (Application.isMobilePlatform) {
+			instructionsPanel.SetActive(false);
+			optionsMobilePanel.SetActive(false);
+			extrasMobilePanel.SetActive(false);
+			levelMobilePanel.SetActive(false);
+			mainMobilePanel.SetActive(true);
+			
+		} else {
+			
+			instructionsPanel.SetActive(false);
+			optionsPanel.SetActive(false);
+			extrasPanel.SetActive(false);
+			levelSelectPanel.SetActive(false);
+			mainPanel.SetActive(true);
+		}
+
 	}
 	public void OnClickGallery()
 	{
