@@ -61,7 +61,8 @@ public class StartMenu : MonoBehaviour {
 
 		if(clickedStart==true)
 		{
-			Application.LoadLevel("Level1-Village");
+			//Application.LoadLevel("Level1-Village");
+			Application.LoadLevel("NarrationIntro");
 		}
 		else
 		{
