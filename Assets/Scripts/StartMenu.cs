@@ -7,6 +7,7 @@ public class StartMenu : MonoBehaviour {
 	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel, 
 	mainMobilePanel, levelMobilePanel, extrasMobilePanel, optionsMobilePanel;
 	public bool clickedStart;
+	public AudioSource buttonSound;
 
 
 	void Start () {
@@ -50,6 +51,7 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickStart()
 	{
 		//Application.LoadLevel("Level1-Village");
+		buttonSound.Play ();
 		clickedStart = true;
 		instructionsPanel.SetActive(true);
 
@@ -58,7 +60,7 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickDone()
 	{
 
-
+		buttonSound.Play ();
 		if(clickedStart==true)
 		{
 			//Application.LoadLevel("Level1-Village");
@@ -73,6 +75,7 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickLevelSelect()
 	{
+		buttonSound.Play ();
 		if (Application.isMobilePlatform) {
 			levelMobilePanel.SetActive(true);
 			mainMobilePanel.SetActive(false);
@@ -87,6 +90,7 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickOptions()
 	{
+		buttonSound.Play ();
 		if (Application.isMobilePlatform) {
 			optionsMobilePanel.SetActive(true);
 			mainMobilePanel.SetActive(false);
@@ -101,6 +105,7 @@ public class StartMenu : MonoBehaviour {
 
 	public void OnClickExtras() 
 	{
+		buttonSound.Play ();
 		if (Application.isMobilePlatform) {
 			extrasMobilePanel.SetActive(true);
 			mainMobilePanel.SetActive(false);
@@ -115,39 +120,46 @@ public class StartMenu : MonoBehaviour {
 
 	public void OnClickQuit()
 	{
+		buttonSound.Play ();
 		Application.Quit ();
 	}
 
 	public void OnClickLevel1()
 	{
+		buttonSound.Play ();
 		Application.LoadLevel("Level1-Village");
 		//Application.LoadLevel("Level1Cutscene");
 	}
 	
 	public void OnClickLevel2()
 	{
+		buttonSound.Play ();
 		Application.LoadLevel("Level2-Forest");
 		//Application.LoadLevel("Level2Cutscene");
 	}
 	
 	public void OnClickLevel3()
 	{
+		buttonSound.Play ();
 		Application.LoadLevel("Level3-Temple");
 		//Application.LoadLevel("Level3Cutscene");
 	}
 	public void OnClickEndless()
 	{
+		buttonSound.Play ();
 		PlayerPrefs.SetInt ("Endless", 1);
 		//Application.LoadLevel("EndlessMode");
 		Application.LoadLevel("Level3-Temple");
 	}
 	public void OnClickHighScore()
 	{
+		buttonSound.Play ();
 		//Application.LoadLevel("EndlessMode");
 		Application.LoadLevel("HighScore");
 	}
 	public void OnClickMain()
 	{
+		buttonSound.Play ();
 		if (Application.isMobilePlatform) {
 			instructionsPanel.SetActive(false);
 			optionsMobilePanel.SetActive(false);
@@ -167,20 +179,24 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickGallery()
 	{
+		buttonSound.Play ();
 		Application.LoadLevel ("Gallery");
     }
 	public void OnClickCredits()
 	{
+		buttonSound.Play ();
 		Application.LoadLevel ("Credits");
     }
 	public void OnClickInstructions()
 	{
+		buttonSound.Play ();
 		instructionsPanel.SetActive(true);
 	}
 
 	///////////////options controls
 	public void OnClickSoundOn()
 	{
+		buttonSound.Play ();
 		AudioListener.volume = 1;
 
 	}
@@ -191,6 +207,7 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void OnClickDelete()
 	{
+		buttonSound.Play ();
 		PlayerPrefs.SetFloat ("High Score", 0);
 
 			PlayerPrefs.SetString("Rank 1","VGD");

@@ -11,9 +11,11 @@ public class GenericEnemy : GenericCharacter
     RaycastHit hit;
     Vector3 direction;
 	public GameObject inkSplatter;
+	public AudioSource spawnSound, fireSound;
 
     void Start()
     {
+		spawnSound.Play ();
         animator = this.GetComponent<Animator>();
         player = (Player)GameObject.Find("Player").GetComponent("Player");
         theta = new Vector3(0, 0, 0);//z value controls rotation, 0 is facing to the right
@@ -34,6 +36,7 @@ public class GenericEnemy : GenericCharacter
 				//firing an arrow is now an animator event
                 //fireArrow("EnemyArrow");
                 currentTime = 0;
+
                 animator.SetBool("Firing", true);
             }
             else
@@ -44,6 +47,7 @@ public class GenericEnemy : GenericCharacter
 
         if (health <= 0)
         {
+
 			animator.SetBool("Firing", false);
 			animator.SetBool("Despawning", false);
 			player.kills += 1;
@@ -58,9 +62,11 @@ public class GenericEnemy : GenericCharacter
 
     public void OnTriggerEnter2D(Collider2D col)
     {
+
         if (col.tag == "EnemyArrow") return;
         if (col.gameObject.tag.Equals("PlayerArrow"))
         {
+
 			RePool(col.gameObject);
 			///causes ink splatter on hit
 			inkSplatter = ObjectPool.instance.GetObjectForType("InkSplatter", true);
@@ -73,7 +79,10 @@ public class GenericEnemy : GenericCharacter
 
         }
     }
-
+	public void FireSound()
+	{
+		fireSound.Play ();
+	}
     public void Raycast()
     {
         //direction = playerScript.transform.position - this.transform.position;

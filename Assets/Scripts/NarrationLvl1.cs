@@ -12,8 +12,8 @@ public class NarrationLvl1 : MonoBehaviour {
 	{
 		Invoke ("PlayClipOne",1.0f);
 		Invoke ("PlayClipTwo",20.0f);
-		Invoke ("PlayClipThree",42.0f);
-		Invoke ("NextLevel",65.0f);
+		Invoke ("PlayClipThree",45.0f);
+		Invoke ("NextLevel",69.0f);
 	}
 	
 	// Update is called once per frame

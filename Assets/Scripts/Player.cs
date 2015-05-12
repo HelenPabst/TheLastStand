@@ -17,6 +17,7 @@ public class Player : GenericCharacter
 	public bool pause = false;
 	//flag used to signal level end
 	public bool levelFinish = false;
+	public AudioSource fireSound;
 
 	public Texture2D cursorTexture;
 
@@ -187,6 +188,7 @@ public class Player : GenericCharacter
     {
         if (ammo > 0)
         {
+			fireSound.Play ();
             fireArrow("PlayerArrow");
             ammo--;
         }
