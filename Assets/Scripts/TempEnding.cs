@@ -8,12 +8,12 @@ public class TempEnding : MonoBehaviour {
 	public string level;
 	public float runTime;
 	public float scrollEnd;
-	public AudioSource endMusic;
-	public float audio1Volume  = 1.0f;
+	public AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () 
 	{
-		Invoke("fadeOut", 35.0f);
+		Invoke("FadeOutMusic", 26.0f);
 		InvokeRepeating("cutsceneTime", 0, 1);
 
 	}
@@ -36,11 +36,19 @@ public class TempEnding : MonoBehaviour {
 	{
 		runTime -= 1;
 	}
-	void fadeOut() {
-		while(audio1Volume > 0.1)
+
+	public void FadeOutMusic()
+	{
+		StartCoroutine(FadeMusic());
+	}
+	IEnumerator FadeMusic()
+	{
+		while(audioSource.volume > .1F)
 		{
-			audio1Volume -= 0.1f * Time.deltaTime;
-			endMusic.volume = audio1Volume;
+			audioSource.volume = Mathf.Lerp(audioSource.volume,0F,0.2f*Time.deltaTime);
+			yield return 0;
 		}
+		audioSource.volume = 0;
+
 	}
 }
