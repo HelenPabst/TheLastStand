@@ -42,4 +42,8 @@ public class NarrationLvl1 : MonoBehaviour {
 	{
 		Application.LoadLevel("Level1-Village");
 	}
+	public void OnClickSkip()
+	{
+		NextLevel ();
+	}
 }

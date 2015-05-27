@@ -28,4 +28,9 @@ public class NarrationLvl2 : MonoBehaviour {
 	{
 		Application.LoadLevel("Level2-Forest");
 	}
+	public void OnClickSkip()
+	{
+		NextLevel ();
+	}
+
 }

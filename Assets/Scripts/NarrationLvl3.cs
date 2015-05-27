@@ -28,4 +28,8 @@ public class NarrationLvl3 : MonoBehaviour {
 	{
 		Application.LoadLevel("Level3-Temple");
 	}
+	public void OnClickSkip()
+	{
+		NextLevel ();
+	}
 }
