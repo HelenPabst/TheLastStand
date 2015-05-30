@@ -230,9 +230,19 @@ public class Player : GenericCharacter
 		}
 		//Level3 win condition
 		else if(Application.loadedLevelName == "Level3-Temple" && killedBoss ==true && health < 1){
+			//checks if endless mode is active. If not, jump to end cutscene
+			//if so, display game over screen
+			if(PlayerPrefs.GetInt ("Endless")==0)
+			{
 				Debug.Log("You beat level 3! Congrats!");
 				//Application.LoadLevel ("EndingCutscene"); can't load this scene for some reason
-				 Application.LoadLevel ("TempEnding");//placeholder destination
+				Application.LoadLevel ("TempEnding");//placeholder destination
+			}
+			else
+			{
+				isdead = true;
+			}
+				
 		}
 
 		
