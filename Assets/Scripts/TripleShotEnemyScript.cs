@@ -8,6 +8,7 @@ public class TripleShotEnemyScript : GenericCharacter {
 		public Transform sightStart, sightEnd;
 		public bool playerInSight = false;
 		protected GameObject leftArrow, rightArrow;
+		public GameObject inkSplatter;
 		
 		// Use this for initialization
 		void Start () 
@@ -37,6 +38,8 @@ public class TripleShotEnemyScript : GenericCharacter {
 			if (health <= 0) 
 			{
 				health = 1;
+				player.kills += 1;
+				Debug.Log("Kill confirmed! Kill count is: " + player.kills);
 				RePool(this.gameObject);
 			}
 		}
@@ -70,8 +73,14 @@ public class TripleShotEnemyScript : GenericCharacter {
 		if (col.gameObject.tag.Equals("PlayerArrow"))
 		{
 			health--;
-			player.kills += 1;
-			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
+			///causes ink splatter on hit
+			inkSplatter = ObjectPool.instance.GetObjectForType("InkSplatter", true);
+			float inkX = col.gameObject.transform.position.x;
+			float inkY = col.gameObject.transform.position.y;
+			inkSplatter.transform.position = new Vector3(inkX,inkY,1.0f);
+			inkSplatter.transform.rotation = col.gameObject.transform.rotation;
+			///end of ink code
+
 			RePool(col.gameObject);
 		}
 	}

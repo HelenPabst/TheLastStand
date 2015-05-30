@@ -5,38 +5,64 @@ using System.Collections;
 public class SpawnPoint : MonoBehaviour {
 	//We can make this is a list later if multiple types of ememies need to spawn from the same point.
 	public GameObject spawnEnemy;
-	public float delay;
-	private bool EnemyCheck = false;
+	//The initial spawn
+	public float initialSpawnDelay;
+	//the time spawn after killed
+	public float spawnDelay;
+	//How many times the object will spawn
+	public int totalSpawns;
+	private bool EnemyCheck = true;
+	//keep track of the time after the enemy is killed
 	private float Timer;
+	//Time to keep track of enemy respawning
+	private float Counter;
 	private GameObject spawnedObject;
-	//Spawn Position
-	private Vector2 sPosition;
+	private Vector2 sPosition; // Spawn position
+
 	void  Start (){
 		//makes spawnpoints invisible during gameplay
 		renderer.enabled = false;
-		Timer = Time.time + delay;
+		Timer = 0f;
 		sPosition = new Vector2(transform.position.x, transform.position.y);
-		//Runs SpawnEnemy 1 second and repeats every Delay seconds
-		InvokeRepeating ("SpawnEnemy", 1, delay);
+		Invoke ("SpawnEnemy", initialSpawnDelay);
+		Counter = 0f;
 	}
-	
-	void  SpawnEnemy() {
-		Collider2D[] hitCollidersEnemy = Physics2D.OverlapCircleAll(sPosition, 1);
-		if (Timer < Time.time && !EnemyCheck) { // check if real time has caught up with timer
-			spawnedObject = ObjectPool.instance.GetObjectForType(spawnEnemy.name, true);
-			if(spawnedObject == null) {
-				Timer += 2;
-			} 
-			else {
-				spawnedObject.transform.position = transform.position;
-				spawnedObject.transform.rotation = transform.rotation;
-				EnemyCheck = true;
-				sPosition = new Vector2(spawnedObject.transform.position.x, spawnedObject.
-				                        transform.position.y);
+	//call once per frame
+	void Update() {
+		Collider2D[] hitCollidersEnemy = Physics2D.OverlapCircleAll (sPosition, 1);
+		Timer += Time.deltaTime;
+		if (!EnemyCheck && (totalSpawns > 0|| totalSpawns == -1)) {
+			spawnedObject = ObjectPool.instance.GetObjectForType (spawnEnemy.name, true); // Spawns enemy in game
+	    	Timer = initialSpawnDelay;
+			if(totalSpawns > 0)
+			{
+	    		totalSpawns--;
+			}
+			spawnedObject.transform.position = transform.position;
+			spawnedObject.transform.rotation = transform.rotation;
+			EnemyCheck = true;
+			Debug.Log(spawnDelay + initialSpawnDelay);
+		} 
+		else if (hitCollidersEnemy.Length == 0) {
+			Counter += Time.deltaTime;
+			if (Counter > (spawnDelay+initialSpawnDelay)) {
+			    EnemyCheck = false;
+				Counter = initialSpawnDelay;
 			}
 		}
-		else if (hitCollidersEnemy.Length == 0) {
-			EnemyCheck = false;
+	}
+	//For initial spawn
+	void SpawnEnemy() {
+		if (Timer > initialSpawnDelay && (totalSpawns > 0 || totalSpawns == -1)) {
+			spawnedObject = ObjectPool.instance.GetObjectForType (spawnEnemy.name, true); // Spawns enemy in game
+			if(totalSpawns > 0)
+			{
+				totalSpawns--;
+			}
+			spawnedObject.transform.position = transform.position;
+			spawnedObject.transform.rotation = transform.rotation;
+			EnemyCheck = true;
 		}
 	}
+
 }

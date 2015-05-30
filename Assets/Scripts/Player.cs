@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class Player : GenericCharacter
 {
+
+	public static bool isdead = false;
 	public float moveSpeed, ammo, ammoLimit, kills, killcap;
 	public float acceleration = 35, currentSpeed = 0;
     public Text[] livesUI, ammosUI, killsUI;
@@ -11,16 +13,30 @@ public class Player : GenericCharacter
     public GameObject controls;
     Controls script;
     Vector3 mousePosition, diff, translate, temp;
-	bool killedBoss = false;
+	public bool killedBoss;
+	public bool pause = false;
+	//flag used to signal level end
+	public bool levelFinish = false;
+	public AudioSource fireSound;
+
+	public Texture2D cursorTexture;
+
 
     public float minX; //left boundary 
     public float maxX; //right boundary 
     public float minY; //up boundary 
     public float maxY; //down boundary
 
+	//public AudioClip arrowCatch;
+	//AudioSource audio;
+
     // Use this for initialization
     void Start()
     {
+		//audio = GetComponent<AudioSource>();
+
+		killedBoss = false;
+		isdead = false;
 		acceleration *= Time.deltaTime;
 
         if (!Application.isMobilePlatform)
@@ -38,23 +54,37 @@ public class Player : GenericCharacter
             ammo++;
         }
         script = controls.transform.GetComponent<Controls>();
+		pause = (PauseMenu)GameObject.Find("PauseMenu").GetComponent("PauseMenu");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        RotateToMouse();
-        BoundaryCheck();
-		Wincondition ();
-        if (Input.GetKey(KeyCode.R) || health <= 0)
+		if (pause == false) 
+		{
+				Move ();
+				RotateToMouse ();
+				BoundaryCheck ();
+				Wincondition ();
+		
+        if (health <= 0)
         {
+
+			if(Application.loadedLevelName == "Level3-Temple")
+			{
+				float highScore = PlayerPrefs.GetFloat("High Score");
+				if(kills > highScore)
+				{
+					PlayerPrefs.SetFloat("High Score",kills);
+				}
+			}
 			if(killedBoss == false)
 			{
+				isdead = true;
 	            //Replace with an actual trigger i.e. Death
 	            //change code to jump to game over
-	            Application.LoadLevel("GameOver");
-	            resetPlayer();
+	            //Application.LoadLevel("GameOver");
+	            //resetPlayer();
 			}
         }
 
@@ -76,7 +106,12 @@ public class Player : GenericCharacter
         {
             ammo = 1000;
         }
+		if (Input.GetKey(KeyCode.K) && Input.GetKey(KeyCode.M))
+		{
+			health = 1;
+		}
         /////////////////////////////////////////////////////////
+		}
     }
 
     private void RotateToMouse()
@@ -153,6 +188,7 @@ public class Player : GenericCharacter
     {
         if (ammo > 0)
         {
+			fireSound.Play ();
             fireArrow("PlayerArrow");
             ammo--;
         }
@@ -167,22 +203,36 @@ public class Player : GenericCharacter
         if (ammo > 0)
             ammo += difference;
     }
+	/*cursor code
+	void OnMouseEnter() {
+		Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+	}
+	void OnMouseExit() {
+		Cursor.SetCursor(null, Vector2.zero, cursorMode);
+	}
+	*/
 	public void Wincondition(){
 		//Level1 win condition
 			if(Application.loadedLevelName == "Level1-Village" && kills>=killcap){
 				Debug.Log("You beat level 1!");
-				Application.LoadLevel ("Level2Cutscene");
+				//Application.LoadLevel ("Level2Cutscene");
+				//Application.LoadLevel ("Level2-Forest");
+				Application.LoadLevel ("NarrationLvl2");
+				levelFinish = true;
 			}
 		//Level2 win condition	
 		else if(Application.loadedLevelName == "Level2-Forest" && kills>=killcap){
 				Debug.Log("You beat level 2!");
-				Application.LoadLevel ("Level3Cutscene");
+				//Application.LoadLevel ("Level3Cutscene");
+			//Application.LoadLevel ("Level3-Temple");
+			Application.LoadLevel ("NarrationLvl3");
+				levelFinish = true;
 		}
 		//Level3 win condition
 		else if(Application.loadedLevelName == "Level3-Temple" && killedBoss ==true && health < 1){
 				Debug.Log("You beat level 3! Congrats!");
 				//Application.LoadLevel ("EndingCutscene"); can't load this scene for some reason
-				 Application.LoadLevel ("EndingCutscene");//placeholder destination
+				 Application.LoadLevel ("TempEnding");//placeholder destination
 		}
 
 		

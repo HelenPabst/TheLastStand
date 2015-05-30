@@ -6,6 +6,7 @@ public class BallistaEnemy : GenericCharacter {
 	float rotation;
 	Player player;
 	private Animator animator;
+	public GameObject inkSplatter;
 	// Update is called once per frame
 	void Start()
 	{
@@ -19,9 +20,14 @@ public class BallistaEnemy : GenericCharacter {
 		theta = new Vector3(0, 0, rotation);//z value controls rotation, 0 is facing to the right
 		currentTime += Time.deltaTime;
 		if (currentTime >= fireRate) 
-		{
-			fireArrow("BallistaBolt");
+		{	
+			animator.SetBool("Firing", true);
+			//fireArrow("BallistaBolt");
 			currentTime = 0;			
+		}
+		else
+		{
+			animator.SetBool("Firing", false);
 		}
 		if (health <= 0) 
 		{
@@ -46,7 +52,15 @@ public class BallistaEnemy : GenericCharacter {
 		rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler(0f, 0f, rotation);
 	}
-	new protected void fireArrow(string tag) {
+	/*new public void fireArrow(string tag) {
+		arrow = ObjectPool.instance.GetObjectForType("BallistaProjectile", true);
+		arrow.transform.position = transform.position;
+		arrow.transform.rotation = transform.rotation;
+		arrowDir = new Vector3(Mathf.Cos(transform.eulerAngles.z * Mathf.PI/180), Mathf.Sin(transform.eulerAngles.z * Mathf.PI/180));
+		arrow.rigidbody2D.velocity = arrowDir * arrowVelocity;
+		arrow.tag = tag;
+	}*/
+	public void fireBolt(string tag) {
 		arrow = ObjectPool.instance.GetObjectForType("BallistaProjectile", true);
 		arrow.transform.position = transform.position;
 		arrow.transform.rotation = transform.rotation;
@@ -61,6 +75,13 @@ public class BallistaEnemy : GenericCharacter {
 		{
 			health--;
 			RePool(col.gameObject);
+			///causes ink splatter on hit
+			inkSplatter = ObjectPool.instance.GetObjectForType("InkSplatter", true);
+			float inkX = col.gameObject.transform.position.x;
+			float inkY = col.gameObject.transform.position.y;
+			inkSplatter.transform.position = new Vector3(inkX,inkY,1.0f);
+			inkSplatter.transform.rotation = col.gameObject.transform.rotation;
+			///end of ink code
 		}
 	}
 }

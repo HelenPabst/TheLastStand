@@ -8,6 +8,7 @@ public class GenericCharacter : MonoBehaviour
     protected Vector3 theta, arrowDir;
     protected double currentTime;
     protected GameObject arrow;
+
     // Shared projectile object pool for all generic characters
 
     void Start()

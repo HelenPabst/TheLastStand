@@ -8,9 +8,13 @@ public class PlayerCatch : MonoBehaviour {
 	Controls controlScript;
 	GenericEnemy enemyScript;
 	public GameObject controls;
+	//public AudioClip arrowCatch;
+	//AudioSource audio;
 	// Use this for initialization
 	void Start () {
-		renderer.enabled = false;//makes catch radius invisible
+		//audio = GetComponent<AudioSource>();
+		renderer.material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
+		//renderer.enabled = false;//makes catch radius invisible
 		playerScript = transform.parent.GetComponent<Player>();
 		controlScript = controls.transform.GetComponent<Controls>();
 	}
@@ -20,20 +24,22 @@ public class PlayerCatch : MonoBehaviour {
 
 	}
 	public void OnTriggerStay2D(Collider2D col){
-		//catches on "Fire2" press, which is right mouse button, spacebar, or gamepad button 1 (B on xbox 360 remote)
-		if (col.gameObject.tag.Equals("EnemyArrow")&&(controlScript.grab))//(Input.GetMouseButtonDown(1)||Input.GetKeyDown(KeyCode.LeftShift)))
+		if(playerScript.health > 0)//catches on "Fire2" press, which is right mouse button, spacebar, or gamepad button 1 (B on xbox 360 remote)
 		{
-			if(playerScript.ammo < playerScript.ammoLimit )
+			if (col.gameObject.tag.Equals("EnemyArrow")&&(controlScript.grab))//(Input.GetMouseButtonDown(1)||Input.GetKeyDown(KeyCode.LeftShift)))
 			{
-				ObjectPool.instance.PoolObject(col.gameObject);
-				playerScript.ammo++;
-				Debug.Log("Arrow Caught. New Ammo is :"+ playerScript.ammo);
-			}
-			else
-			{
-				Debug.Log("Ammo is full");
+				if(playerScript.ammo < playerScript.ammoLimit )
+				{
+					//audio.PlayOneShot(arrowCatch);
+					ObjectPool.instance.PoolObject(col.gameObject);
+					playerScript.ammo++;
+					Debug.Log("Arrow Caught. New Ammo is :"+ playerScript.ammo);
+				}
+				else
+				{
+					Debug.Log("Ammo is full");
+				}
 			}
 		}
-
 	}
 }

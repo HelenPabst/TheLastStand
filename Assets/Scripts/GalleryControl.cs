@@ -4,14 +4,23 @@ using UnityEngine.UI;
 
 public class GalleryControl : MonoBehaviour {
 
-	Sprite[] Animations;
-	Sprite[] Logo;
-	Sprite[] Lore;
-	Sprite[] LVL5;
-	Sprite[] Statue;
-	Sprite[] Signal;
-	Sprite[] Oni;
-	Sprite[] Xun;
+	Sprite[] Cindy;
+	Sprite[] Coleton;
+	Sprite[] Ellen;
+	Sprite[] Erin;
+	Sprite[] Francis;
+	Sprite[] Gil;
+	Sprite[] Jamie;
+	Sprite[] Jimmy;
+	Sprite[] Katrina;
+	Sprite[] Micheal;
+	Sprite[] Nathan;
+	Sprite[] Paul;
+	Sprite[] Philip;
+	Sprite[] Sarah;
+	Sprite[] Sebastian;
+	Sprite[] Tomy;
+	Sprite[] Wahona;
 	Sprite[] CurrentSet;
 
 	public Image image;
@@ -22,14 +31,23 @@ public class GalleryControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Animations = Resources.LoadAll<Sprite>("Animations");
-		Logo = Resources.LoadAll<Sprite>("Logo");
-		Lore = Resources.LoadAll<Sprite>("Lore");
-		LVL5 = Resources.LoadAll<Sprite>("LVL5");
-		Statue = Resources.LoadAll<Sprite>("Statue");
-		Signal = Resources.LoadAll<Sprite>("Signal");
-		Oni = Resources.LoadAll<Sprite>("Oni");
-		Xun = Resources.LoadAll<Sprite>("Xun");
+		Cindy = Resources.LoadAll<Sprite>("Cindy Phung");
+		Coleton = Resources.LoadAll<Sprite>("Coleton Palmer");
+		Ellen = Resources.LoadAll<Sprite>("Ellen Wong");
+		Erin = Resources.LoadAll<Sprite>("Erin Emre");
+		Francis = Resources.LoadAll<Sprite>("Francis Basco");
+		Gil = Resources.LoadAll<Sprite>("Gil Ona");
+		Jamie = Resources.LoadAll<Sprite>("Jamie Strassenburg");
+		Jimmy = Resources.LoadAll<Sprite>("Jimmy Ip");
+		Katrina = Resources.LoadAll<Sprite>("Katrina Yi");
+		Micheal = Resources.LoadAll<Sprite>("Micheal Clute");
+		Nathan = Resources.LoadAll<Sprite>("Nathan");
+		Paul = Resources.LoadAll<Sprite>("Paul LaPoint");
+		Philip = Resources.LoadAll<Sprite>("Philip Houth");
+		Sarah = Resources.LoadAll<Sprite>("Sarah Aqil");
+		Sebastian = Resources.LoadAll<Sprite>("Sebastian Adame");
+		Tomy = Resources.LoadAll<Sprite>("Tomy");
+		Wahona = Resources.LoadAll<Sprite>("Wahona");
 	}
 	
 	// Update is called once per frame
@@ -40,14 +58,23 @@ public class GalleryControl : MonoBehaviour {
 	public void SelectSet(string set) {
 		current = 0;
 		switch (set) {
-		case "Animations": CurrentSet = Animations; break;
-		case "Logo": CurrentSet = Logo; break;
-		case "Lore": CurrentSet = Lore; break;
-		case "LVL5": CurrentSet = LVL5; break;
-		case "Statue": CurrentSet = Statue; break;
-		case "Signal": CurrentSet = Signal; break;
-		case "Oni": CurrentSet = Oni; break;
-		case "Xun": CurrentSet = Xun; break;
+		case "Cindy": CurrentSet = Cindy; break;
+		case "Coleton": CurrentSet = Coleton; break;
+		case "Ellen": CurrentSet = Ellen; break;
+		case "Erin": CurrentSet = Erin; break;
+		case "Francis": CurrentSet = Francis; break;
+		case "Gil": CurrentSet = Gil; break;
+		case "Jamie": CurrentSet = Jamie; break;
+		case "Jimmy": CurrentSet = Jimmy; break;
+		case "Katrina": CurrentSet = Katrina; break;
+		case "Micheal": CurrentSet = Micheal; break;
+		case "Nathan": CurrentSet = Nathan; break;
+		case "Paul": CurrentSet = Paul; break;
+		case "Philip": CurrentSet = Philip; break;
+		case "Sarah": CurrentSet = Sarah; break;
+		case "Sebastian": CurrentSet = Sebastian; break;
+		case "Tomy": CurrentSet = Tomy; break;
+		case "Wahona": CurrentSet = Wahona; break;
 		}
 
 		GalleryPanel.SetActive (false);
