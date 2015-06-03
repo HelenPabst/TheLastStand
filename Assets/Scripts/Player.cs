@@ -217,15 +217,15 @@ public class Player : GenericCharacter
 				Debug.Log("You beat level 1!");
 				//Application.LoadLevel ("Level2Cutscene");
 				//Application.LoadLevel ("Level2-Forest");
-				Application.LoadLevel ("NarrationLvl2");
+				//Application.LoadLevel ("NarrationLvl2");
 				levelFinish = true;
 			}
 		//Level2 win condition	
 		else if(Application.loadedLevelName == "Level2-Forest" && kills>=killcap){
 				Debug.Log("You beat level 2!");
 				//Application.LoadLevel ("Level3Cutscene");
-			//Application.LoadLevel ("Level3-Temple");
-			Application.LoadLevel ("NarrationLvl3");
+			    //Application.LoadLevel ("Level3-Temple");
+			    //Application.LoadLevel ("NarrationLvl3");
 				levelFinish = true;
 		}
 		//Level3 win condition
@@ -236,16 +236,16 @@ public class Player : GenericCharacter
 			{
 				Debug.Log("You beat level 3! Congrats!");
 				//Application.LoadLevel ("EndingCutscene"); can't load this scene for some reason
-				Application.LoadLevel ("TempEnding");//placeholder destination
+				//Application.LoadLevel ("TempEnding");//placeholder destination
+				levelFinish = true;
 			}
 			else
 			{
 				isdead = true;
 			}
-				
+
 		}
 
-		
-
 	}
+
 }
