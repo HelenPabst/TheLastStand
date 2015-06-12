@@ -6,7 +6,7 @@ public class NarrationLvl1 : MonoBehaviour {
 
 	public GameObject panel1, panel2;
 	public AudioClip introA,introB, introC;
-	public AudioSource audio;
+	public AudioSource source;
 	// Use this for initialization
 	void Start () 
 	{
@@ -23,20 +23,20 @@ public class NarrationLvl1 : MonoBehaviour {
 	}
 	void PlayClipOne()
 	{
-		audio.clip = introA;
-		audio.Play();
+		source.clip = introA;
+		source.Play();
 	}
 	void PlayClipTwo()
 	{
 		panel1.SetActive (false);
 		panel2.SetActive (true);
-		audio.clip = introB;
-		audio.Play();
+		source.clip = introB;
+		source.Play();
 	}
 	void PlayClipThree()
 	{
-		audio.clip = introC;
-		audio.Play();
+		source.clip = introC;
+		source.Play();
 	}
 	void NextLevel()
 	{

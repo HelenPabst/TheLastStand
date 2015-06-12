@@ -9,10 +9,11 @@ public class Boss1 : GenericCharacter {
 	GameObject boss;
 	public GameObject inkSplatter;
 	Player player;
-	
+	public AudioSource spawnSound, fireSound;
 	// Use this for initialization
 	void Start () 
 	{
+		spawnSound.Play ();
 		player = (Player)GameObject.Find("Player").GetComponent("Player");
 		animator = this.GetComponent<Animator>();
 		InvokeRepeating ("Teleport", 6, 5);
@@ -47,6 +48,10 @@ public class Boss1 : GenericCharacter {
 			Destroy (gameObject);
 			Debug.Log ("Boss is DEAD!!!!");
 		}
+	}
+	public void FireSound()
+	{
+		fireSound.Play ();
 	}
 	
 	//Rotate to face a player
