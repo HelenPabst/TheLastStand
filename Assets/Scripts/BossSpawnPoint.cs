@@ -31,7 +31,7 @@ public class BossSpawnPoint : MonoBehaviour {
 	// Use this for initialization
 	void Start () {    
 		//makes spawnpoints invisible during gameplay
-		renderer.enabled = false;
+		GetComponent<Renderer>().enabled = false;
 		sPosition = new Vector2(transform.position.x, transform.position.y);
 		InvokeRepeating("bossAppear", TimeAppear,40);
 	}

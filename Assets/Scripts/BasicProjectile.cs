@@ -23,25 +23,25 @@ public class BasicProjectile : MonoBehaviour
     {
 		if (this.gameObject.tag == "StuckArrow")
 		{
-			if(this.gameObject.particleSystem.isPlaying)
+			if(this.gameObject.GetComponent<ParticleSystem>().isPlaying)
 			{
-				this.gameObject.particleSystem.Stop ();
+				this.gameObject.GetComponent<ParticleSystem>().Stop ();
 			}
 		} 
 		if (this.gameObject.tag == "EnemyArrow")
 		{
 			animator.SetBool("XunFire",false);
-			if(this.gameObject.particleSystem.isPlaying)
+			if(this.gameObject.GetComponent<ParticleSystem>().isPlaying)
 			{
-				this.gameObject.particleSystem.Stop ();
+				this.gameObject.GetComponent<ParticleSystem>().Stop ();
 			}
 		} 
 		else if(this.gameObject.tag == "PlayerArrow")
 		{
 			animator.SetBool("XunFire",true);
-			if(this.gameObject.particleSystem.isPaused)
+			if(this.gameObject.GetComponent<ParticleSystem>().isPaused)
 			{
-				this.gameObject.particleSystem.Play();
+				this.gameObject.GetComponent<ParticleSystem>().Play();
 			}
 		}
         currentTime += Time.deltaTime;
@@ -54,7 +54,7 @@ public class BasicProjectile : MonoBehaviour
 
     public void RemoveArrow()
     {
-        this.gameObject.tag = "";
+        this.gameObject.tag = "Untagged";
 		animator.speed = 1;
         ObjectPool.instance.PoolObject(this.gameObject);
     }
@@ -65,7 +65,7 @@ public class BasicProjectile : MonoBehaviour
 		{
 			////added this for arrow sticking
 			this.gameObject.tag = "StuckArrow";
-			this.rigidbody2D.velocity = new Vector3(0,0,0);
+			this.GetComponent<Rigidbody2D>().velocity = new Vector3(0,0,0);
 			animator.speed = 0;
 
             //RemoveArrow();

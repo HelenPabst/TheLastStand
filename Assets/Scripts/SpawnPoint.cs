@@ -21,7 +21,7 @@ public class SpawnPoint : MonoBehaviour {
 
 	void  Start (){
 		//makes spawnpoints invisible during gameplay
-		renderer.enabled = false;
+		GetComponent<Renderer>().enabled = false;
 		Timer = 0f;
 		sPosition = new Vector2(transform.position.x, transform.position.y);
 		Invoke ("SpawnEnemy", initialSpawnDelay);
@@ -41,7 +41,7 @@ public class SpawnPoint : MonoBehaviour {
 			spawnedObject.transform.position = transform.position;
 			spawnedObject.transform.rotation = transform.rotation;
 			EnemyCheck = true;
-			Debug.Log(spawnDelay + initialSpawnDelay);
+			//Debug.Log(spawnDelay + initialSpawnDelay);
 		} 
 		else if (hitCollidersEnemy.Length == 0) {
 			Counter += Time.deltaTime;

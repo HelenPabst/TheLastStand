@@ -4,7 +4,9 @@ using System.Collections;
 public class TempEnding : MonoBehaviour {
 
 	public GameObject cutscene;
-	public int speed = -18;
+	public GameObject[] fires = new GameObject[3];
+	public int fireIndex = 0;
+	public float speed = -18;
 	public string level;
 	public float runTime;
 	public float scrollEnd;
@@ -14,12 +16,17 @@ public class TempEnding : MonoBehaviour {
 	void Start () 
 	{
 		Invoke("FadeOutMusic", 26.0f);
+		Invoke("Ignite", 10.0f);
+		Invoke("Ignite", 18.0f);
+		Invoke("Ignite", 26.0f);
 		InvokeRepeating("cutsceneTime", 0, 1);
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		///runtime decrements, when it reaches the scrollend value the image stops moving
+		/// when it reaches 0, the level jumps to credits
 		if (runTime > scrollEnd) 
 		{
 			cutscene.gameObject.transform.Translate (Vector3.down * Time.deltaTime * speed);
@@ -35,6 +42,12 @@ public class TempEnding : MonoBehaviour {
 	void cutsceneTime()
 	{
 		runTime -= 1;
+	}
+	void Ignite()
+	{
+		GameObject currentFire = fires[fireIndex];
+		currentFire.SetActive (true);
+		fireIndex++;
 	}
 
 	public void FadeOutMusic()

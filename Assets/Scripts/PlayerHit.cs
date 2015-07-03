@@ -8,7 +8,7 @@ public class PlayerHit : MonoBehaviour {
 	GenericEnemy enemyScript;
 	// Use this for initialization
 	void Start () {
-		renderer.enabled = false;//makes catch radius invisible
+		GetComponent<Renderer>().enabled = false;//makes catch radius invisible
 		playerScript = transform.parent.GetComponent<Player>();
 		
 	}

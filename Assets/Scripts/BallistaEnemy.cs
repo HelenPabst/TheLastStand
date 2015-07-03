@@ -65,7 +65,7 @@ public class BallistaEnemy : GenericCharacter {
 		arrow.transform.position = transform.position;
 		arrow.transform.rotation = transform.rotation;
 		arrowDir = new Vector3(Mathf.Cos(transform.eulerAngles.z * Mathf.PI/180), Mathf.Sin(transform.eulerAngles.z * Mathf.PI/180));
-		arrow.rigidbody2D.velocity = arrowDir * arrowVelocity;
+		arrow.GetComponent<Rigidbody2D>().velocity = arrowDir * arrowVelocity;
 		arrow.tag = tag;
 	}
 	public void OnTriggerEnter2D(Collider2D col) 

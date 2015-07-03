@@ -21,7 +21,7 @@ public class GenericCharacter : MonoBehaviour
         //added to fix issues with projectiles being repooled
         if (obj.name.Equals("BasicProjectile"))
         {
-            obj.tag = "";
+            obj.tag = "Untagged";
         }
         ObjectPool.instance.PoolObject(obj);
     }
@@ -31,8 +31,10 @@ public class GenericCharacter : MonoBehaviour
         arrow = ObjectPool.instance.GetObjectForType("BasicProjectile", true);
         arrow.transform.position = transform.position;
         arrow.transform.rotation = transform.rotation;
+
         arrowDir = new Vector3(Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180), Mathf.Sin(transform.eulerAngles.z * Mathf.PI / 180));
-        arrow.rigidbody2D.velocity = arrowDir * arrowVelocity;
+        arrow.GetComponent<Rigidbody2D>().velocity = arrowDir * arrowVelocity;
+		//arrow.GetComponent<Rigidbody2D>().AddForce(arrowDir);
         arrow.tag = tag;
     }
 

@@ -13,7 +13,7 @@ public class PlayerCatch : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		//audio = GetComponent<AudioSource>();
-		renderer.material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
+		GetComponent<Renderer>().material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
 		//renderer.enabled = false;//makes catch radius invisible
 		playerScript = transform.parent.GetComponent<Player>();
 		controlScript = controls.transform.GetComponent<Controls>();

@@ -16,7 +16,7 @@ public class RandomSpawn : MonoBehaviour {
 		                                                       Camera.main.farClipPlane/2));
 		//Get he size of a collider at a position
 		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(sPosition,
-		                                                       Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 2);
+		                                                       Mathf.Abs(GetComponent<Collider2D>().GetComponent<Renderer>().bounds.size.x - GetComponent<Collider2D>().GetComponent<Renderer>().bounds.size.x) + 2);
 		while (hitColliders.Length != 0) {
 			sPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(200,Screen.width-200), 
 			                                                       Random.Range(200,Screen.height-200), 

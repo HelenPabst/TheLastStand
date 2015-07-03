@@ -53,7 +53,7 @@ public class TripleShotEnemyScript : GenericCharacter {
 		//adds 15 to shoot arrow diagonally
 		arrowDirLeft = new Vector3(Mathf.Cos((transform.eulerAngles.z+15) * Mathf.PI/180), Mathf.Sin((transform.eulerAngles.z+15) * Mathf.PI/180));//PI/180 converts to radians
 
-		leftArrow.rigidbody2D.velocity = arrowDirLeft * arrowVelocity;
+		leftArrow.GetComponent<Rigidbody2D>().velocity = arrowDirLeft * arrowVelocity;
 		leftArrow.tag = tag;
 		//right arrow firing
 		rightArrow = ObjectPool.instance.GetObjectForType("BasicProjectile", true);
@@ -63,7 +63,7 @@ public class TripleShotEnemyScript : GenericCharacter {
 		//subtracts 15 to shoot arrow diagonally
 		arrowDirRight = new Vector3(Mathf.Cos((transform.eulerAngles.z-15)  * Mathf.PI/180), Mathf.Sin((transform.eulerAngles.z-15) * Mathf.PI/180));
 
-		rightArrow.rigidbody2D.velocity = arrowDirRight * arrowVelocity;
+		rightArrow.GetComponent<Rigidbody2D>().velocity = arrowDirRight * arrowVelocity;
 		rightArrow.tag = tag;
 	}
 		

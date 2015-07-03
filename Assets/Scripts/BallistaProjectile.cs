@@ -24,7 +24,7 @@ public class BallistaProjectile : MonoBehaviour
 	}
 	public void RemoveArrow()
 	{
-		this.gameObject.tag = "";
+		this.gameObject.tag = "Untagged";
 		ObjectPool.instance.PoolObject(this.gameObject);
 	}
 	void OnTriggerEnter2D(Collider2D other)
@@ -39,7 +39,7 @@ public class BallistaProjectile : MonoBehaviour
 		}
 		if (other.gameObject.name.Equals("BasicProjectile"))
 		{
-			other.gameObject.tag = "";
+			other.gameObject.tag = "Untagged";
 			ObjectPool.instance.PoolObject(other.gameObject);
 		}
 	}

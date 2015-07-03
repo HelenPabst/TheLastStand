@@ -95,14 +95,14 @@ public class Boss1 : GenericCharacter {
 		                                                       Camera.main.farClipPlane/2));
 		//Get he size of a collider at a position
 		Collider2D[] hitColliders = Physics2D.OverlapCircleAll(sPosition,
-		                                                       Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 4);
+		                                                       Mathf.Abs(GetComponent<Collider2D>().GetComponent<Renderer>().bounds.size.x - GetComponent<Collider2D>().GetComponent<Renderer>().bounds.size.x) + 4);
 		while (hitColliders.Length != 0) {
 			sPosition = Camera.main.ScreenToWorldPoint(new Vector3(Random.Range(200,Screen.width-200), 
 			                                                       Random.Range(180,Screen.height-180), 
 			                                                       Camera.main.farClipPlane/2));
 			//Get he size of a collider at a position
 			hitColliders = Physics2D.OverlapCircleAll(sPosition,
-			                                          Mathf.Abs(collider2D.renderer.bounds.size.x - collider2D.renderer.bounds.size.x) + 4);
+			                                          Mathf.Abs(GetComponent<Collider2D>().GetComponent<Renderer>().bounds.size.x - GetComponent<Collider2D>().GetComponent<Renderer>().bounds.size.x) + 4);
 		}
 		if (hitColliders.Length == 0) {		            
 			//	animator.SetBool ("Despawning", true);
@@ -113,14 +113,14 @@ public class Boss1 : GenericCharacter {
 	IEnumerator DespawnBoss() {
 		animator.SetBool ("Despawning",true);
 		yield return new WaitForSeconds (1.5f);
-		renderer.enabled = false;
-		collider2D.enabled = false;
+		GetComponent<Renderer>().enabled = false;
+		GetComponent<Collider2D>().enabled = false;
 		yield return new WaitForSeconds (0.5f);
 		animator.SetBool ("Despawning", false);
 		this.transform.position = sPosition;
 		yield return new WaitForSeconds (0.5f);
-		renderer.enabled = true;
-		collider2D.enabled = true;
+		GetComponent<Renderer>().enabled = true;
+		GetComponent<Collider2D>().enabled = true;
 		animator.SetBool ("Spawning", true);
 		yield return new WaitForSeconds (2f);
 		animator.SetBool ("Spawning", false);
