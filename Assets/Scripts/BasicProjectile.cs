@@ -8,10 +8,13 @@ public class BasicProjectile : MonoBehaviour
     private double currentTime;
 	private Animator animator;
 
+	//added to fix rotation issue, but there could be a better way
+	private Quaternion arrowRotation;
+	//
     // Use this for initialization
     void Start()
     {
-
+		arrowRotation = transform.rotation;
 		animator = this.GetComponent<Animator>();
 		animator.speed = 1;
         selfDestructTime = 5.0f;
@@ -21,6 +24,9 @@ public class BasicProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		//added to fix rotation issue, but there could be a better way
+		transform.rotation = arrowRotation;
+		//
 		if (this.gameObject.tag == "StuckArrow")
 		{
 			if(this.gameObject.GetComponent<ParticleSystem>().isPlaying)

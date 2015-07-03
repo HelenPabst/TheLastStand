@@ -6,6 +6,9 @@ public class BallistaProjectile : MonoBehaviour
 	private double timeSpawned;
 	private double selfDestructTime;
 	private double currentTime;
+	//added to fix rotation issue, but there could be a better way
+	private Quaternion arrowRotation;
+	//
 	//Use this for initialization
 	void Start () 
 	{
@@ -15,6 +18,9 @@ public class BallistaProjectile : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+		//added to fix rotation issue, but there could be a better way
+		transform.rotation = arrowRotation;
+		//
 		currentTime += Time.deltaTime;
 		if (currentTime + timeSpawned >= timeSpawned + selfDestructTime)
 		{
