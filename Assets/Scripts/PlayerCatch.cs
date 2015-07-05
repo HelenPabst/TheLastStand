@@ -8,6 +8,7 @@ public class PlayerCatch : MonoBehaviour {
 	Controls controlScript;
 	GenericEnemy enemyScript;
 	public GameObject controls;
+	public GameObject catchParticle;
 	//public AudioClip arrowCatch;
 	//AudioSource audio;
 	// Use this for initialization
@@ -32,6 +33,10 @@ public class PlayerCatch : MonoBehaviour {
 				{
 					//audio.PlayOneShot(arrowCatch);
 					ObjectPool.instance.PoolObject(col.gameObject);
+					//add in particle effect
+					catchParticle = ObjectPool.instance.GetObjectForType("CatchParticle", true);
+					catchParticle.transform.position = new Vector3(col.transform.position.x,col.transform.position.y, -3);
+					catchParticle.transform.rotation = transform.rotation;
 					playerScript.ammo++;
 					Debug.Log("Arrow Caught. New Ammo is :"+ playerScript.ammo);
 				}

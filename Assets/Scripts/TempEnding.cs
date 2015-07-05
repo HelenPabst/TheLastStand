@@ -16,9 +16,9 @@ public class TempEnding : MonoBehaviour {
 	void Start () 
 	{
 		Invoke("FadeOutMusic", 26.0f);
-		Invoke("Ignite", 10.0f);
-		Invoke("Ignite", 18.0f);
-		Invoke("Ignite", 26.0f);
+		Invoke("Ignite", 9.0f);
+		Invoke("Ignite", 14.0f);
+		Invoke("Ignite", 21.0f);
 		InvokeRepeating("cutsceneTime", 0, 1);
 
 	}
