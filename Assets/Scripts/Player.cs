@@ -17,6 +17,7 @@ public class Player : GenericCharacter
 	public bool pause = false;
 	//flag used to signal level end
 	public bool levelFinish = false;
+	private bool tutorial = true;
 	public AudioSource fireSound;
 
 	public Texture2D cursorTexture;
@@ -60,6 +61,21 @@ public class Player : GenericCharacter
     // Update is called once per frame
     void Update()
     {
+		////tutorial section
+		if(Application.loadedLevelName == "Level1-Village" && tutorial == true)
+		{
+
+			if(ammo == 1)
+			{
+				Camera.main.GetComponent<Lvl1Tutorial>().tutArrowCaught= true;
+			}
+			if(kills == 1)
+			{
+				Camera.main.GetComponent<Lvl1Tutorial>().tutEnemyDead = true;
+				tutorial = false;
+			}
+		}
+		/////
 		if (pause == false) 
 		{
 				Move ();

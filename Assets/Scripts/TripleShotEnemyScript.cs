@@ -21,6 +21,8 @@ public class TripleShotEnemyScript : GenericCharacter {
 		
 		// Update is called once per frame
 		void Update () {
+
+
 			Raycast ();
 			currentTime += Time.deltaTime;
 			if (currentTime >= fireRate && playerInSight) 

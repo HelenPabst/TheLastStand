@@ -25,7 +25,10 @@ public class BasicProjectile : MonoBehaviour
     void Update()
     {
 		//added to fix rotation issue, but there could be a better way
-		transform.rotation = arrowRotation;
+		if (transform.rotation != arrowRotation)
+		{
+			transform.rotation = arrowRotation;
+		}
 		//
 		if (this.gameObject.tag == "StuckArrow")
 		{

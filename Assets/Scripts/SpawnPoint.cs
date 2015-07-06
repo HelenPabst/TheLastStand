@@ -11,7 +11,7 @@ public class SpawnPoint : MonoBehaviour {
 	public float spawnDelay;
 	//How many times the object will spawn
 	public int totalSpawns;
-	private bool EnemyCheck = true;
+	public bool EnemyCheck = true;
 	//keep track of the time after the enemy is killed
 	private float Timer;
 	//Time to keep track of enemy respawning
