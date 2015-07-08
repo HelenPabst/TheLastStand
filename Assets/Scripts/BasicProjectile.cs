@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BasicProjectile : MonoBehaviour
 {
-    private double timeSpawned;
+    private double timeSpawned = 0;
     private double selfDestructTime;
     private double currentTime;
 	private Animator animator;

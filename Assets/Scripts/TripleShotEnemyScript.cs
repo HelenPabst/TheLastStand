@@ -5,7 +5,7 @@ public class TripleShotEnemyScript : GenericCharacter {
 		private Animator animator;	
 		Vector3 arrowDirLeft, arrowDirRight;
 		Player player;
-		public Transform sightStart, sightEnd;
+		public Transform sightStart1, sightEnd1,sightStart2, sightEnd2,sightStart3,sightEnd3;
 		public bool playerInSight = false;
 		protected GameObject leftArrow, rightArrow;
 		public GameObject inkSplatter;
@@ -22,27 +22,36 @@ public class TripleShotEnemyScript : GenericCharacter {
 		// Update is called once per frame
 		void Update () {
 
-
 			Raycast ();
 			currentTime += Time.deltaTime;
-			if (currentTime >= fireRate && playerInSight) 
+			if (!this.animator.GetCurrentAnimatorStateInfo(0).IsName("TripleOniSpawn"))
 			{
-				//fireArrow("EnemyArrow");
-				//fireExtraArrows("EnemyArrow");
-				animator.SetBool("Firing", true);
-				currentTime = 0;
+				if (currentTime >= fireRate && playerInSight)
+				{
+					//animator.SetBool("Firing", true);
+					//firing an arrow is now an animator event
+					//fireArrow("EnemyArrow");
+					currentTime = 0;
+					
+					animator.SetBool("Firing", true);
+
+				}
+				else
+				{
+					animator.SetBool("Firing", false);
+
+				}
 			}
-			else
-			{
-				animator.SetBool("Firing", false);
-			}
-			
+				
 			if (health <= 0) 
 			{
-				health = 1;
-				player.kills += 1;
-				Debug.Log("Kill confirmed! Kill count is: " + player.kills);
-				RePool(this.gameObject);
+			animator.SetBool("Firing", false);
+			animator.SetBool("Despawning", false);
+			player.kills += 1;
+			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
+			//resets health to starting health
+			health = standardHealth;
+			RePool(this.gameObject);
 			}
 		}
 
@@ -88,11 +97,49 @@ public class TripleShotEnemyScript : GenericCharacter {
 	}
 	public void Raycast()
 	{
+		//direction = playerScript.transform.position - this.transform.position;
+		//if ((Vector3.Angle(direction, this.transform.forward) <= fOV * 0.5f)) {
+		//	if (Physics.Raycast(this.transform.position, direction, out hit, visibility)) {
+		//		playerInSight = hit.transform.CompareTag ("Player");
+		//	}
+		//}
+		
+		//Debug.Log (direction);
+		//Debug.Log (transform.forward);
+		// Debug.Log (Vector3.Angle (direction, transform.forward));
 		//draws enemy line of sight in debug scene view
-		Debug.DrawLine (sightStart.position, sightEnd.position, Color.red);
+		
+		Debug.DrawLine(sightStart1.position, sightEnd1.position, Color.red);
+		Debug.DrawLine(sightStart2.position, sightEnd2.position, Color.green);
+		Debug.DrawLine(sightStart3.position, sightEnd3.position, Color.blue);
+		
 		//makes player in sight true when player crosses line of sight. 
 		//layermask makes the line of sight only trigger on objects contained on the "Player" layer
 		//only the player itself should be contained on that layer
-		playerInSight = Physics2D.Linecast(sightStart.position, sightEnd.position, 1 << LayerMask.NameToLayer("Player"));
+		
+		if (Physics2D.Linecast (sightStart1.position, sightEnd1.position, 1 << LayerMask.NameToLayer ("Player"))) {
+			playerInSight = true;
+			///causes unit to face player. Comment out for staggered tracking
+			Vector3 dir = player.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		} 
+		else if(Physics2D.Linecast (sightStart2.position, sightEnd2.position, 1 << LayerMask.NameToLayer ("Player"))) {
+			playerInSight = true;
+			///causes unit to face player
+			Vector3 dir = player.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		} 
+		else if(Physics2D.Linecast (sightStart3.position, sightEnd3.position, 1 << LayerMask.NameToLayer ("Player"))) {
+			playerInSight = true;
+			///causes unit to face player
+			Vector3 dir = player.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		} 
+		else {
+			playerInSight = false;
+		}
 	}
 	}
