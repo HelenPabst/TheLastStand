@@ -51,7 +51,7 @@ public class GenericEnemy : GenericCharacter
 			animator.SetBool("Firing", false);
 			animator.SetBool("Despawning", false);
 			player.kills += 1;
-			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
+			//Debug.Log("Kill confirmed! Kill count is: " + player.kills);
 
             health = 1;
             RePool(this.gameObject);

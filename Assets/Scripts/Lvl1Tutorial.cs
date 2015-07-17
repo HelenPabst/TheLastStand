@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Lvl1Tutorial : MonoBehaviour {
 	
 	public GameObject tutorialSpawn;
-	public GameObject tutorialText, tutorialText2, tutorialText3;
+	public Text tutorialText, tutorialText2, tutorialText3;
 	public bool tutEnemyDead = false;
 	public bool tutArrowCaught = false;
 	//these are the spawn points in the level
@@ -13,6 +13,11 @@ public class Lvl1Tutorial : MonoBehaviour {
 	//tutorialSpawn.GetComponent<SpawnPoint>().EnemyCheck == false
 	void Start () 
 	{
+		if (Application.isMobilePlatform) 
+		{
+			tutorialText.text = "Press Catch Button To Catch Arrows In Cone";
+			tutorialText2.text = "Aim And Press Fire Button To Fire Arrows";
+		} 
 		Invoke ("DisplayCatchText", 4.0f);
 	}
 	
@@ -22,7 +27,7 @@ public class Lvl1Tutorial : MonoBehaviour {
 
 		if(tutArrowCaught == true)
 		{
-			tutorialText.SetActive (false);
+			tutorialText.gameObject.SetActive(false);
 			Invoke ("DisplayFireText", 1.0f);
 
 		}
@@ -30,7 +35,7 @@ public class Lvl1Tutorial : MonoBehaviour {
 		{
 
 
-			tutorialText2.SetActive (false);
+			tutorialText2.gameObject.SetActive(false);
 			Invoke ("DisplayDefendText", 1.0f);
 
 			Invoke("RemoveText", 3.0f);
@@ -51,20 +56,20 @@ public class Lvl1Tutorial : MonoBehaviour {
 	}
 	void DisplayCatchText()
 	{
-		tutorialText.SetActive (true);
+		tutorialText.gameObject.SetActive(true);
 	}
 	void DisplayFireText()
 	{
 		tutArrowCaught = false;
-		tutorialText2.SetActive (true);
+		tutorialText2.gameObject.SetActive(true);
 	}
 	void DisplayDefendText()
 	{
 		tutEnemyDead = false;
-		tutorialText3.SetActive (true);
+		tutorialText3.gameObject.SetActive(true);
 	}
 	void RemoveText()
 	{
-		tutorialText3.SetActive (false);
+		tutorialText3.gameObject.SetActive(false);
 	}
 }

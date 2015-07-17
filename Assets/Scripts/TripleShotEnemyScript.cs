@@ -46,7 +46,7 @@ public class TripleShotEnemyScript : GenericCharacter {
 			if (health <= 0) 
 			{
 			animator.SetBool("Firing", false);
-			animator.SetBool("Despawning", false);
+			//animator.SetBool("Despawning", false);
 			player.kills += 1;
 			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
 			//resets health to starting health

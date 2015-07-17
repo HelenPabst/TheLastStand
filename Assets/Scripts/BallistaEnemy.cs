@@ -32,9 +32,9 @@ public class BallistaEnemy : GenericCharacter {
 		if (health <= 0) 
 		{
 			health = 2;
-			RePool(this.gameObject);
 			animator.SetBool("Firing", false);
-			animator.SetBool("Despawning", false);
+			//animator.SetBool("Despawning", false);
+			RePool(this.gameObject);
 			player.kills += 1;
 			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
 		

@@ -38,11 +38,11 @@ public class PlayerCatch : MonoBehaviour {
 					catchParticle.transform.position = new Vector3(col.transform.position.x,col.transform.position.y, -3);
 					catchParticle.transform.rotation = transform.rotation;
 					playerScript.ammo++;
-					Debug.Log("Arrow Caught. New Ammo is :"+ playerScript.ammo);
+					//Debug.Log("Arrow Caught. New Ammo is :"+ playerScript.ammo);
 				}
 				else
 				{
-					Debug.Log("Ammo is full");
+					//Debug.Log("Ammo is full");
 				}
 			}
 		}
