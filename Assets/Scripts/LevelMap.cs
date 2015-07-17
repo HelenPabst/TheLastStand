@@ -7,7 +7,7 @@ public class LevelMap : MonoBehaviour {
 	void Start () 
 	{
 		animator = this.GetComponent<Animator>();
-		//animator.SetBool("Select1", false);
+		animator.SetInteger("Selection", 0);
 		//animator.SetBool("Select2", false);
 		//animator.SetBool("Select3", false);
 	}
@@ -19,26 +19,19 @@ public class LevelMap : MonoBehaviour {
 	}
 	public void SelectLvl1()
 	{
-		animator.SetBool("Select1", true);
-		animator.SetBool("Select2", false);
-		animator.SetBool("Select3", false);
+		animator.SetInteger("Selection", 1);
 	}
 	public void SelectLvl2()
 	{
-		animator.SetBool("Select1", false);
-		animator.SetBool("Select2", true);
-		animator.SetBool("Select3", false);
+		animator.SetInteger("Selection", 2);
 	}
 	public void SelectLvl3()
 	{
-		animator.SetBool("Select1", false);
-		animator.SetBool("Select2", false);
-		animator.SetBool("Select3", true);
+		animator.SetInteger("Selection", 3);
+
 	}
 	public void NoSelection()
 	{
-		animator.SetBool("Select1", false);
-		animator.SetBool("Select2", false);
-		animator.SetBool("Select3", false);
+		animator.SetInteger("Selection", 0);
 	}
 }
