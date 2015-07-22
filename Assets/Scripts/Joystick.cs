@@ -10,9 +10,15 @@ public class Joystick : MonoBehaviour {
 	public float angle;
 	Vector3 dir;
 
+	Player playerScript;
+	Controls controlScript;
+
 	// Use this for initialization
 	void Start () {
+
 		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, -1);
+		playerScript = (Player)GameObject.Find("Player").GetComponent("Player");
+		controlScript = (Controls)GameObject.Find("Controls").GetComponent("Controls");
 	}
 	
 	// Update is called once per frame
@@ -38,7 +44,27 @@ public class Joystick : MonoBehaviour {
 							transform.position = new Vector3(transform.position.x,transform.position.y, -1);
 						} 
 					}
+				//code for fire and catch
+					else if (touch.phase == TouchPhase.Began)
+					{
+							///if it is on the upper right side of the screen...
+						if((touch.position.x >= (Screen.width/2))&&(touch.position.y >= (Screen.height/2)))
+						{
+							//Catch
+							controlScript.Catch();
+							Invoke("EndCatch", 0.2f);
+							
 
+								
+						} 
+
+						if((touch.position.x >= (Screen.width/2))&&(touch.position.y < (Screen.height/2)))
+						{
+							//fire
+							playerScript.Fire();
+							
+						} 
+					}
 
 					Vector3 dir = standardPosition - transform.position;
 					angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
@@ -52,6 +78,11 @@ public class Joystick : MonoBehaviour {
 
 
 
+	}
+
+	public void EndCatch()
+	{
+		controlScript.grab = false;
 	}
 
 	public Vector3 getTransform() {
