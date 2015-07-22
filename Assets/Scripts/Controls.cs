@@ -29,8 +29,10 @@ public class Controls : MonoBehaviour {
 		} else {
 			translate = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
 		}
-
-		grab = Input.GetButtonDown ("Fire2");
+		if(!Application.isMobilePlatform)
+		{
+			grab = Input.GetButtonDown ("Fire2");
+		}
 	}
 
 	public Vector3 getTranslate() {

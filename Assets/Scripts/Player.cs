@@ -46,8 +46,11 @@ public class Player : GenericCharacter
             ammoUI = ammosUI[0];
             killUI = killsUI[0];
         }
-        else
+        else // if this is a mobile platform
         {
+			//disable mouse image 
+			Cursor.visible = false;
+			//
             liveUI = livesUI[1];
             ammoUI = ammosUI[1];
             killUI = killsUI[1];
@@ -106,10 +109,13 @@ public class Player : GenericCharacter
 
 
         //"Fire1" is the left mouse button, left ctrl, or gamepad button 0 (A button on xbox360 remote)
-        if (Input.GetButtonDown("Fire1"))//(Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Space))
-        {
-            Fire();
-        }
+		if(!Application.isMobilePlatform)
+		{
+	        if (Input.GetButtonDown("Fire1"))//(Input.GetMouseButtonDown(0)||Input.GetKeyDown(KeyCode.Space))
+	        {
+	            Fire();
+	        }
+		}
         //ammoUI.text = "Ammo: " + ammo;
         liveUI.text = "Lives: " + health;
         //killUI.text = "Kills: " + kills;
@@ -148,9 +154,10 @@ public class Player : GenericCharacter
             diff = Camera.main.ScreenToWorldPoint(mousePosition) - transform.position;
             diff.Normalize();
 
-            rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, rotation);
-            arrowDir = transform.rotation.eulerAngles;
+	        rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+	        transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+	        arrowDir = transform.rotation.eulerAngles;
+
         }
     }
 
