@@ -6,11 +6,13 @@ public class StartMenu : MonoBehaviour {
 	public GameObject mobilePanel, pcPanel, pcLogo, mobileLogo, pcScroll, mobileScroll;
 	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel, 
 	mainMobilePanel, levelMobilePanel, extrasMobilePanel, optionsMobilePanel;
+	public GameObject loadPanel;
 	public bool clickedStart;
 	public AudioSource buttonSound;
 
 
 	void Start () {
+		loadPanel.SetActive(false);
 		if (Application.isMobilePlatform) {
 			mobileScroll.SetActive(true);
 			mobileLogo.SetActive(true);
@@ -63,6 +65,7 @@ public class StartMenu : MonoBehaviour {
 		buttonSound.Play ();
 		if(clickedStart==true)
 		{
+			loadPanel.SetActive(true);
 			//Application.LoadLevel("Level1-Village");
 			Application.LoadLevel("NarrationIntro");
 		}
@@ -127,6 +130,10 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickLevel1()
 	{
 		buttonSound.Play ();
+		loadPanel.SetActive(true);
+		levelMobilePanel.SetActive(false);
+		levelSelectPanel.SetActive(false);
+
 		Application.LoadLevel("Level1-Village");
 		//Application.LoadLevel("Level1Cutscene");
 	}
@@ -134,6 +141,10 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickLevel2()
 	{
 		buttonSound.Play ();
+		loadPanel.SetActive(true);
+		levelMobilePanel.SetActive(false);
+		levelSelectPanel.SetActive(false);
+
 		Application.LoadLevel("Level2-Forest");
 		//Application.LoadLevel("Level2Cutscene");
 	}
@@ -141,6 +152,10 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickLevel3()
 	{
 		buttonSound.Play ();
+		loadPanel.SetActive(true);
+		levelMobilePanel.SetActive(false);
+		levelSelectPanel.SetActive(false);
+
 		Application.LoadLevel("Level3-Temple");
 		//Application.LoadLevel("Level3Cutscene");
 	}
