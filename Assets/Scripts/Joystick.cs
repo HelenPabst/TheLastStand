@@ -9,20 +9,32 @@ public class Joystick : MonoBehaviour {
 	Vector3 standardPosition;
 	public float angle;
 	Vector3 dir;
+	//value brings the division between catch and fire buttons down
+	//by the offset amount
+	float buttonOffset = 100;
 
 	Player playerScript;
 	Controls controlScript;
+	float cameraHeight;
+	float cameraWidth;
+	Vector3 cameraPos;
 
 	// Use this for initialization
 	void Start () {
-
-		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, -1);
+		cameraPos = Camera.main.transform.position;
+		//cameraHeight = Camera.main.orthographicSize;
+		//cameraWidth = Camera.main.orthographicSize* Screen.width / Screen.height;
+		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
 		playerScript = (Player)GameObject.Find("Player").GetComponent("Player");
 		controlScript = (Controls)GameObject.Find("Controls").GetComponent("Controls");
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//update camera position and standard every frame
+		cameraPos = Camera.main.transform.position;
+		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
+		transform.position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
 			//check if there are touches
 			if (Input.touchCount > 0 ) 
@@ -32,52 +44,58 @@ public class Joystick : MonoBehaviour {
 				{
 					Touch touch; 
 					touch = Input.GetTouch(i);
-					//if (Input.touchCount > 0 ) {
+					Vector3 touchPos = touch.position;
+				//added this for position of touch in world space
+					Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x,touchPos.y,this.transform.position.z));
 					//for each touch, if the touch is moved...
-					if(touch.phase == TouchPhase.Moved)
+			
+					///and if it is on the left side of the screen...
+					if(worldPos.x < (cameraPos.x))//(Camera.main.transform.position.x))
 					{
-						///and if it is on the left side of the screen...
-						if(touch.position.x < (Screen.width/2))
-						{
+							if(touch.phase == TouchPhase.Moved)
+							{
 							//set the position of the pad to the touch position
-							transform.position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
-							transform.position = new Vector3(transform.position.x,transform.position.y, -1);
-						} 
-					}
+							transform.position = worldPos;//Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
+							//keep control pad visible
+							//transform.position = new Vector3(transform.position.x,transform.position.y, -2);
+							}
+							else if (touch.phase == TouchPhase.Ended)
+							{
+							standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
+							transform.position = standardPosition;
+							}
+					Vector3 dir = standardPosition - transform.position;
+					angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+					} 
 				//code for fire and catch
-					else if (touch.phase == TouchPhase.Began)
+
+				//	else if (touch.phase == TouchPhase.Began)
+				//	{
+					///if it is on the upper right side of the screen...
+					if((worldPos.x >= cameraPos.x)&&(worldPos.y >= cameraPos.y))//-buttonOffset)))
 					{
-							///if it is on the upper right side of the screen...
-						if((touch.position.x >= (Screen.width/2))&&(touch.position.y >= (Screen.height/2)))
-						{
 							//Catch
 							controlScript.Catch();
 							Invoke("EndCatch", 0.2f);
-							
+					} 
 
-								
-						} 
-
-						if((touch.position.x >= (Screen.width/2))&&(touch.position.y < (Screen.height/2)))
-						{
+					if((worldPos.x>= cameraPos.x)&&(worldPos.y < cameraPos.y))//-buttonOffset)))
+					{
 							//fire
 							playerScript.Fire();
 							
-						} 
-					}
-
-					Vector3 dir = standardPosition - transform.position;
-					angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+					} 
+////////////////moved from here
+					
+					
 				}
 			}
-			//if there are no touches, reset the pad
-			else 
-			{
-				transform.position = standardPosition;
-			}
-
-
-
+		//if there are no touches, reset the pad
+		else 
+		{
+			standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
+			transform.position = standardPosition;
+		}
 	}
 
 	public void EndCatch()

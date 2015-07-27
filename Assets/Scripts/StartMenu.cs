@@ -12,6 +12,7 @@ public class StartMenu : MonoBehaviour {
 
 
 	void Start () {
+
 		loadPanel.SetActive(false);
 		if (Application.isMobilePlatform) {
 			mobileScroll.SetActive(true);

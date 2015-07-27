@@ -48,6 +48,8 @@ public class Player : GenericCharacter
         }
         else // if this is a mobile platform
         {
+			//keep phone from sleeping
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 			//disable mouse image 
 			Cursor.visible = false;
 			//
