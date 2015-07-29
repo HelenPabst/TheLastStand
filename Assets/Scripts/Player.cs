@@ -20,13 +20,15 @@ public class Player : GenericCharacter
 	private bool tutorial = true;
 	public AudioSource fireSound;
 
-	public Texture2D cursorTexture;
-
-
     public float minX; //left boundary 
     public float maxX; //right boundary 
     public float minY; //up boundary 
     public float maxY; //down boundary
+	
+	//cursor texture code
+	public Texture2D cursorTexture;
+	public CursorMode cursorMode = CursorMode.Auto;
+	public Vector2 hotSpot = Vector2.zero;
 
 	//public AudioClip arrowCatch;
 	//AudioSource audio;
@@ -42,6 +44,9 @@ public class Player : GenericCharacter
 
         if (!Application.isMobilePlatform)
         {
+			//set cursor texture
+			Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+
             liveUI = livesUI[0];
             ammoUI = ammosUI[0];
             killUI = killsUI[0];

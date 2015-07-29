@@ -34,7 +34,7 @@ public class Joystick : MonoBehaviour {
 		//update camera position and standard every frame
 		cameraPos = Camera.main.transform.position;
 		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
-		transform.position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+		//transform.position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
 			//check if there are touches
 			if (Input.touchCount > 0 ) 
@@ -75,14 +75,20 @@ public class Joystick : MonoBehaviour {
 					if((worldPos.x >= cameraPos.x)&&(worldPos.y >= cameraPos.y))//-buttonOffset)))
 					{
 							//Catch
+						if (touch.phase == TouchPhase.Began)
+						{
 							controlScript.Catch();
 							Invoke("EndCatch", 0.2f);
+						}
 					} 
 
 					if((worldPos.x>= cameraPos.x)&&(worldPos.y < cameraPos.y))//-buttonOffset)))
 					{
 							//fire
+						if (touch.phase == TouchPhase.Began)
+						{
 							playerScript.Fire();
+						}
 							
 					} 
 ////////////////moved from here

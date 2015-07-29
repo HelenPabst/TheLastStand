@@ -15,8 +15,26 @@ public class Leaderboard : MonoBehaviour {
 	public GameObject inputPanel, yourScorePanel;
 	public InputField initialInput;
 	public Button submitButton = null;
+
+	//cursor texture code
+	public Texture2D cursorTexture;
+	public CursorMode cursorMode = CursorMode.Auto;
+	public Vector2 hotSpot = Vector2.zero;
+
 	void Start () 
 	{
+		if (Application.isMobilePlatform) 
+		{
+			//keep phone from sleeping
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;	
+			//disable mouse image 
+			Cursor.visible = false;
+		} 
+		else
+		{
+			//set cursor texture
+			Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+		}
 		yourScorePanel.SetActive(true);
 		topTen = new float[] {PlayerPrefs.GetFloat("Score 1"),PlayerPrefs.GetFloat("Score 2"),PlayerPrefs.GetFloat("Score 3"),
 				PlayerPrefs.GetFloat("Score 4"),PlayerPrefs.GetFloat("Score 5"),PlayerPrefs.GetFloat("Score 6"),

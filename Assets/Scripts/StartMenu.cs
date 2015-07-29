@@ -7,20 +7,34 @@ public class StartMenu : MonoBehaviour {
 	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel, 
 	mainMobilePanel, levelMobilePanel, extrasMobilePanel, optionsMobilePanel;
 	public GameObject loadPanel;
+	public GameObject loadIcon;
+
 	public bool clickedStart;
 	public AudioSource buttonSound;
+	public int levelSelected;
+
+	//cursor texture code
+	public Texture2D cursorTexture;
+	public CursorMode cursorMode = CursorMode.Auto;
+	public Vector2 hotSpot = Vector2.zero;
 
 
 	void Start () {
-
+		levelSelected = 0;
 		loadPanel.SetActive(false);
 		if (Application.isMobilePlatform) {
 			mobileScroll.SetActive(true);
 			mobileLogo.SetActive(true);
 			pcScroll.SetActive(false);
 			pcLogo.SetActive(false);
+			//keep phone from sleeping
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
+			//disable mouse image 
+			Cursor.visible = false;
 	
 		} else {
+			//set cursor texture
+			Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 
 			mobileScroll.SetActive(false);
 			mobileLogo.SetActive(false);
@@ -39,6 +53,13 @@ public class StartMenu : MonoBehaviour {
 
 
 	}
+	void Update()
+	{
+		if(loadPanel.activeSelf == true)
+		{
+			loadIcon.transform.Rotate (0,0,50*Time.deltaTime); //rotates 50 degrees per second around z axis
+		}
+	}
 	public void DisplayMenu()
 	{
 		if (Application.isMobilePlatform) {
@@ -48,6 +69,21 @@ public class StartMenu : MonoBehaviour {
 
 			mobilePanel.SetActive(false);
 			pcPanel.SetActive(true);
+		}
+	}
+	public void LoadLevel()
+	{
+		if(levelSelected == 1)
+		{
+			Application.LoadLevel("Level1-Village");
+		}
+		if(levelSelected == 2)
+		{
+			Application.LoadLevel("Level2-Forest");
+		}
+		if(levelSelected == 3)
+		{
+			Application.LoadLevel("Level3-Temple");
 		}
 	}
 
@@ -134,8 +170,9 @@ public class StartMenu : MonoBehaviour {
 		loadPanel.SetActive(true);
 		levelMobilePanel.SetActive(false);
 		levelSelectPanel.SetActive(false);
-
-		Application.LoadLevel("Level1-Village");
+		levelSelected = 1;
+		Invoke ("LoadLevel", 2.0f);
+		//Application.LoadLevel("Level1-Village");
 		//Application.LoadLevel("Level1Cutscene");
 	}
 	
@@ -145,8 +182,9 @@ public class StartMenu : MonoBehaviour {
 		loadPanel.SetActive(true);
 		levelMobilePanel.SetActive(false);
 		levelSelectPanel.SetActive(false);
-
-		Application.LoadLevel("Level2-Forest");
+		levelSelected = 2;
+		Invoke ("LoadLevel", 2.0f);
+		//Application.LoadLevel("Level2-Forest");
 		//Application.LoadLevel("Level2Cutscene");
 	}
 	
@@ -156,16 +194,22 @@ public class StartMenu : MonoBehaviour {
 		loadPanel.SetActive(true);
 		levelMobilePanel.SetActive(false);
 		levelSelectPanel.SetActive(false);
-
-		Application.LoadLevel("Level3-Temple");
+		levelSelected = 3;
+		Invoke ("LoadLevel", 2.0f);
+		//Application.LoadLevel("Level3-Temple");
 		//Application.LoadLevel("Level3Cutscene");
 	}
 	public void OnClickEndless()
 	{
 		buttonSound.Play ();
 		PlayerPrefs.SetInt ("Endless", 1);
+		loadPanel.SetActive(true);
+		levelMobilePanel.SetActive(false);
+		levelSelectPanel.SetActive(false);
+		levelSelected = 3;
+		Invoke ("LoadLevel", 2.0f);
 		//Application.LoadLevel("EndlessMode");
-		Application.LoadLevel("Level3-Temple");
+		//Application.LoadLevel("Level3-Temple");
 	}
 	public void OnClickHighScore()
 	{
@@ -258,6 +302,7 @@ public class StartMenu : MonoBehaviour {
 
 		Debug.Log ("Score Deleted!");
 	}
+
 
 
 }

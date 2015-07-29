@@ -12,9 +12,26 @@ public class TempEnding : MonoBehaviour {
 	public float scrollEnd;
 	public AudioSource audioSource;
 
+	//cursor texture code
+	public Texture2D cursorTexture;
+	public CursorMode cursorMode = CursorMode.Auto;
+	public Vector2 hotSpot = Vector2.zero;
+
 	// Use this for initialization
 	void Start () 
 	{
+		if (Application.isMobilePlatform) 
+		{
+			//keep phone from sleeping
+			Screen.sleepTimeout = SleepTimeout.NeverSleep;
+			//disable mouse image 
+			Cursor.visible = false;
+		} 
+		else
+		{
+			//set cursor texture
+			Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
+		}
 		Invoke("FadeOutMusic", 26.0f);
 		Invoke("Ignite", 9.0f);
 		Invoke("Ignite", 14.0f);
