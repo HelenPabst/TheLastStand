@@ -8,6 +8,8 @@ public class Lvl1Tutorial : MonoBehaviour {
 	public Text tutorialText, tutorialText2, tutorialText3;
 	public bool tutEnemyDead = false;
 	public bool tutArrowCaught = false;
+	public bool displayText2 = true;
+	public bool displayText3 = true;
 	//these are the spawn points in the level
 	public GameObject s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12;
 	//tutorialSpawn.GetComponent<SpawnPoint>().EnemyCheck == false
@@ -15,8 +17,8 @@ public class Lvl1Tutorial : MonoBehaviour {
 	{
 		if (Application.isMobilePlatform) 
 		{
-			tutorialText.text = "Press Catch Button To Catch Arrows In Cone";
-			tutorialText2.text = "Aim And Press Fire Button To Fire Arrows";
+			tutorialText.text = "Tap Upper Right Corner To Catch Arrows In Cone";
+			tutorialText2.text = "Aim And Tap Lower Right Corner To Fire Arrows";
 		} 
 		Invoke ("DisplayCatchText", 4.0f);
 	}
@@ -25,19 +27,20 @@ public class Lvl1Tutorial : MonoBehaviour {
 	void Update () 
 	{
 
-		if(tutArrowCaught == true)
+		if(tutArrowCaught == true && displayText2 == true)
 		{
 			tutorialText.gameObject.SetActive(false);
 			Invoke ("DisplayFireText", 1.0f);
+			displayText2 = false;
 
 		}
-		if(tutEnemyDead == true)
+		if(tutEnemyDead == true && displayText3 == true)
 		{
 
 
 			tutorialText2.gameObject.SetActive(false);
 			Invoke ("DisplayDefendText", 1.0f);
-
+			displayText3 = false;
 			Invoke("RemoveText", 3.0f);
 			s1.SetActive(true);
 			s2.SetActive(true);
@@ -60,12 +63,12 @@ public class Lvl1Tutorial : MonoBehaviour {
 	}
 	void DisplayFireText()
 	{
-		tutArrowCaught = false;
+		//tutArrowCaught = false;
 		tutorialText2.gameObject.SetActive(true);
 	}
 	void DisplayDefendText()
 	{
-		tutEnemyDead = false;
+		//tutEnemyDead = false;
 		tutorialText3.gameObject.SetActive(true);
 	}
 	void RemoveText()

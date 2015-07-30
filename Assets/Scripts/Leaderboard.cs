@@ -80,10 +80,12 @@ public class Leaderboard : MonoBehaviour {
 		Application.LoadLevel("StartMenu");
 		
 	}
+	/*
 	public void OnClickQuit()
 	{
 		Application.Quit ();
 	}
+	*/
 	public void SortScore()
 	{
 		for (int i = 0; i<topTen.Length; i++) 

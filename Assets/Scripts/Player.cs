@@ -62,7 +62,7 @@ public class Player : GenericCharacter
             ammoUI = ammosUI[1];
             killUI = killsUI[1];
             kills = 0;
-            ammo++;
+            //ammo++;
         }
         script = controls.transform.GetComponent<Controls>();
 		pause = (PauseMenu)GameObject.Find("PauseMenu").GetComponent("PauseMenu");
