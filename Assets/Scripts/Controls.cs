@@ -31,7 +31,12 @@ public class Controls : MonoBehaviour {
 		}
 		if(!Application.isMobilePlatform)
 		{
-			grab = Input.GetButtonDown ("Fire2");
+			if(Input.GetButtonDown ("Fire2"))
+			{
+				Catch();
+				Invoke("EndCatch", 0.2f);
+			}
+			//grab = Input.GetButtonDown ("Fire2");
 		}
 	}
 
@@ -49,5 +54,10 @@ public class Controls : MonoBehaviour {
 
 	public void Catch() {
 		grab = true;
+	}
+	//added
+	public void EndCatch()
+	{
+		grab = false;
 	}
 }

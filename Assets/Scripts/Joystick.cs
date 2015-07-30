@@ -9,6 +9,7 @@ public class Joystick : MonoBehaviour {
 	Vector3 standardPosition;
 	public float angle;
 	Vector3 dir;
+	public GameObject catchButton,fireButton;
 	//value brings the division between catch and fire buttons down
 	//by the offset amount
 	float buttonOffset = 100;
@@ -21,6 +22,8 @@ public class Joystick : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		//catchButton.SetActive (false);
+		//fireButton.SetActive (false);
 		cameraPos = Camera.main.transform.position;
 		//cameraHeight = Camera.main.orthographicSize;
 		//cameraWidth = Camera.main.orthographicSize* Screen.width / Screen.height;
@@ -31,6 +34,8 @@ public class Joystick : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//catchButton.SetActive (false);
+		//fireButton.SetActive (false);
 		//update camera position and standard every frame
 		cameraPos = Camera.main.transform.position;
 		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
@@ -77,6 +82,7 @@ public class Joystick : MonoBehaviour {
 							//Catch
 						if (touch.phase == TouchPhase.Began)
 						{
+							//catchButton.SetActive(true);
 							controlScript.Catch();
 							Invoke("EndCatch", 0.2f);
 						}
@@ -87,6 +93,7 @@ public class Joystick : MonoBehaviour {
 							//fire
 						if (touch.phase == TouchPhase.Began)
 						{
+							//fireButton.SetActive(true);
 							playerScript.Fire();
 						}
 							
