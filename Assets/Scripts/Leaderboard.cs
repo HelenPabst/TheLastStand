@@ -68,7 +68,7 @@ public class Leaderboard : MonoBehaviour {
 	{
 		///get user input
 		///userName = the thing that was input
-		userName = initialInput.text;
+		userName = initialInput.text.ToUpper();
 		SortScore();
 		DisplayLeaderboard();
 		SaveLeaderboard();
