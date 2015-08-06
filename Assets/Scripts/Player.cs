@@ -20,6 +20,7 @@ public class Player : GenericCharacter
 	private bool tutorial = true;
 	public AudioSource fireSound;
 
+
     public float minX; //left boundary 
     public float maxX; //right boundary 
     public float minY; //up boundary 

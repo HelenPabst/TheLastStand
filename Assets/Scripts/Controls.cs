@@ -6,7 +6,6 @@ public class Controls : MonoBehaviour {
 	public GameObject mobilePanel, pcPanel;
 	Vector3 translate;
 	public GameObject joyStick;
-	public Button catchButton;
 	public bool grab;
 	Joystick script;
 
@@ -15,6 +14,7 @@ public class Controls : MonoBehaviour {
 		if (Application.isMobilePlatform) {
 			mobilePanel.SetActive(true);
 			pcPanel.SetActive(false);
+
 		} else {
 			mobilePanel.SetActive(false);
 			pcPanel.SetActive(true);

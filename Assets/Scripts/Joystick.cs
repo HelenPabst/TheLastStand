@@ -22,8 +22,8 @@ public class Joystick : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//catchButton.SetActive (false);
-		//fireButton.SetActive (false);
+		catchButton.SetActive (false);
+		fireButton.SetActive (false);
 		cameraPos = Camera.main.transform.position;
 		//cameraHeight = Camera.main.orthographicSize;
 		//cameraWidth = Camera.main.orthographicSize* Screen.width / Screen.height;
@@ -84,7 +84,12 @@ public class Joystick : MonoBehaviour {
 						{
 							//catchButton.SetActive(true);
 							controlScript.Catch();
+							catchButton.SetActive(true);
 							Invoke("EndCatch", 0.2f);
+						}
+						if (touch.phase == TouchPhase.Ended)
+						{
+							catchButton.SetActive(false);
 						}
 					} 
 
@@ -95,6 +100,11 @@ public class Joystick : MonoBehaviour {
 						{
 							//fireButton.SetActive(true);
 							playerScript.Fire();
+							fireButton.SetActive(true);
+						}
+						if (touch.phase == TouchPhase.Ended)
+						{
+							fireButton.SetActive(false);
 						}
 							
 					} 
