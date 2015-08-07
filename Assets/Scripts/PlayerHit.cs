@@ -7,6 +7,7 @@ public class PlayerHit : MonoBehaviour {
 	Player playerScript;
 	GenericEnemy enemyScript;
 	SpriteRenderer playerRender;
+	public GameObject healthBar;
 	// Use this for initialization
 	void Start () {
 		GetComponent<Renderer>().enabled = false;//makes catch radius invisible
@@ -22,6 +23,7 @@ public class PlayerHit : MonoBehaviour {
 	public void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag.Equals("EnemyArrow")) 
 		{
+
 			Debug.Log("Damage Taken!");
 			playerRender.color = new Color(255f, 0f, 0f, 255f); //set to red
 			Invoke("ReturnColor" , 0.2f);

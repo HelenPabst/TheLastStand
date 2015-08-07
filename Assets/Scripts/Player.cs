@@ -39,6 +39,7 @@ public class Player : GenericCharacter
     {
 		//audio = GetComponent<AudioSource>();
 
+
 		killedBoss = false;
 		isdead = false;
 		acceleration *= Time.deltaTime;
@@ -96,7 +97,7 @@ public class Player : GenericCharacter
 		
         if (health <= 0)
         {
-
+			
 			if(Application.loadedLevelName == "Level3-Temple")
 			{
 				float highScore = PlayerPrefs.GetFloat("High Score");
