@@ -73,6 +73,14 @@ public class StartMenu : MonoBehaviour {
 	}
 	public void LoadLevel()
 	{
+		if(levelSelected == -1)
+		{
+			Application.LoadLevel ("Gallery");
+		}
+		if(levelSelected == 0)
+		{
+			Application.LoadLevel("NarrationIntro");
+		}
 		if(levelSelected == 1)
 		{
 			Application.LoadLevel("Level1-Village");
@@ -87,14 +95,24 @@ public class StartMenu : MonoBehaviour {
 		}
 	}
 
+
 	public void OnClickStart()
 	{
 		//Application.LoadLevel("Level1-Village");
-		buttonSound.Play ();
+		/*buttonSound.Play ();
 		clickedStart = true;
 		instructionsPanel.SetActive(true);
-
+		*/
 		//Application.LoadLevel("Level1Cutscene");
+
+		buttonSound.Play ();
+
+		loadPanel.SetActive(true);
+		levelSelected = 0;
+		Invoke ("LoadLevel", 2.0f);
+		//Application.LoadLevel("Level1-Village");
+
+
 	}
 	public void OnClickDone()
 	{
@@ -240,7 +258,10 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickGallery()
 	{
 		buttonSound.Play ();
-		Application.LoadLevel ("Gallery");
+		loadPanel.SetActive(true);
+		//level -1 is gallery
+		levelSelected = -1;
+		Invoke ("LoadLevel", 2.0f);
     }
 	public void OnClickCredits()
 	{

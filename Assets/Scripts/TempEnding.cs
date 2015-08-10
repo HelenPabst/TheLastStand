@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class TempEnding : MonoBehaviour {
@@ -16,10 +17,16 @@ public class TempEnding : MonoBehaviour {
 	public Texture2D cursorTexture;
 	public CursorMode cursorMode = CursorMode.Auto;
 	public Vector2 hotSpot = Vector2.zero;
+	//a black image used for fading to black
+	public Image fadeImage;
+	//Speed at which the image fades out
+	private float fadeSpeed = 1.5f;
+
 
 	// Use this for initialization
 	void Start () 
 	{
+		//fadeImage = gameObject.GetComponent<Image>();
 		if (Application.isMobilePlatform) 
 		{
 			//keep phone from sleeping
@@ -36,6 +43,7 @@ public class TempEnding : MonoBehaviour {
 		Invoke("Ignite", 9.0f);
 		Invoke("Ignite", 14.0f);
 		Invoke("Ignite", 21.0f);
+		InvokeRepeating("FadeToBlack", 23.0f, 0.05f);
 		InvokeRepeating("cutsceneTime", 0, 1);
 
 	}
@@ -66,7 +74,15 @@ public class TempEnding : MonoBehaviour {
 		currentFire.SetActive (true);
 		fireIndex++;
 	}
-
+	void FadeToBlack()
+	{
+		fadeImage.color = Color.Lerp(fadeImage.color, Color.black, fadeSpeed * Time.deltaTime);
+		if(fadeImage.color.a >= 0.97f)
+		{
+			fadeImage.color = Color.black;
+			//Application.LoadLevel(nextScene);
+		}
+	}
 	public void FadeOutMusic()
 	{
 		StartCoroutine(FadeMusic());

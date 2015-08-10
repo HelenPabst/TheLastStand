@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CreditsText : MonoBehaviour {
@@ -13,7 +14,12 @@ public class CreditsText : MonoBehaviour {
 	public Texture2D cursorTexture;
 	public CursorMode cursorMode = CursorMode.Auto;
 	public Vector2 hotSpot = Vector2.zero;
-	
+
+	//a black image used for fading to black
+	public Image fadeImage;
+	//Speed at which the image fades out
+	private float fadeSpeed = 1.0f;
+
 	void Start()
 	{
 		//audioSource = Camera.main.transform.Find("Main Camera").GetComponent<AudioSource>();
@@ -39,7 +45,9 @@ public class CreditsText : MonoBehaviour {
 		Invoke("creditMusic", 1.0f);
 	}
 	void Update () {
-		
+		//fade black out
+		fadeImage.color = Color.Lerp(fadeImage.color, Color.clear, fadeSpeed * Time.deltaTime);
+		//move text object
 		this.transform.Translate (Vector3.up * Time.deltaTime * speed);
 		if (runTime <= 0) 
 		{
@@ -58,6 +66,7 @@ public class CreditsText : MonoBehaviour {
 	{
 		audioSource.Play();
 	}
+
 	
 	
 }

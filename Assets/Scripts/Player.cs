@@ -8,6 +8,8 @@ public class Player : GenericCharacter
 	public static bool isdead = false;
 	public float moveSpeed, ammo, ammoLimit, kills, killcap;
 	public float acceleration = 35, currentSpeed = 0;
+	//acceleration speed is slower on android for better aiming
+	public float mobileAccel = 1;
     public Text[] livesUI, ammosUI, killsUI;
     Text liveUI, ammoUI, killUI;
     public GameObject controls;
@@ -175,7 +177,14 @@ public class Player : GenericCharacter
         ///works with both keyboard and gamepad
 		translate = script.getTranslate ();
 		if (translate != Vector3.zero) {
-			currentSpeed += acceleration;
+			if(Application.isMobilePlatform)
+			{
+				currentSpeed += mobileAccel;
+			}
+			else
+			{
+				currentSpeed += acceleration;
+			}
 			if (currentSpeed >= moveSpeed)
 				currentSpeed = moveSpeed;
 			transform.position += translate * currentSpeed * Time.deltaTime;

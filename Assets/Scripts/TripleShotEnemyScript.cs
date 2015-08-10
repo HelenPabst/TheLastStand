@@ -5,7 +5,7 @@ public class TripleShotEnemyScript : GenericCharacter {
 		private Animator animator;	
 		Vector3 arrowDirLeft, arrowDirRight;
 		Player player;
-		public Transform sightStart1, sightEnd1,sightStart2, sightEnd2,sightStart3,sightEnd3;
+		public Transform sightStart1, sightEnd1, sightEnd2,sightEnd3, sightEnd4, sightEnd5;
 		public bool playerInSight = false;
 		protected GameObject leftArrow, rightArrow;
 		public GameObject inkSplatter;
@@ -110,9 +110,10 @@ public class TripleShotEnemyScript : GenericCharacter {
 		//draws enemy line of sight in debug scene view
 		
 		Debug.DrawLine(sightStart1.position, sightEnd1.position, Color.red);
-		Debug.DrawLine(sightStart2.position, sightEnd2.position, Color.green);
-		Debug.DrawLine(sightStart3.position, sightEnd3.position, Color.blue);
-		
+		Debug.DrawLine(sightStart1.position, sightEnd2.position, Color.green);
+		Debug.DrawLine(sightStart1.position, sightEnd3.position, Color.blue);
+		Debug.DrawLine(sightStart1.position, sightEnd4.position, Color.green);
+		Debug.DrawLine(sightStart1.position, sightEnd5.position, Color.blue);
 		//makes player in sight true when player crosses line of sight. 
 		//layermask makes the line of sight only trigger on objects contained on the "Player" layer
 		//only the player itself should be contained on that layer
@@ -124,14 +125,28 @@ public class TripleShotEnemyScript : GenericCharacter {
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		} 
-		else if(Physics2D.Linecast (sightStart2.position, sightEnd2.position, 1 << LayerMask.NameToLayer ("Player"))) {
+		else if(Physics2D.Linecast (sightStart1.position, sightEnd2.position, 1 << LayerMask.NameToLayer ("Player"))) {
 			playerInSight = true;
 			///causes unit to face player
 			Vector3 dir = player.transform.position - transform.position;
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		} 
-		else if(Physics2D.Linecast (sightStart3.position, sightEnd3.position, 1 << LayerMask.NameToLayer ("Player"))) {
+		else if(Physics2D.Linecast (sightStart1.position, sightEnd3.position, 1 << LayerMask.NameToLayer ("Player"))) {
+			playerInSight = true;
+			///causes unit to face player
+			Vector3 dir = player.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		} 
+		else if(Physics2D.Linecast (sightStart1.position, sightEnd4.position, 1 << LayerMask.NameToLayer ("Player"))) {
+			playerInSight = true;
+			///causes unit to face player
+			Vector3 dir = player.transform.position - transform.position;
+			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+		} 
+		else if(Physics2D.Linecast (sightStart1.position, sightEnd5.position, 1 << LayerMask.NameToLayer ("Player"))) {
 			playerInSight = true;
 			///causes unit to face player
 			Vector3 dir = player.transform.position - transform.position;
