@@ -17,8 +17,8 @@ public class Lvl1Tutorial : MonoBehaviour {
 	{
 		if (Application.isMobilePlatform) 
 		{
-			tutorialText.text = "Tap Upper Right Corner To Catch Arrows In Cone";
-			tutorialText2.text = "Aim And Tap Lower Right Corner To Fire Arrows";
+			tutorialText.text = "Move Left Control Pad To Move Player. Tap Lower Right Corner To Catch Arrows In Cone. This Protects You And Refills Your Ammo.";
+			tutorialText2.text = "Aim With Right Control Pad And Tap Upper Right Corner To Fire Arrows";
 		} 
 		Invoke ("DisplayCatchText", 4.0f);
 	}

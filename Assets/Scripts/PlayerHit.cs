@@ -23,7 +23,8 @@ public class PlayerHit : MonoBehaviour {
 	public void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag.Equals("EnemyArrow")) 
 		{
-
+			//cause vibration on damage
+			Handheld.Vibrate();
 			Debug.Log("Damage Taken!");
 			playerRender.color = new Color(255f, 0f, 0f, 255f); //set to red
 			Invoke("ReturnColor" , 0.2f);
@@ -32,6 +33,8 @@ public class PlayerHit : MonoBehaviour {
 		}
 		else if(col.gameObject.tag.Equals("BallistaBolt")) 
 		{
+			//cause vibration on damage
+			Handheld.Vibrate();
 			Debug.Log("5 Damage Taken!");
 			playerRender.color = new Color(255f, 0f, 0f, 255f); //set to red
 			Invoke("ReturnColor" , 0.2f);

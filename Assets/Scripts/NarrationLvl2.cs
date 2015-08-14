@@ -18,6 +18,9 @@ public class NarrationLvl2 : MonoBehaviour {
 
 	public int currentText = 0;
 	public Text text1, text2;
+	public Button skipButton;
+	public Text skipText;
+	Color skipDefaultColor;
 	//Speed at which the image fades out
 	private float fadeSpeed = 1.5f;
 
@@ -26,6 +29,9 @@ public class NarrationLvl2 : MonoBehaviour {
 	{
 		text1.color = Color.clear;
 		text2.color = Color.clear;
+		skipDefaultColor = skipButton.image.color;
+		skipButton.image.color = Color.clear;
+		skipText.color = Color.clear;
 		if (Application.isMobilePlatform) 
 		{
 			//keep phone from sleeping
@@ -55,6 +61,8 @@ public class NarrationLvl2 : MonoBehaviour {
 		{
 		case 1:
 			text1.color = Color.Lerp(text1.color, Color.black, fadeSpeed * Time.deltaTime);
+			skipButton.image.color = Color.Lerp(skipButton.image.color, skipDefaultColor, fadeSpeed * Time.deltaTime);
+			skipText.color = Color.Lerp(text1.color, Color.black, fadeSpeed * Time.deltaTime);
 			break;
 		case 2:
 			text1.color = Color.Lerp(text1.color, Color.clear, fadeSpeed * Time.deltaTime);

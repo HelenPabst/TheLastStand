@@ -8,13 +8,12 @@ public class Player : GenericCharacter
 	public static bool isdead = false;
 	public float moveSpeed, ammo, ammoLimit, kills, killcap;
 	public float acceleration = 35, currentSpeed = 0;
-	//acceleration speed is slower on android for better aiming
-	public float mobileAccel = 1;
-    public Text[] livesUI, ammosUI, killsUI;
-    Text liveUI, ammoUI, killUI;
+    //public Text[] livesUI, ammosUI, killsUI;
+    //Text liveUI, ammoUI, killUI;
     public GameObject controls;
     Controls script;
     Vector3 mousePosition, diff, translate, temp;
+	Vector3 aimVector; // for mobile only
 	public bool killedBoss;
 	public bool pause = false;
 	//flag used to signal level end
@@ -51,9 +50,9 @@ public class Player : GenericCharacter
 			//set cursor texture
 			Cursor.SetCursor(cursorTexture, hotSpot, cursorMode);
 
-            liveUI = livesUI[0];
-            ammoUI = ammosUI[0];
-            killUI = killsUI[0];
+            //liveUI = livesUI[0];
+            //ammoUI = ammosUI[0];
+            //killUI = killsUI[0];
         }
         else // if this is a mobile platform
         {
@@ -61,12 +60,12 @@ public class Player : GenericCharacter
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 			//disable mouse image 
 			Cursor.visible = false;
-			//
-            liveUI = livesUI[1];
-            ammoUI = ammosUI[1];
-            killUI = killsUI[1];
+
+            //liveUI = livesUI[1];
+            //ammoUI = ammosUI[1];
+            //killUI = killsUI[1];
             kills = 0;
-            //ammo++;
+            
         }
         script = controls.transform.GetComponent<Controls>();
 		pause = (PauseMenu)GameObject.Find("PauseMenu").GetComponent("PauseMenu");
@@ -89,6 +88,7 @@ public class Player : GenericCharacter
 				tutorial = false;
 			}
 		}
+	
 		/////
 		if (pause == false) 
 		{
@@ -128,7 +128,7 @@ public class Player : GenericCharacter
 	        }
 		}
         //ammoUI.text = "Ammo: " + ammo;
-        liveUI.text = "Lives: " + health;
+        //liveUI.text = "Lives: " + health;
         //killUI.text = "Kills: " + kills;
         ////////////////////////////////////////////cheat codes!
         if (Input.GetKey(KeyCode.F) && Input.GetKey(KeyCode.H))
@@ -155,9 +155,20 @@ public class Player : GenericCharacter
         {
             rotation = Mathf.Atan2(translate.y, translate.x) * Mathf.Rad2Deg;
             //transform.rotation = Quaternion.AngleAxis(90.0 - angle, Vector3.up);
-            transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+			if(!Application.isMobilePlatform)
+			{
+            	transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+			}
             arrowDir = transform.rotation.eulerAngles;
         }
+		if(Application.isMobilePlatform)
+		{
+			//rotate to second stick
+			aimVector = script.getAimPadTranslate();
+			rotation = Mathf.Atan2(aimVector.y, aimVector.x) * Mathf.Rad2Deg;
+			transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+			arrowDir = transform.rotation.eulerAngles;
+		}
 		else if (!Application.isMobilePlatform)
         {
             mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
@@ -177,14 +188,8 @@ public class Player : GenericCharacter
         ///works with both keyboard and gamepad
 		translate = script.getTranslate ();
 		if (translate != Vector3.zero) {
-			if(Application.isMobilePlatform)
-			{
-				currentSpeed += mobileAccel;
-			}
-			else
-			{
-				currentSpeed += acceleration;
-			}
+	
+			currentSpeed += acceleration;
 			if (currentSpeed >= moveSpeed)
 				currentSpeed = moveSpeed;
 			transform.position += translate * currentSpeed * Time.deltaTime;
@@ -262,7 +267,7 @@ public class Player : GenericCharacter
 				levelFinish = true;
 			}
 		//Level2 win condition	
-		else if(Application.loadedLevelName == "Level2-Forest" && kills>=killcap){
+		else if(Application.loadedLevelName == "Level2-Forest" && kills>=killcap && killedBoss == true){
 				Debug.Log("You beat level 2!");
 				//Application.LoadLevel ("Level3Cutscene");
 			    //Application.LoadLevel ("Level3-Temple");

@@ -10,9 +10,9 @@ public class Joystick : MonoBehaviour {
 	public float angle;
 	Vector3 dir;
 	public GameObject catchButton,fireButton;
-	//value brings the division between catch and fire buttons down
-	//by the offset amount
-	float buttonOffset = 100;
+	SpriteRenderer catchRender, fireRender;
+	//Color fadedButton, pressedButton;
+	public float fireAimOffset;
 
 	Player playerScript;
 	Controls controlScript;
@@ -22,8 +22,14 @@ public class Joystick : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		catchButton.SetActive (false);
-		fireButton.SetActive (false);
+		//catchButton.SetActive (false);
+		//fireButton.SetActive (false);
+		//fadedButton = new Color (255,255,255,34);
+		//pressedButton = new Color (255,255,255,180);
+		//catchRender = catchButton.GetComponent<SpriteRenderer> ();
+		//fireRender = fireButton.GetComponent<SpriteRenderer> ();
+		//catchRender.color = fadedButton;
+		//fireRender.color = fadedButton;
 		cameraPos = Camera.main.transform.position;
 		//cameraHeight = Camera.main.orthographicSize;
 		//cameraWidth = Camera.main.orthographicSize* Screen.width / Screen.height;
@@ -52,15 +58,17 @@ public class Joystick : MonoBehaviour {
 					Vector3 touchPos = touch.position;
 				//added this for position of touch in world space
 					Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x,touchPos.y,this.transform.position.z));
+					Vector3 padPos = new Vector3(worldPos.x,worldPos.y,this.transform.position.z);
 					//for each touch, if the touch is moved...
 			
 					///and if it is on the left side of the screen...
-					if(worldPos.x < (cameraPos.x))//(Camera.main.transform.position.x))
+				/// offset 5 units to left of center
+					if(worldPos.x < ((cameraPos.x)-5))//(Camera.main.transform.position.x))
 					{
 							if(touch.phase == TouchPhase.Moved)
 							{
 							//set the position of the pad to the touch position
-							transform.position = worldPos;//Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
+							transform.position = padPos;//Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
 							//keep control pad visible
 							//transform.position = new Vector3(transform.position.x,transform.position.y, -2);
 							}
@@ -72,39 +80,51 @@ public class Joystick : MonoBehaviour {
 					Vector3 dir = standardPosition - transform.position;
 					angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
 					} 
-				//code for fire and catch
 
-				//	else if (touch.phase == TouchPhase.Began)
-				//	{
+					//code for fire and catch
+
 					///if it is on the upper right side of the screen...
-					if((worldPos.x >= cameraPos.x)&&(worldPos.y >= cameraPos.y))//-buttonOffset)))
+					if((worldPos.x > (cameraPos.x+fireAimOffset))&&(worldPos.y < cameraPos.y))//-buttonOffset)))
 					{
 							//Catch
 						if (touch.phase == TouchPhase.Began)
 						{
 							//catchButton.SetActive(true);
 							controlScript.Catch();
-							catchButton.SetActive(true);
+							//catchRender.color = pressedButton;
 							Invoke("EndCatch", 0.2f);
+						}
+						if (touch.phase == TouchPhase.Moved)
+						{
+							//catchRender.color = fadedButton;
+                        	//catchButton.SetActive(false);
 						}
 						if (touch.phase == TouchPhase.Ended)
 						{
-							catchButton.SetActive(false);
+							//catchRender.color = fadedButton;
+                        	//catchButton.SetActive(false);
 						}
 					} 
-
-					if((worldPos.x>= cameraPos.x)&&(worldPos.y < cameraPos.y))//-buttonOffset)))
+					//fire button triggers up to 6 units to right of center
+					if((worldPos.x>= cameraPos.x)&&(worldPos.y >= cameraPos.y))//-buttonOffset)))
 					{
 							//fire
 						if (touch.phase == TouchPhase.Began)
 						{
 							//fireButton.SetActive(true);
 							playerScript.Fire();
-							fireButton.SetActive(true);
+							//fireRender.color = pressedButton;
+							//fireButton.SetActive(true);
+						}
+						if (touch.phase == TouchPhase.Moved)
+						{
+							//fireRender.color = fadedButton;
+                        	//fireButton.SetActive(false);
 						}
 						if (touch.phase == TouchPhase.Ended)
 						{
-							fireButton.SetActive(false);
+							//fireRender.color = fadedButton;
+							//fireButton.SetActive(false);
 						}
 							
 					} 

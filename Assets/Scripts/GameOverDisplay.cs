@@ -24,7 +24,7 @@ public class GameOverDisplay : MonoBehaviour {
 			
 		if (Player.isdead == true) {
 			GameObject.FindWithTag("Player").GetComponent<Player>().enabled = false;
-	
+			Time.timeScale = 0f;
 			//Debug.Log ("you are dead");
 			gameOver.enabled = true;
 			if(PlayerPrefs.GetInt ("Endless")==0)

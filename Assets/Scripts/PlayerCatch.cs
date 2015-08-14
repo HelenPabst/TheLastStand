@@ -29,8 +29,9 @@ public class PlayerCatch : MonoBehaviour {
 		{
 			if (col.gameObject.tag.Equals("EnemyArrow")&&(controlScript.grab))//(Input.GetMouseButtonDown(1)||Input.GetKeyDown(KeyCode.LeftShift)))
 			{
-				if(playerScript.ammo < playerScript.ammoLimit )
-				{
+				//removed this block so that catch could always be used
+				//if(playerScript.ammo < playerScript.ammoLimit )
+				//{
 					//audio.PlayOneShot(arrowCatch);
 					ObjectPool.instance.PoolObject(col.gameObject);
 					//add in particle effect
@@ -38,8 +39,12 @@ public class PlayerCatch : MonoBehaviour {
 					catchParticle.transform.position = new Vector3(col.transform.position.x,col.transform.position.y, -3);
 					catchParticle.transform.rotation = transform.rotation;
 					playerScript.ammo++;
+					if(playerScript.ammo > playerScript.ammoLimit )
+					{
+					playerScript.ammo= playerScript.ammoLimit;
+					}
 					//Debug.Log("Arrow Caught. New Ammo is :"+ playerScript.ammo);
-				}
+				//}
 				else
 				{
 					//Debug.Log("Ammo is full");

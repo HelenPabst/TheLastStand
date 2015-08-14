@@ -37,6 +37,12 @@ public class BallistaEnemy : GenericCharacter {
 			RePool(this.gameObject);
 			player.kills += 1;
 			Debug.Log("Kill confirmed! Kill count is: " + player.kills);
+			//check if player killed ballista
+			if(Application.loadedLevelName == "Level2-Forest")
+			{
+				
+				player.killedBoss =true;
+			}
 		
 		}
 	}
