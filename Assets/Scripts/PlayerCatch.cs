@@ -29,9 +29,9 @@ public class PlayerCatch : MonoBehaviour {
 		{
 			if (col.gameObject.tag.Equals("EnemyArrow")&&(controlScript.grab))//(Input.GetMouseButtonDown(1)||Input.GetKeyDown(KeyCode.LeftShift)))
 			{
-				//removed this block so that catch could always be used
-				//if(playerScript.ammo < playerScript.ammoLimit )
-				//{
+				//Player can catch if they have room in quiver (on android they can always catch)
+				if(playerScript.ammo < playerScript.ammoLimit|| Application.isMobilePlatform )
+				{
 					//audio.PlayOneShot(arrowCatch);
 					ObjectPool.instance.PoolObject(col.gameObject);
 					//add in particle effect
@@ -44,7 +44,7 @@ public class PlayerCatch : MonoBehaviour {
 					playerScript.ammo= playerScript.ammoLimit;
 					}
 					//Debug.Log("Arrow Caught. New Ammo is :"+ playerScript.ammo);
-				//}
+				}
 				else
 				{
 					//Debug.Log("Ammo is full");

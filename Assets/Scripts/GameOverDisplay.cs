@@ -24,7 +24,7 @@ public class GameOverDisplay : MonoBehaviour {
 			
 		if (Player.isdead == true) {
 			GameObject.FindWithTag("Player").GetComponent<Player>().enabled = false;
-			Time.timeScale = 0f;
+			//Time.timeScale = 0f;
 			//Debug.Log ("you are dead");
 			gameOver.enabled = true;
 			if(PlayerPrefs.GetInt ("Endless")==0)
@@ -39,6 +39,7 @@ public class GameOverDisplay : MonoBehaviour {
 	}
 	public void OnClickRetry()
 	{
+		//Time.timeScale = 1f;
 		Application.LoadLevel(Application.loadedLevel);
 		//needs to look @ PlayerPrefs and load where player died last
 	}
@@ -49,12 +50,14 @@ public class GameOverDisplay : MonoBehaviour {
 	}
 	public void OnClickHighScore()
 	{
+		//Time.timeScale = 1f;
 		PlayerPrefs.SetInt ("Endless",0);
 		Application.LoadLevel ("HighScore");
 	}
 
 	public void onClickMain()
 	{
+		//Time.timeScale = 1f;
 		PlayerPrefs.SetInt ("Endless", 0);
 		Application.LoadLevel ("StartMenu");
 	}

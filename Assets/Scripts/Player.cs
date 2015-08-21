@@ -246,7 +246,7 @@ public class Player : GenericCharacter
 
     public void addAmmo(int difference)
     {
-        if (ammo > 0)
+		if (ammo > 0)
             ammo += difference;
     }
 	/*cursor code

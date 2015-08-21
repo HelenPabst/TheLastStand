@@ -9,6 +9,8 @@ public class AimStick : MonoBehaviour {
 	Vector3 dir;
 	public float fireAimOffset;
 	Vector3 cameraPos;
+
+	public float maxStickDist = 10;
 	// Use this for initialization
 	void Start () 
 	{
@@ -41,7 +43,7 @@ public class AimStick : MonoBehaviour {
 				Vector3 padPos = new Vector3(worldPos.x,worldPos.y,this.transform.position.z);
 		//code for second stick
 		
-				if((worldPos.x>= cameraPos.x)&&(worldPos.x < (cameraPos.x+fireAimOffset))&&(worldPos.y < cameraPos.y))//-buttonOffset)))
+				if((worldPos.x>= cameraPos.x)&&(worldPos.x < (cameraPos.x+fireAimOffset))&&(worldPos.y < cameraPos.y))//-buttonOffset)))//maxStickDist < (Mathf.Sqrt(Mathf.Pow((worldPos.y-aimStandardPosition.y),2)+Mathf.Pow((worldPos.x-aimStandardPosition.x),2))))//
 				{
 					if(touch.phase == TouchPhase.Moved)
 					{

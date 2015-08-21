@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GalleryControl : MonoBehaviour {
 
+	/*
 	Sprite[] Cindy;
 	Sprite[] Coleton;
 	Sprite[] Ellen;
@@ -21,16 +22,24 @@ public class GalleryControl : MonoBehaviour {
 	Sprite[] Sebastian;
 	Sprite[] Tomy;
 	Sprite[] Wahona;
+	*/
+	//changed
+	Sprite[] Xun;
+	Sprite[] Enemy;
+	Sprite[] Environment;
+	Sprite[] Misc;
+	//
 	Sprite[] CurrentSet;
 
 	public Image image;
-	public Text text;
+	public Text text, imageInfo;
 	public GameObject ImagePanel;
 	public GameObject GalleryPanel;
 	int current = 0;
 
 	// Use this for initialization
 	void Start () {
+		/*
 		Cindy = Resources.LoadAll<Sprite>("Cindy Phung");
 		Coleton = Resources.LoadAll<Sprite>("Coleton Palmer");
 		Ellen = Resources.LoadAll<Sprite>("Ellen Wong");
@@ -48,6 +57,13 @@ public class GalleryControl : MonoBehaviour {
 		Sebastian = Resources.LoadAll<Sprite>("Sebastian Adame");
 		Tomy = Resources.LoadAll<Sprite>("Tomy");
 		Wahona = Resources.LoadAll<Sprite>("Wahona");
+		*/
+		//changed
+		Xun = Resources.LoadAll<Sprite>("ConceptXun");
+		Enemy = Resources.LoadAll<Sprite>("ConceptEnemy");
+		Environment = Resources.LoadAll<Sprite>("ConceptEnviro");
+		Misc = Resources.LoadAll<Sprite>("ConceptMisc");
+		//
 	}
 	
 	// Update is called once per frame
@@ -58,6 +74,7 @@ public class GalleryControl : MonoBehaviour {
 	public void SelectSet(string set) {
 		current = 0;
 		switch (set) {
+		/*
 		case "Cindy": CurrentSet = Cindy; break;
 		case "Coleton": CurrentSet = Coleton; break;
 		case "Ellen": CurrentSet = Ellen; break;
@@ -75,6 +92,12 @@ public class GalleryControl : MonoBehaviour {
 		case "Sebastian": CurrentSet = Sebastian; break;
 		case "Tomy": CurrentSet = Tomy; break;
 		case "Wahona": CurrentSet = Wahona; break;
+		*/	//
+		case "Xun": CurrentSet = Xun; break;
+		case "Enemy": CurrentSet = Enemy; break;
+		case "Environment": CurrentSet = Environment; break;
+		case "Misc": CurrentSet = Misc; break;
+			//
 		}
 
 		GalleryPanel.SetActive (false);
@@ -92,7 +115,7 @@ public class GalleryControl : MonoBehaviour {
 		current --;
 		display();
 	}
-	
+
 	private void display() {
 		if (current > CurrentSet.Length - 1) {
 			current = 0;
@@ -102,6 +125,7 @@ public class GalleryControl : MonoBehaviour {
 		}
 
 		text.text = (current + 1).ToString() + "/" + CurrentSet.Length.ToString ();
+		imageInfo.text = CurrentSet[current].name;
 		image.sprite = CurrentSet[current];
 	}
 
