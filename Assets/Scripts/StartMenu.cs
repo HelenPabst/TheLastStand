@@ -7,7 +7,7 @@ public class StartMenu : MonoBehaviour {
 	public GameObject mainPanel, levelSelectPanel, extrasPanel,optionsPanel,instructionsPanel, 
 	mainMobilePanel, levelMobilePanel, extrasMobilePanel, optionsMobilePanel;
 	public GameObject loadPanel;
-	public GameObject loadIcon;
+
 
 	public bool clickedStart;
 	public AudioSource buttonSound;
@@ -55,10 +55,7 @@ public class StartMenu : MonoBehaviour {
 	}
 	void Update()
 	{
-		if(loadPanel.activeSelf == true)
-		{
-			loadIcon.transform.Rotate (0,0,50*Time.deltaTime); //rotates 50 degrees per second around z axis
-		}
+
 	}
 	public void DisplayMenu()
 	{

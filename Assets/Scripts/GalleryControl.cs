@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GalleryControl : MonoBehaviour {
 
+	public GameObject loadPanel;
 	/*
 	Sprite[] Cindy;
 	Sprite[] Coleton;
@@ -39,6 +40,7 @@ public class GalleryControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		loadPanel.SetActive(false);
 		/*
 		Cindy = Resources.LoadAll<Sprite>("Cindy Phung");
 		Coleton = Resources.LoadAll<Sprite>("Coleton Palmer");
@@ -99,13 +101,18 @@ public class GalleryControl : MonoBehaviour {
 		case "Misc": CurrentSet = Misc; break;
 			//
 		}
-
+		loadPanel.SetActive(true);
+		Invoke ("LoadPage", 2.0f);
+		//from here
+	}
+	public void LoadPage()
+	{
+		loadPanel.SetActive(false);
 		GalleryPanel.SetActive (false);
 		ImagePanel.SetActive (true);
-
+		
 		display ();
 	}
-
 	public void NextImage() {
 		current ++;
 		display();
@@ -135,6 +142,12 @@ public class GalleryControl : MonoBehaviour {
 	}
 
 	public void MainMenu() {
+		loadPanel.SetActive(true);
+		Invoke ("LoadMain", 2.0f);
+
+	}
+	public void LoadMain()
+	{
 		Application.LoadLevel ("StartMenu");
 	}
 }

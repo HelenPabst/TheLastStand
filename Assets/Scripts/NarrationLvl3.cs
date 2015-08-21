@@ -14,7 +14,6 @@ public class NarrationLvl3 : MonoBehaviour {
 	public Vector2 hotSpot = Vector2.zero;
 
 	public GameObject loadPanel;
-	public GameObject loadIcon;
 
 	public int currentText = 0;
 	public Text text1, text2;
@@ -27,6 +26,7 @@ public class NarrationLvl3 : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		loadPanel.SetActive(false);
 		text1.color = Color.clear;
 		text2.color = Color.clear;
 		skipDefaultColor = skipButton.image.color;
@@ -52,10 +52,7 @@ public class NarrationLvl3 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(loadPanel.activeSelf == true)
-		{
-			loadIcon.transform.Rotate (0,0,50*Time.deltaTime); //rotates 50 degrees per second around z axis
-		}
+
 		switch(currentText)
 		{
 		case 1:
