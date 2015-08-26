@@ -12,7 +12,7 @@ public class LevelEndFader : MonoBehaviour {
 	//a reference to the image
 	private Image thisFader;
 	//Speed at which the image fades out
-	private float fadeSpeed = 1.5f;
+	public float fadeSpeed = 1.5f;
 	//backup for normal deltaTime
 	private float myDelta;
 	//boolean for the outro text to reference

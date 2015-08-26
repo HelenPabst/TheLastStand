@@ -7,7 +7,6 @@ public class OutroTextCode : MonoBehaviour {
 	private Image thisText;
 	//Reference to the fader
 	LevelEndFader fader;
-
 	//find initial references
 	void Start () {
 		fader = GameObject.Find("FadeImage").GetComponent<LevelEndFader>();
@@ -16,9 +15,12 @@ public class OutroTextCode : MonoBehaviour {
 	
 	//when outro has started, make outro text visable and stop scene
 	void Update () {
-		//makes outro text visable and stops scene
+		//makes outro text visable and stops scene (except on lvl 3)
 		if(fader.endMessage){
-			thisText.color = Color.white;
+			if(Application.loadedLevelName != "Level3-Temple")
+			{
+				thisText.color = Color.white;
+			}
 			Time.timeScale = 0f;
 		}
 	}

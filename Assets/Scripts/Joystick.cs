@@ -5,9 +5,13 @@ using System.Collections;
 public class Joystick : MonoBehaviour {
 	
 	public GameObject joyBase;
+	//public GameObject aimPad;
+	//public GameObject aimBase;
 	public Text debugger;
 	Vector3 standardPosition;
+	Vector3 aimStandardPosition;
 	public float angle;
+	public float aimAngle;
 	Vector3 dir;
 	public GameObject catchButton,fireButton;
 	SpriteRenderer catchRender, fireRender;
@@ -15,35 +19,30 @@ public class Joystick : MonoBehaviour {
 	public float fireAimOffset;
 
 	Player playerScript;
+	GameObject player;
 	Controls controlScript;
 	float cameraHeight;
 	float cameraWidth;
 	Vector3 cameraPos;
 
+
+	private float maxStickDist = 8;
+
 	// Use this for initialization
 	void Start () {
-		//catchButton.SetActive (false);
-		//fireButton.SetActive (false);
-		//fadedButton = new Color (255,255,255,34);
-		//pressedButton = new Color (255,255,255,180);
-		//catchRender = catchButton.GetComponent<SpriteRenderer> ();
-		//fireRender = fireButton.GetComponent<SpriteRenderer> ();
-		//catchRender.color = fadedButton;
-		//fireRender.color = fadedButton;
 		cameraPos = Camera.main.transform.position;
-		//cameraHeight = Camera.main.orthographicSize;
-		//cameraWidth = Camera.main.orthographicSize* Screen.width / Screen.height;
+		//aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y,this.transform.position.z);
 		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
+		player = GameObject.Find("Player");
 		playerScript = (Player)GameObject.Find("Player").GetComponent("Player");
 		controlScript = (Controls)GameObject.Find("Controls").GetComponent("Controls");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//catchButton.SetActive (false);
-		//fireButton.SetActive (false);
 		//update camera position and standard every frame
 		cameraPos = Camera.main.transform.position;
+		//aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y,this.transform.position.z);
 		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
 		//transform.position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
 
@@ -62,9 +61,16 @@ public class Joystick : MonoBehaviour {
 					//for each touch, if the touch is moved...
 			
 					///and if it is on the left side of the screen...
-				/// offset 5 units to left of center
-					if(worldPos.x < ((cameraPos.x)-5))//(Camera.main.transform.position.x))
+					/// offset 5 units to left of center
+					if(maxStickDist > (Mathf.Sqrt(Mathf.Pow((worldPos.y-standardPosition.y),2)+Mathf.Pow((worldPos.x-standardPosition.x),2))))//worldPos.x < ((cameraPos.x)-5)&&(worldPos.y < cameraPos.y))//(Camera.main.transform.position.x))
 					{
+							if (touch.phase == TouchPhase.Began)
+							{
+								controlScript.Catch();
+								//catchRender.color = pressedButton;
+								Invoke("EndCatch", 0.2f);
+								
+							}
 							if(touch.phase == TouchPhase.Moved)
 							{
 							//set the position of the pad to the touch position
@@ -79,21 +85,42 @@ public class Joystick : MonoBehaviour {
 							}
 					Vector3 dir = standardPosition - transform.position;
 					angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
-					} 
+					}
+				//if there are no touches, reset the pad
+					else 
+					{
+						if (Input.touchCount == 1 ) 
+						{
+							standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
+							transform.position = standardPosition;
+						}
+					}
 
 					//code for fire and catch
-
+				/*
 					///if it is on the upper right side of the screen...
-					if((worldPos.x > (cameraPos.x+fireAimOffset))&&(worldPos.y < cameraPos.y))//-buttonOffset)))
+					else//if((worldPos.x > (cameraPos.x+fireAimOffset))&&(worldPos.y < cameraPos.y))//-buttonOffset)))
 					{
-							//Catch
+						aimPad.transform.position = padPos;
+						Vector3 aimDir = player.transform.position - padPos;
+						aimAngle = (Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg);
+                    	//Catch
 						if (touch.phase == TouchPhase.Began)
 						{
-							//catchButton.SetActive(true);
-							controlScript.Catch();
-							//catchRender.color = pressedButton;
-							Invoke("EndCatch", 0.2f);
+							if (enemyTap == true)
+							{
+								playerScript.Fire();
+							}
+							else
+							{
+								//catchButton.SetActive(true);
+								controlScript.Catch();
+								//catchRender.color = pressedButton;
+								Invoke("EndCatch", 0.2f);
+							}
 						}
+			*/			
+					/*
 						if (touch.phase == TouchPhase.Moved)
 						{
 							//catchRender.color = fadedButton;
@@ -104,8 +131,11 @@ public class Joystick : MonoBehaviour {
 							//catchRender.color = fadedButton;
                         	//catchButton.SetActive(false);
 						}
+
 					} 
+					*/
 					//fire button triggers up to 6 units to right of center
+				/*
 					if((worldPos.x>= cameraPos.x)&&(worldPos.y >= cameraPos.y))//-buttonOffset)))
 					{
 							//fire
@@ -128,17 +158,13 @@ public class Joystick : MonoBehaviour {
 						}
 							
 					} 
+					*/
 ////////////////moved from here
 					
 					
 				}
 			}
-		//if there are no touches, reset the pad
-		else 
-		{
-			standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
-			transform.position = standardPosition;
-		}
+
 	}
 
 	public void EndCatch()
@@ -153,4 +179,13 @@ public class Joystick : MonoBehaviour {
 			return new Vector3(Mathf.Cos(angle * Mathf.PI/180) * -1, Mathf.Sin(angle * Mathf.PI/180) * -1);
 		}
 	}
+	/*
+	public Vector3 getAim() {
+		if (Vector2.Distance(aimPad.transform.position, player.transform.position) < 1) {
+			return new Vector3 (0, 0, 0);
+		} else {
+			return new Vector3(Mathf.Cos(aimAngle * Mathf.PI/180) * -1, Mathf.Sin(aimAngle * Mathf.PI/180) * -1);
+        }
+    }
+    */
 }

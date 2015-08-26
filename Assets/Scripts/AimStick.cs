@@ -9,16 +9,21 @@ public class AimStick : MonoBehaviour {
 	Vector3 dir;
 	public float fireAimOffset;
 	Vector3 cameraPos;
+	Controls controlScript;
+	Player playerScript;
+	private bool firstTap = false;
 
-	public float maxStickDist = 10;
+
+	private float maxStickDist = 8;
 	// Use this for initialization
 	void Start () 
 	{
+		playerScript = (Player)GameObject.Find("Player").GetComponent("Player");
 		cameraPos = Camera.main.transform.position;
 		//cameraHeight = Camera.main.orthographicSize;
 		//cameraWidth = Camera.main.orthographicSize* Screen.width / Screen.height;
 		aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y,this.transform.position.z);
-
+		controlScript = (Controls)GameObject.Find("Controls").GetComponent("Controls");
 	}
 	
 	// Update is called once per frame
@@ -43,8 +48,19 @@ public class AimStick : MonoBehaviour {
 				Vector3 padPos = new Vector3(worldPos.x,worldPos.y,this.transform.position.z);
 		//code for second stick
 		
-				if((worldPos.x>= cameraPos.x)&&(worldPos.x < (cameraPos.x+fireAimOffset))&&(worldPos.y < cameraPos.y))//-buttonOffset)))//maxStickDist < (Mathf.Sqrt(Mathf.Pow((worldPos.y-aimStandardPosition.y),2)+Mathf.Pow((worldPos.x-aimStandardPosition.x),2))))//
+				if(maxStickDist > (Mathf.Sqrt(Mathf.Pow((worldPos.y-aimStandardPosition.y),2)+Mathf.Pow((worldPos.x-aimStandardPosition.x),2))))//(worldPos.x > ((cameraPos.x)+5)&&(worldPos.y < cameraPos.y))//maxStickDist < (Mathf.Sqrt(Mathf.Pow((worldPos.y-aimStandardPosition.y),2)+Mathf.Pow((worldPos.x-aimStandardPosition.x),2))))//
 				{
+					if (touch.phase == TouchPhase.Began)
+					{
+						if(firstTap == true)
+						{
+							playerScript.Fire();
+						}
+						else
+						{
+							firstTap = true;
+						}
+					}
 					if(touch.phase == TouchPhase.Moved)
 					{
 						//set the position of the pad to the touch position
@@ -73,11 +89,16 @@ public class AimStick : MonoBehaviour {
 			transform.position = aimStandardPosition;
 		}*/
 	}
+	public void EndCatch()
+	{
+		controlScript.grab = false;
+	}
 	public Vector3 getTransform() {
-		if (Vector2.Distance(transform.position, aimStandardPosition) < 1) {
+		//removed center neutral zone
+		/*if (Vector2.Distance(transform.position, aimStandardPosition) < 1) {
 			return new Vector3 (0, 0, 0);
-		} else {
+		} else { */
 			return new Vector3(Mathf.Cos(angle * Mathf.PI/180) * -1, Mathf.Sin(angle * Mathf.PI/180) * -1);
-		}
+		//}
 	}
 }

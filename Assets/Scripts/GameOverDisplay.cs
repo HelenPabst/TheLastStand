@@ -8,8 +8,7 @@ public class GameOverDisplay : MonoBehaviour {
 
 	public Canvas gameOver;
 	public GameObject highScoreButton;
-
-	
+	bool buttonCheck = false;
 	void Start()
 	{
 
@@ -23,6 +22,10 @@ public class GameOverDisplay : MonoBehaviour {
 		//if(dead.gameObject.GetComponent<Player>().isdead = true){
 			
 		if (Player.isdead == true) {
+			if(buttonCheck == false)
+			{
+				Time.timeScale = 0f;//freezes all instances in the game
+			}
 			GameObject.FindWithTag("Player").GetComponent<Player>().enabled = false;
 			//Time.timeScale = 0f;
 			//Debug.Log ("you are dead");
@@ -37,9 +40,12 @@ public class GameOverDisplay : MonoBehaviour {
 		}
 
 	}
+
 	public void OnClickRetry()
 	{
+		buttonCheck = true;
 		//Time.timeScale = 1f;
+		Time.timeScale = 1f;
 		Application.LoadLevel(Application.loadedLevel);
 		//needs to look @ PlayerPrefs and load where player died last
 	}
@@ -50,6 +56,8 @@ public class GameOverDisplay : MonoBehaviour {
 	}
 	public void OnClickHighScore()
 	{
+		buttonCheck = true;
+		Time.timeScale = 1f;
 		//Time.timeScale = 1f;
 		PlayerPrefs.SetInt ("Endless",0);
 		Application.LoadLevel ("HighScore");
@@ -57,6 +65,8 @@ public class GameOverDisplay : MonoBehaviour {
 
 	public void onClickMain()
 	{
+		buttonCheck = true;
+		Time.timeScale = 1f;
 		//Time.timeScale = 1f;
 		PlayerPrefs.SetInt ("Endless", 0);
 		Application.LoadLevel ("StartMenu");
