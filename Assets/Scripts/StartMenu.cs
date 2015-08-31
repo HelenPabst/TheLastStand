@@ -43,6 +43,8 @@ public class StartMenu : MonoBehaviour {
 		}
 		Invoke ("DisplayMenu",1.0f);
 		clickedStart = false;
+		//set android vibration
+		PlayerPrefs.SetFloat("Vibrate",1);
 		//creates a variable for high score if it doesnt exist yet
 		PlayerPrefs.SetInt ("Endless", 0);
 		//reset player score to 0 at start
@@ -283,6 +285,7 @@ public class StartMenu : MonoBehaviour {
 		AudioListener.volume = 0;
 
 	}
+
 	public void OnClickDelete()
 	{
 		buttonSound.Play ();
@@ -319,6 +322,19 @@ public class StartMenu : MonoBehaviour {
 			PlayerPrefs.SetFloat("Score 10",0);
 
 		Debug.Log ("Score Deleted!");
+	}
+	//android only
+	public void OnClickVibrateOn()
+	{
+		buttonSound.Play ();
+		PlayerPrefs.SetFloat("Vibrate",1);
+		
+	}
+	public void OnClickVibrateOff()
+	{
+		buttonSound.Play ();
+		PlayerPrefs.SetFloat("Vibrate",0);
+		
 	}
 
 

@@ -2,12 +2,13 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class OutroTextCode : MonoBehaviour {	
+public class OutroTextCode : MonoBehaviour {
 	//a reference to the image
 	private Image thisText;
 	//Reference to the fader
 	LevelEndFader fader;
 	//find initial references
+	
 	void Start () {
 		fader = GameObject.Find("FadeImage").GetComponent<LevelEndFader>();
 		thisText = gameObject.GetComponent<Image>();
@@ -17,6 +18,7 @@ public class OutroTextCode : MonoBehaviour {
 	void Update () {
 		//makes outro text visable and stops scene (except on lvl 3)
 		if(fader.endMessage){
+
 			if(Application.loadedLevelName != "Level3-Temple")
 			{
 				thisText.color = Color.white;
@@ -24,4 +26,5 @@ public class OutroTextCode : MonoBehaviour {
 			Time.timeScale = 0f;
 		}
 	}
+
 }

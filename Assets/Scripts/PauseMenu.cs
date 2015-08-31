@@ -90,6 +90,37 @@ public class PauseMenu : MonoBehaviour {
 	public void OnClickDelete()
 	{
 		PlayerPrefs.SetFloat ("High Score", 0);
+		
+		PlayerPrefs.SetString("Rank 1","VGD");
+		PlayerPrefs.SetFloat("Score 1",0);
+		
+		PlayerPrefs.SetString("Rank 2","VGD");
+		PlayerPrefs.SetFloat("Score 2",0);
+		
+		PlayerPrefs.SetString("Rank 3","VGD");
+		PlayerPrefs.SetFloat("Score 3",0);
+		
+		PlayerPrefs.SetString("Rank 4","VGD");
+		PlayerPrefs.SetFloat("Score 4",0);
+		
+		PlayerPrefs.SetString("Rank 5","VGD");
+		PlayerPrefs.SetFloat("Score 5",0);
+		
+		PlayerPrefs.SetString("Rank 6","VGD");
+		PlayerPrefs.SetFloat("Score 6",0);
+		
+		PlayerPrefs.SetString("Rank 7","VGD");
+		PlayerPrefs.SetFloat("Score 7",0);
+		
+		PlayerPrefs.SetString("Rank 8","VGD");
+		PlayerPrefs.SetFloat("Score 8",0);
+		
+		PlayerPrefs.SetString("Rank 9","VGD");
+		PlayerPrefs.SetFloat("Score 9",0);
+		
+		PlayerPrefs.SetString("Rank 10","VGD");
+		PlayerPrefs.SetFloat("Score 10",0);
+
 		Debug.Log ("Score Deleted! Current high score is "+PlayerPrefs.GetFloat("High Score"));
 	}
 	public void OnClickBack()

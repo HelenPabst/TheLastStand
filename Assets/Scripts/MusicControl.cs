@@ -7,6 +7,7 @@ public class MusicControl : MonoBehaviour {
 	public AudioSource levelMusic;
 	public AudioSource lowHealthMusic;
 	bool lowHealth = false;
+	bool fadeBool = false;
 	// Use this for initialization
 	void Start () 
 	{
@@ -33,5 +34,26 @@ public class MusicControl : MonoBehaviour {
 			lowHealthMusic.Stop();
 		
 		}
+		else if(playerScript.levelFinish==true && fadeBool == false)
+		{
+			fadeBool = true;
+			//FadeOutMusic();
+		}
 	}
+	/*
+	public void FadeOutMusic()
+	{
+		StartCoroutine(FadeMusic());
+	}
+	IEnumerator FadeMusic()
+	{
+		while(levelMusic.volume > .1F)
+		{
+			levelMusic.volume = Mathf.Lerp(levelMusic.volume,0F,0.4f*Time.deltaTime);
+			yield return 0;
+		}
+		levelMusic.volume = 0;
+		
+	}
+	*/
 }

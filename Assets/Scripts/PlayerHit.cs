@@ -24,8 +24,11 @@ public class PlayerHit : MonoBehaviour {
 		if (col.gameObject.tag.Equals("EnemyArrow")) 
 		{
 			//cause vibration on damage(only mobile)
-
-			//Handheld.Vibrate();
+			if(PlayerPrefs.GetFloat("Vibrate")==1)
+			{
+				Handheld.Vibrate();
+			}
+			/////////////////////////////////////
 
 			Debug.Log("Damage Taken!");
 			playerRender.color = new Color(255f, 0f, 0f, 255f); //set to red
@@ -36,8 +39,11 @@ public class PlayerHit : MonoBehaviour {
 		else if(col.gameObject.tag.Equals("BallistaBolt")) 
 		{
 			//cause vibration on damage(only mobile)
-
-			//Handheld.Vibrate();
+			if(PlayerPrefs.GetFloat("Vibrate")==1)
+			{
+				Handheld.Vibrate();
+			}
+			//////////////////////////////////
 			
 			Debug.Log("5 Damage Taken!");
 			playerRender.color = new Color(255f, 0f, 0f, 255f); //set to red

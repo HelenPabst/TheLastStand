@@ -69,6 +69,19 @@ public class Leaderboard : MonoBehaviour {
 		///get user input
 		///userName = the thing that was input
 		userName = initialInput.text.ToUpper();
+		//add dashes to short username
+		if(userName.Length == 2)
+		{
+			userName += "-";
+		}
+		if(userName.Length == 1)
+		{
+			userName += "--";
+		}
+		if(userName.Length == 0)
+		{
+			userName = "XUN";
+		}
 		SortScore();
 		DisplayLeaderboard();
 		SaveLeaderboard();
@@ -124,7 +137,7 @@ public class Leaderboard : MonoBehaviour {
 		rank7Text.text = ("#7:  "+(topUsers[6])+"-----------"+(topTen[6])+"");
 		rank8Text.text = ("#8:  "+(topUsers[7])+"-----------"+(topTen[7])+"");
 		rank9Text.text = ("#9:  "+(topUsers[8])+"-----------"+(topTen[8])+"");
-		rank10Text.text = ("#10:"+(topUsers[9])+"-----------"+(topTen[9])+"");
+		rank10Text.text =("#10: "+(topUsers[9])+"-----------"+(topTen[9])+"");
 		
 		
 	}

@@ -18,30 +18,30 @@ public class Joystick : MonoBehaviour {
 	//Color fadedButton, pressedButton;
 	public float fireAimOffset;
 
-	Player playerScript;
-	GameObject player;
+	//Player playerScript;
+	//GameObject player;
 	Controls controlScript;
 	float cameraHeight;
 	float cameraWidth;
-	Vector3 cameraPos;
+	//Vector3 cameraPos;
 
 
 	private float maxStickDist = 8;
 
 	// Use this for initialization
 	void Start () {
-		cameraPos = Camera.main.transform.position;
+		//cameraPos = Camera.main.transform.position;
 		//aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y,this.transform.position.z);
 		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
-		player = GameObject.Find("Player");
-		playerScript = (Player)GameObject.Find("Player").GetComponent("Player");
+		//player = GameObject.Find("Player");
+		//playerScript = (Player)GameObject.Find("Player").GetComponent("Player");
 		controlScript = (Controls)GameObject.Find("Controls").GetComponent("Controls");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//update camera position and standard every frame
-		cameraPos = Camera.main.transform.position;
+		//cameraPos = Camera.main.transform.position;
 		//aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y,this.transform.position.z);
 		standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
 		//transform.position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);

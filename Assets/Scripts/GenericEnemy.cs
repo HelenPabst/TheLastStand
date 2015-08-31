@@ -6,6 +6,8 @@ public class GenericEnemy : GenericCharacter
     // Use this for initialization
     private Animator animator;
     Player player;
+	Vector3 playerPosition, diff;
+	float rotation;
     public Transform sightStart1, sightEnd1, sightEnd2,sightEnd3, sightEnd4, sightEnd5;
     public bool playerInSight = false;
     RaycastHit hit;
@@ -26,6 +28,7 @@ public class GenericEnemy : GenericCharacter
     void Update()
     {
         Raycast();
+		RotateToPlayer ();
         //Debug.Log (playerInSight);
         currentTime += Time.deltaTime;
         if (!this.animator.GetCurrentAnimatorStateInfo(0).IsName("Spawning"))
@@ -98,10 +101,10 @@ public class GenericEnemy : GenericCharacter
         //draws enemy line of sight in debug scene view
        
 		Debug.DrawLine(sightStart1.position, sightEnd1.position, Color.red);
-		Debug.DrawLine(sightStart1.position, sightEnd2.position, Color.green);
-		Debug.DrawLine(sightStart1.position, sightEnd3.position, Color.blue);
-		Debug.DrawLine(sightStart1.position, sightEnd4.position, Color.green);
-		Debug.DrawLine(sightStart1.position, sightEnd5.position, Color.blue);
+		//Debug.DrawLine(sightStart1.position, sightEnd2.position, Color.green);
+		//Debug.DrawLine(sightStart1.position, sightEnd3.position, Color.blue);
+		//Debug.DrawLine(sightStart1.position, sightEnd4.position, Color.green);
+		//Debug.DrawLine(sightStart1.position, sightEnd5.position, Color.blue);
 
        
 		//makes player in sight true when player crosses line of sight. 
@@ -115,6 +118,7 @@ public class GenericEnemy : GenericCharacter
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		} 
+		/*
 		 else if(Physics2D.Linecast (sightStart1.position, sightEnd2.position, 1 << LayerMask.NameToLayer ("Player"))) {
 			playerInSight = true;
 			///causes unit to face player
@@ -143,8 +147,22 @@ public class GenericEnemy : GenericCharacter
 			float angle = Mathf.Atan2(dir.y,dir.x) * Mathf.Rad2Deg;
 			transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
 		} 
+		*/
 		else {
 			playerInSight = false;
 		}
+	}
+	//Rotate to face a player
+	private void RotateToPlayer()
+	{
+		GameObject player = GameObject.Find("Player");
+		Transform playerTransform = player.transform;
+		// get player position
+		playerPosition = playerTransform.position;
+		playerPosition = new Vector3(playerPosition.x, playerPosition.y, 0);
+		diff = playerPosition - transform.position;
+		diff.Normalize();
+		rotation = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.Euler(0f, 0f, rotation);
 	}
 }

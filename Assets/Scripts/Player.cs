@@ -267,7 +267,7 @@ public class Player : GenericCharacter
 				levelFinish = true;
 			}
 		//Level2 win condition	
-		else if(Application.loadedLevelName == "Level2-Forest" && kills>=killcap && killedBoss == true){
+		else if(Application.loadedLevelName == "Level2-Forest" && kills>=killcap){// && killedBoss == true){
 				Debug.Log("You beat level 2!");
 				//Application.LoadLevel ("Level3Cutscene");
 			    //Application.LoadLevel ("Level3-Temple");
