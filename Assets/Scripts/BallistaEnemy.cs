@@ -7,10 +7,12 @@ public class BallistaEnemy : GenericCharacter {
 	Player player;
 	private Animator animator;
 	public GameObject inkSplatter;
-	// Update is called once per frame
-	void Start()
+    public AudioSource spawnSound;
+    // Update is called once per frame
+    void Start()
 	{
-		player = (Player)GameObject.Find("Player").GetComponent("Player");
+        spawnSound.Play();
+        player = (Player)GameObject.Find("Player").GetComponent("Player");
 		animator = this.GetComponent<Animator>();
 		health = standardHealth;
 	}
@@ -87,6 +89,7 @@ public class BallistaEnemy : GenericCharacter {
 			float inkY = col.gameObject.transform.position.y;
 			inkSplatter.transform.position = new Vector3(inkX,inkY,1.0f);
 			inkSplatter.transform.rotation = col.gameObject.transform.rotation;
+
 			///end of ink code
 		}
 	}

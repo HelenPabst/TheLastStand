@@ -23,18 +23,30 @@ public class MusicControl : MonoBehaviour {
 		health = (int)playerScript.health;
 		if (health <= 2 && lowHealth == false) 
 		{
-			levelMusic.volume=0.4f;
-			lowHealth = true;
-			lowHealthMusic.Play();
+            if (health > 0)
+            {
+                levelMusic.volume = 0.4f;
+                lowHealth = true;
+                lowHealthMusic.Play();
+            }
+           
 		}
+        else if (health < 1 && lowHealth == true)
+        {
+            //levelMusic.volume = 1.0f;
+            lowHealth = false;
+            lowHealthMusic.Stop();
+        }
 		else if (health > 2 && lowHealth == true) 
 		{
+
 			levelMusic.volume=1.0f;
 			lowHealth = false;
 			lowHealthMusic.Stop();
 		
 		}
-		else if(playerScript.levelFinish==true && fadeBool == false)
+       
+        else if(playerScript.levelFinish==true && fadeBool == false)
 		{
 			fadeBool = true;
 			//FadeOutMusic();

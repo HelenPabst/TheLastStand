@@ -13,9 +13,13 @@ public class AimStick : MonoBehaviour {
 	Player playerScript;
 	//private bool firstTap = false;
 	private float doubleTapTimer = 0;
-
+	private float timerValue = 0.3f;
+	Vector3 returnDir;
+	//Vector3 dir;
+	public bool aimEnabled = true;
 
 	private float maxStickDist = 8;
+	private float minStickDist = 1.5f;
 	// Use this for initialization
 	void Start () 
 	{
@@ -56,18 +60,20 @@ public class AimStick : MonoBehaviour {
 				Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(touchPos.x,touchPos.y,this.transform.position.z));
 				Vector3 padPos = new Vector3(worldPos.x,worldPos.y,this.transform.position.z);
 		//code for second stick
-		
-				if(maxStickDist > (Mathf.Sqrt(Mathf.Pow((worldPos.y-aimStandardPosition.y),2)+Mathf.Pow((worldPos.x-aimStandardPosition.x),2))))//(worldPos.x > ((cameraPos.x)+5)&&(worldPos.y < cameraPos.y))//maxStickDist < (Mathf.Sqrt(Mathf.Pow((worldPos.y-aimStandardPosition.y),2)+Mathf.Pow((worldPos.x-aimStandardPosition.x),2))))//
+				float distance = (Mathf.Sqrt(Mathf.Pow((worldPos.y-aimStandardPosition.y),2)+Mathf.Pow((worldPos.x-aimStandardPosition.x),2)));
+				if(maxStickDist > distance)//(worldPos.x > ((cameraPos.x)+5)&&(worldPos.y < cameraPos.y))//maxStickDist < (Mathf.Sqrt(Mathf.Pow((worldPos.y-aimStandardPosition.y),2)+Mathf.Pow((worldPos.x-aimStandardPosition.x),2))))//
 				{
 					if (touch.phase == TouchPhase.Began)
 					{
 						if(doubleTapTimer == 0)
 						{
 							//set how long player has to tap again
-							doubleTapTimer = 0.5f;
+							doubleTapTimer = timerValue;
 						}
 						else
 						{
+							aimEnabled = false;
+							Invoke ("EnableAim", 0.2f);
 							playerScript.Fire();
 						}
 						/*if(firstTap == true)
@@ -81,42 +87,59 @@ public class AimStick : MonoBehaviour {
 					}
 					if(touch.phase == TouchPhase.Moved)
 					{
+
 						//set the position of the pad to the touch position
-						transform.position = padPos;//Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
+						if(aimEnabled == true)
+						{
+							transform.position = padPos;
+						}
+							//Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
 						//keep control pad visible
 						//transform.position = new Vector3(transform.position.x,transform.position.y, -2);
 
 					}
-
-					/*
 					else if (touch.phase == TouchPhase.Ended)
 					{
 						aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y, this.transform.position.z);
 						transform.position = aimStandardPosition;
 					}
-					*/
-					Vector3 dir = aimStandardPosition - transform.position;
-					angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
 
-				} 
+
+						dir = aimStandardPosition - transform.position;
+						angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+					
+
+
+					
+
+				}
+				else 
+				{
+					if (Input.touchCount == 1 ) 
+					{
+						aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y, this.transform.position.z);
+						transform.position = aimStandardPosition;
+					}
+				}
 			}
 		}
-		/*else ///removed to prevent return to center
-		{
-			aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y, this.transform.position.z);
-			transform.position = aimStandardPosition;
-		}*/
+
 	}
 	public void EndCatch()
 	{
 		controlScript.grab = false;
 	}
+	public void EnableAim()
+	{
+		aimEnabled = true;
+	}
 	public Vector3 getTransform() {
 		//removed center neutral zone
-		/*if (Vector2.Distance(transform.position, aimStandardPosition) < 1) {
-			return new Vector3 (0, 0, 0);
-		} else { */
-			return new Vector3(Mathf.Cos(angle * Mathf.PI/180) * -1, Mathf.Sin(angle * Mathf.PI/180) * -1);
-		//}
+		if (Vector2.Distance(transform.position, aimStandardPosition) < minStickDist) {
+			return returnDir;//new Vector3 (0, 0, 0);// //
+		} else { 
+			returnDir = new Vector3(Mathf.Cos(angle * Mathf.PI/180) * -1, Mathf.Sin(angle * Mathf.PI/180) * -1);
+			return returnDir;//new Vector3(Mathf.Cos(angle * Mathf.PI/180) * -1, Mathf.Sin(angle * Mathf.PI/180) * -1);
+		}
 	}
 }

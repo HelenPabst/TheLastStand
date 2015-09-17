@@ -5,6 +5,6 @@ public class InkSplatter : MonoBehaviour {
 
 	public void removeInk()
 	{
-		ObjectPool.instance.PoolObject(this.gameObject);
+		ObjectPool.instance.PoolObject(transform.root.gameObject);
 	}
 }

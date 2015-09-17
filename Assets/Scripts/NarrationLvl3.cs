@@ -18,7 +18,9 @@ public class NarrationLvl3 : MonoBehaviour {
 	public int currentText = 0;
 	public Text text1, text2;
 	public Button skipButton;
+	public Button nextButton;
 	public Text skipText;
+	public Text nextText;
 	Color skipDefaultColor;
 	//Speed at which the image fades out
 	private float fadeSpeed = 1.5f;
@@ -31,7 +33,9 @@ public class NarrationLvl3 : MonoBehaviour {
 		text2.color = Color.clear;
 		skipDefaultColor = skipButton.image.color;
 		skipButton.image.color = Color.clear;
+		nextButton.image.color = Color.clear;
 		skipText.color = Color.clear;
+		nextText.color = Color.clear;
 		if (Application.isMobilePlatform) 
 		{
 			//keep phone from sleeping
@@ -58,7 +62,9 @@ public class NarrationLvl3 : MonoBehaviour {
 		case 1:
 			text1.color = Color.Lerp(text1.color, Color.black, fadeSpeed * Time.deltaTime);
 			skipButton.image.color = Color.Lerp(skipButton.image.color, skipDefaultColor, fadeSpeed * Time.deltaTime);
+			nextButton.image.color = Color.Lerp(skipButton.image.color, skipDefaultColor, fadeSpeed * Time.deltaTime);
 			skipText.color = Color.Lerp(text1.color, Color.black, fadeSpeed * Time.deltaTime);
+			nextText.color = Color.Lerp(text1.color, Color.black, fadeSpeed * Time.deltaTime);
 			break;
 		case 2:
 			text1.color = Color.Lerp(text1.color, Color.clear, fadeSpeed * Time.deltaTime);
@@ -71,13 +77,19 @@ public class NarrationLvl3 : MonoBehaviour {
 	}
 	void PlayClipOne()
 	{
-		currentText = 1;
+		if(currentText < 1)
+		{
+			currentText = 1;
+		}
 		source.clip = narrationA;
 		source.Play();
 	}
 	void SwitchText()
 	{
-		currentText = 2;
+		if(currentText < 2)
+		{
+			currentText = 2;
+		}
 	}
 	void NextLevel()
 	{
@@ -91,5 +103,14 @@ public class NarrationLvl3 : MonoBehaviour {
 		loadPanel.SetActive(true);
 		source.Stop ();
 		Invoke ("NextLevel", 2.0f);
+	}
+	public void OnClickNext()
+	{
+		currentText ++;
+		if(currentText == 2)
+		{
+			nextButton.gameObject.SetActive(false);
+		}
+		
 	}
 }

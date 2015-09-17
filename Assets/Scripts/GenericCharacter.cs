@@ -28,13 +28,18 @@ public class GenericCharacter : MonoBehaviour
 
     protected void fireArrow(string tag)
     {
+
         arrow = ObjectPool.instance.GetObjectForType("BasicProjectile", true);
         arrow.transform.position = transform.position;
-        arrow.transform.rotation = transform.rotation;
+		// transform.eulerAngles = new Vector3(10, yRotation, 0);
+		//arrow.transform.rotation = Quaternion.identity;
+
+		arrow.transform.rotation = transform.rotation;
 
         arrowDir = new Vector3(Mathf.Cos(transform.eulerAngles.z * Mathf.PI / 180), Mathf.Sin(transform.eulerAngles.z * Mathf.PI / 180));
         arrow.GetComponent<Rigidbody2D>().velocity = arrowDir * arrowVelocity;
-		//arrow.GetComponent<Rigidbody2D>().AddForce(arrowDir);
+		//arrow.GetComponent<Rigidbody2D>().AddForce(arrowDir * arrowVelocity);
+		//arrow.transform.localEulerAngles = arrowDir;//added
         arrow.tag = tag;
     }
 

@@ -14,21 +14,26 @@ public class BasicProjectile : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		//this.tag = transform.parent.tag;
+		//this.GetComponent<Rigidbody2D> ().isKinematic = false;
 		arrowRotation = transform.rotation;
 		animator = this.GetComponent<Animator>();
 		animator.speed = 1;
         selfDestructTime = 5.0f;
-
+		//this.transform.rotation = Quaternion.LookRotation (Vector3.forward);
+		//this.GetComponent<Rigidbody2D> ().isKinematic = true;
     }
 
     // Update is called once per frame
     void Update()
     {
 		//added to fix rotation issue, but there could be a better way
+
 		if (transform.rotation != arrowRotation)
 		{
 			transform.rotation = arrowRotation;
 		}
+
 		//
 		if (this.gameObject.tag == "StuckArrow")
 		{
@@ -60,12 +65,12 @@ public class BasicProjectile : MonoBehaviour
             RemoveArrow();
         }
     }
-
     public void RemoveArrow()
     {
         this.gameObject.tag = "Untagged";
+		transform.rotation = Quaternion.Euler (0,0,0);
 		animator.speed = 1;
-        ObjectPool.instance.PoolObject(this.gameObject);
+        ObjectPool.instance.PoolObject(this.gameObject);//was this.gameobject
     }
 
     public void OnTriggerEnter2D(Collider2D other)

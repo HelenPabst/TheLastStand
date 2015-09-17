@@ -50,7 +50,6 @@ public class GenericEnemy : GenericCharacter
 
         if (health <= 0)
         {
-
 			animator.SetBool("Firing", false);
 			animator.SetBool("Despawning", false);
 			player.kills += 1;

@@ -19,7 +19,7 @@ public class Player : GenericCharacter
 	//flag used to signal level end
 	public bool levelFinish = false;
 	private bool tutorial = true;
-	public AudioSource fireSound;
+	public AudioSource fireSound, endDeath;
 
 
     public float minX; //left boundary 
@@ -60,7 +60,6 @@ public class Player : GenericCharacter
 			Screen.sleepTimeout = SleepTimeout.NeverSleep;
 			//disable mouse image 
 			Cursor.visible = false;
-
             //liveUI = livesUI[1];
             //ammoUI = ammosUI[1];
             //killUI = killsUI[1];
@@ -280,6 +279,7 @@ public class Player : GenericCharacter
 			//if so, display game over screen
 			if(PlayerPrefs.GetInt ("Endless")==0)
 			{
+                endDeath.Play();
 				Debug.Log("You beat level 3! Congrats!");
 				//Application.LoadLevel ("EndingCutscene"); can't load this scene for some reason
 				//Application.LoadLevel ("TempEnding");//placeholder destination

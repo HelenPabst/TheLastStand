@@ -26,6 +26,7 @@ public class BallistaProjectile : MonoBehaviour
 		{
 			transform.rotation = arrowRotation;
 		}
+
 		//
 		currentTime += Time.deltaTime;
 		if (currentTime + timeSpawned >= timeSpawned + selfDestructTime)
@@ -37,6 +38,7 @@ public class BallistaProjectile : MonoBehaviour
 	public void RemoveArrow()
 	{
 		this.gameObject.tag = "Untagged";
+		transform.rotation = Quaternion.Euler (0,0,0);
 		ObjectPool.instance.PoolObject(this.gameObject);
 	}
 	void OnTriggerEnter2D(Collider2D other)
