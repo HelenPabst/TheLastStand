@@ -8,7 +8,7 @@ public class AimStick : MonoBehaviour {
 	public float angle;
 	Vector3 dir;
 	public float fireAimOffset;
-	//Vector3 cameraPos;
+	Vector3 cameraPos;
 	Controls controlScript;
 	Player playerScript;
 	//private bool firstTap = false;
@@ -17,6 +17,8 @@ public class AimStick : MonoBehaviour {
 	Vector3 returnDir;
 	//Vector3 dir;
 	public bool aimEnabled = true;
+    private Vector3 touchStart;
+    private Vector3 touchDistance;
 
 	private float maxStickDist = 8;
 	private float minStickDist = 1.5f;
@@ -24,7 +26,7 @@ public class AimStick : MonoBehaviour {
 	void Start () 
 	{
 		playerScript = (Player)GameObject.Find("Player").GetComponent("Player");
-		//cameraPos = Camera.main.transform.position;
+		cameraPos = Camera.main.transform.position;
 		//cameraHeight = Camera.main.orthographicSize;
 		//cameraWidth = Camera.main.orthographicSize* Screen.width / Screen.height;
 		aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y,this.transform.position.z);
@@ -42,7 +44,7 @@ public class AimStick : MonoBehaviour {
 		{
 			doubleTapTimer = 0;
 		}
-		//cameraPos = Camera.main.transform.position;
+		cameraPos = Camera.main.transform.position;
 
 		aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y, this.transform.position.z);
 		//transform.position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
@@ -65,6 +67,7 @@ public class AimStick : MonoBehaviour {
 				{
 					if (touch.phase == TouchPhase.Began)
 					{
+                        touchStart = touchPos;
 						if(doubleTapTimer == 0)
 						{
 							//set how long player has to tap again
@@ -76,6 +79,8 @@ public class AimStick : MonoBehaviour {
 							Invoke ("EnableAim", 0.2f);
 							playerScript.Fire();
 						}
+                        
+
 						/*if(firstTap == true)
 						{
 							playerScript.Fire();
@@ -87,9 +92,9 @@ public class AimStick : MonoBehaviour {
 					}
 					if(touch.phase == TouchPhase.Moved)
 					{
-
+                        touchDistance = touchPos - touchStart;
 						//set the position of the pad to the touch position
-						if(aimEnabled == true)
+						if(aimEnabled == true && touchDistance.magnitude > 0.1)
 						{
 							transform.position = padPos;
 						}
@@ -98,7 +103,7 @@ public class AimStick : MonoBehaviour {
 						//transform.position = new Vector3(transform.position.x,transform.position.y, -2);
 
 					}
-					else if (touch.phase == TouchPhase.Ended)
+					else if (touch.phase == TouchPhase.Ended && doubleTapTimer == 0)
 					{
 						aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y, this.transform.position.z);
 						transform.position = aimStandardPosition;
@@ -107,15 +112,11 @@ public class AimStick : MonoBehaviour {
 
 						dir = aimStandardPosition - transform.position;
 						angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
-					
-
-
-					
 
 				}
-				else 
+                else 
 				{
-					if (Input.touchCount == 1 ) 
+					if (Input.touchCount == 1 && doubleTapTimer == 0) 
 					{
 						aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y, this.transform.position.z);
 						transform.position = aimStandardPosition;
