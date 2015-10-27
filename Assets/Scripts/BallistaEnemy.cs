@@ -7,11 +7,12 @@ public class BallistaEnemy : GenericCharacter {
 	Player player;
 	private Animator animator;
 	public GameObject inkSplatter;
-    public AudioSource spawnSound;
+    MusicControl musicHandler;
     // Update is called once per frame
     void Start()
 	{
-        spawnSound.Play();
+        musicHandler = Camera.main.GetComponent<MusicControl>();
+        musicHandler.spawning = true;
         player = (Player)GameObject.Find("Player").GetComponent("Player");
 		animator = this.GetComponent<Animator>();
 		health = standardHealth;

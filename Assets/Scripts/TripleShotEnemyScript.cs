@@ -11,11 +11,13 @@ public class TripleShotEnemyScript : GenericCharacter {
 		public bool playerInSight = false;
 		protected GameObject leftArrow, rightArrow;
 		public GameObject inkSplatter;
-		
+		 MusicControl musicHandler;
 		// Use this for initialization
 		void Start () 
 		{
-			animator = this.GetComponent<Animator>();
+            musicHandler = Camera.main.GetComponent<MusicControl>();
+            musicHandler.spawning = true;
+            animator = this.GetComponent<Animator>();
 			player = (Player)GameObject.Find("Player").GetComponent("Player");
 			theta = new Vector3(0, 0, 0);//z value controls rotation, 0 is facing to the right
 			//transform.Rotate(theta);

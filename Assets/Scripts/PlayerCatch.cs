@@ -9,6 +9,8 @@ public class PlayerCatch : MonoBehaviour {
 	GenericEnemy enemyScript;
 	public GameObject controls;
 	public GameObject catchParticle;
+    public AudioSource catchAudio;
+    public AudioClip[] catchClips;
 	//public AudioClip arrowCatch;
 	//AudioSource audio;
 	// Use this for initialization
@@ -32,8 +34,13 @@ public class PlayerCatch : MonoBehaviour {
 				//Player can catch if they have room in quiver (on android they can always catch)
 				if(playerScript.ammo < playerScript.ammoLimit|| Application.isMobilePlatform )
 				{
-					//audio.PlayOneShot(arrowCatch);
-					ObjectPool.instance.PoolObject(col.gameObject);
+                    if (!catchAudio.isPlaying)
+                    {
+                        catchAudio.clip = catchClips[Random.Range(0, 2)];
+                        catchAudio.Play();
+                    }
+                    //audio.PlayOneShot(arrowCatch);
+                    ObjectPool.instance.PoolObject(col.gameObject);
 					//add in particle effect
 					catchParticle = ObjectPool.instance.GetObjectForType("CatchParticle", true);
 					catchParticle.transform.position = new Vector3(col.transform.position.x,col.transform.position.y, -3);

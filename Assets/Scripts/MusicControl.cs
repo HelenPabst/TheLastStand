@@ -6,20 +6,45 @@ public class MusicControl : MonoBehaviour {
 	int health;
 	public AudioSource levelMusic;
 	public AudioSource lowHealthMusic;
+    public AudioSource enemyAudio;
+    public AudioSource spawnAudio;
+    public AudioClip[] enemyDeaths;
+    public AudioClip[] enemySpawns;
+    public bool spawning = false;
 	bool lowHealth = false;
 	bool fadeBool = false;
+    float playerPoints;
 	// Use this for initialization
 	void Start () 
 	{
-
+       
 		levelMusic.Play();
 		playerScript = GameObject.Find("Player").GetComponent<Player>();
 		health = (int)playerScript.health;
-	}
+        playerPoints = playerScript.kills;
+    }
 	
 	// Update is called once per frame
 	void Update () 
 	{
+        if (spawning == true)
+        {
+            spawning = false;
+            if (!spawnAudio.isPlaying)
+            {
+                spawnAudio.clip = enemySpawns[Random.Range(0, 2)];
+                spawnAudio.Play();
+            }
+        }
+        if (playerScript.kills > playerPoints)
+        {
+            playerPoints = playerScript.kills;
+            if (!enemyAudio.isPlaying)
+            {
+                enemyAudio.clip = enemyDeaths[Random.Range(0, 2)];
+                enemyAudio.Play();
+            }
+        }
 		health = (int)playerScript.health;
 		if (health <= 2 && lowHealth == false) 
 		{

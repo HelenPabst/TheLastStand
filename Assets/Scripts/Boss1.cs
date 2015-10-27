@@ -9,12 +9,14 @@ public class Boss1 : GenericCharacter {
 	GameObject boss;
 	public GameObject inkSplatter;
 	Player player;
-	public AudioSource spawnSound, fireSound;
-	// Use this for initialization
-	void Start () 
+	public AudioSource fireSound;
+    MusicControl musicHandler;
+    // Use this for initialization
+    void Start () 
 	{
-		spawnSound.Play ();
-		player = (Player)GameObject.Find("Player").GetComponent("Player");
+        musicHandler = Camera.main.GetComponent<MusicControl>();
+        musicHandler.spawning = true;
+        player = (Player)GameObject.Find("Player").GetComponent("Player");
 		animator = this.GetComponent<Animator>();
 		InvokeRepeating ("Teleport", 6, 5);
 	}

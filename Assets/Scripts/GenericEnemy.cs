@@ -13,11 +13,12 @@ public class GenericEnemy : GenericCharacter
     RaycastHit hit;
     Vector3 direction;
 	public GameObject inkSplatter;
-	public AudioSource spawnSound, fireSound;
-
+	public AudioSource fireSound;
+    MusicControl musicHandler;
     void Start()
     {
-		spawnSound.Play ();
+        musicHandler = Camera.main.GetComponent<MusicControl>();
+        musicHandler.spawning = true;
         animator = this.GetComponent<Animator>();
         player = (Player)GameObject.Find("Player").GetComponent("Player");
         theta = new Vector3(0, 0, 0);//z value controls rotation, 0 is facing to the right
