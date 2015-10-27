@@ -8,6 +8,7 @@ public class BallistaEnemy : GenericCharacter {
 	private Animator animator;
 	public GameObject inkSplatter;
     MusicControl musicHandler;
+    public AudioSource fireSound;
     // Update is called once per frame
     void Start()
 	{
@@ -49,7 +50,11 @@ public class BallistaEnemy : GenericCharacter {
 		
 		}
 	}
-	private void RotateToPlayer()
+    public void FireSound()
+    {
+        fireSound.Play();
+    }
+    private void RotateToPlayer()
 	{
 		GameObject player = GameObject.Find("Player");
 		Transform playerTransform = player.transform;

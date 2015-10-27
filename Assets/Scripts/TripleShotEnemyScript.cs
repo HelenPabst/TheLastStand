@@ -11,7 +11,8 @@ public class TripleShotEnemyScript : GenericCharacter {
 		public bool playerInSight = false;
 		protected GameObject leftArrow, rightArrow;
 		public GameObject inkSplatter;
-		 MusicControl musicHandler;
+    public AudioSource fireSound;
+    MusicControl musicHandler;
 		// Use this for initialization
 		void Start () 
 		{
@@ -99,7 +100,11 @@ public class TripleShotEnemyScript : GenericCharacter {
 			RePool(col.gameObject);
 		}
 	}
-	public void Raycast()
+    public void FireSound()
+    {
+        fireSound.Play();
+    }
+    public void Raycast()
 	{
 		//direction = playerScript.transform.position - this.transform.position;
 		//if ((Vector3.Angle(direction, this.transform.forward) <= fOV * 0.5f)) {
