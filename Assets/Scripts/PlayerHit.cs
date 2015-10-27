@@ -8,8 +8,10 @@ public class PlayerHit : MonoBehaviour {
 	GenericEnemy enemyScript;
 	SpriteRenderer playerRender;
 	public GameObject healthBar;
-	// Use this for initialization
-	void Start () {
+    public AudioSource hitAudio;
+    public AudioClip[] hitClips;
+    // Use this for initialization
+    void Start () {
 		GetComponent<Renderer>().enabled = false;//makes catch radius invisible
 		playerScript = transform.parent.GetComponent<Player>();
 		playerRender = transform.parent.GetComponent<SpriteRenderer> ();
@@ -23,8 +25,13 @@ public class PlayerHit : MonoBehaviour {
 	public void OnTriggerEnter2D(Collider2D col) {
 		if (col.gameObject.tag.Equals("EnemyArrow")) 
 		{
-			//cause vibration on damage(only mobile)
-			if(PlayerPrefs.GetFloat("Vibrate")==1)
+            if (!hitAudio.isPlaying)
+            {
+                hitAudio.clip = hitClips[Random.Range(0, 2)];
+                hitAudio.Play();
+            }
+            //cause vibration on damage(only mobile)
+            if (PlayerPrefs.GetFloat("Vibrate")==1)
 			{
 				Handheld.Vibrate();
 			}

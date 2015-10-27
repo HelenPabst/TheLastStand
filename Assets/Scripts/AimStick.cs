@@ -10,7 +10,7 @@ public class AimStick : MonoBehaviour {
 	public float angle;
 	Vector3 dir;
 	public float fireAimOffset;
-	Vector3 cameraPos;
+	//Vector3 cameraPos;
 	Controls controlScript;
 	Player playerScript;
 	//private bool firstTap = false;
@@ -28,7 +28,7 @@ public class AimStick : MonoBehaviour {
 	void Start () 
 	{
 		playerScript = (Player)GameObject.Find("Player").GetComponent("Player");
-		cameraPos = Camera.main.transform.position;
+		//cameraPos = Camera.main.transform.position;
 		//cameraHeight = Camera.main.orthographicSize;
 		//cameraWidth = Camera.main.orthographicSize* Screen.width / Screen.height;
 		aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y,this.transform.position.z);
@@ -50,7 +50,7 @@ public class AimStick : MonoBehaviour {
 		{
 			doubleTapTimer = 0;
 		}
-		cameraPos = Camera.main.transform.position;
+		//cameraPos = Camera.main.transform.position;
 
 		aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y, this.transform.position.z);
 		//transform.position = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);

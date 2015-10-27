@@ -8,12 +8,15 @@ public class MusicControl : MonoBehaviour {
 	public AudioSource lowHealthMusic;
     public AudioSource enemyAudio;
     public AudioSource spawnAudio;
+    public AudioSource xunDeathAudio;
     public AudioClip[] enemyDeaths;
     public AudioClip[] enemySpawns;
+    public AudioClip[] xunDeathClips;
     public bool spawning = false;
 	bool lowHealth = false;
 	bool fadeBool = false;
     float playerPoints;
+    bool deathCry = false;
 	// Use this for initialization
 	void Start () 
 	{
@@ -27,6 +30,15 @@ public class MusicControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+        if (playerScript.isdead == true || playerScript.deathScene == true)
+        {
+            if (!xunDeathAudio.isPlaying && deathCry == false)
+            {
+                xunDeathAudio.clip = xunDeathClips[Random.Range(0, 2)];
+                xunDeathAudio.Play();
+                deathCry = true;
+            }
+        }
         if (spawning == true)
         {
             spawning = false;

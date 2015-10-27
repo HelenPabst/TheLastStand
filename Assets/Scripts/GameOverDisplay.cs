@@ -7,13 +7,15 @@ public class GameOverDisplay : MonoBehaviour {
 	// Use this for initialization
 
 	public Canvas gameOver;
+    Player playerScript;
 	public GameObject highScoreButton;
 	bool buttonCheck = false;
 	void Start()
 	{
 
 		GameObject.FindWithTag("Player").GetComponent<Player>().enabled = true;
-		gameOver.enabled = false;
+        playerScript = GameObject.FindWithTag("Player").GetComponent<Player>();
+        gameOver.enabled = false;
 		Debug.Log ( "High Score is: "+PlayerPrefs.GetFloat("High Score"));
 		Debug.Log ("0 is standard level, 1 is endless mode: " +PlayerPrefs.GetInt ("Endless"));
 	}
@@ -21,7 +23,7 @@ public class GameOverDisplay : MonoBehaviour {
 	void Update(){
 		//if(dead.gameObject.GetComponent<Player>().isdead = true){
 			
-		if (Player.isdead == true) {
+		if (playerScript.isdead == true) {
 			if(buttonCheck == false)
 			{
 				Time.timeScale = 0f;//freezes all instances in the game

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Player : GenericCharacter
 {
 
-	public static bool isdead = false;
+	public bool isdead = false;
 	public float moveSpeed, ammo, ammoLimit, kills, killcap;
 	public float acceleration = 35, currentSpeed = 0;
     //public Text[] livesUI, ammosUI, killsUI;
@@ -19,7 +19,8 @@ public class Player : GenericCharacter
 	//flag used to signal level end
 	public bool levelFinish = false;
 	private bool tutorial = true;
-	public AudioSource fireSound, endDeath;
+    public bool deathScene = false;
+	public AudioSource fireSound;
 
 
     public float minX; //left boundary 
@@ -279,7 +280,7 @@ public class Player : GenericCharacter
 			//if so, display game over screen
 			if(PlayerPrefs.GetInt ("Endless")==0)
 			{
-                endDeath.Play();
+                deathScene = true;
 				Debug.Log("You beat level 3! Congrats!");
 				//Application.LoadLevel ("EndingCutscene"); can't load this scene for some reason
 				//Application.LoadLevel ("TempEnding");//placeholder destination
