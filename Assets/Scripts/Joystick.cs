@@ -5,9 +5,11 @@ using System.Collections;
 public class Joystick : MonoBehaviour {
 	
 	public GameObject joyBase;
-	//public GameObject aimPad;
-	//public GameObject aimBase;
-	public Text debugger;
+    SpriteRenderer baseImage;
+    SpriteRenderer padImage;
+    //public GameObject aimPad;
+    //public GameObject aimBase;
+    public Text debugger;
 	Vector3 standardPosition;
 	Vector3 aimStandardPosition;
 	public float angle;
@@ -36,7 +38,11 @@ public class Joystick : MonoBehaviour {
 		//player = GameObject.Find("Player");
 		//playerScript = (Player)GameObject.Find("Player").GetComponent("Player");
 		controlScript = (Controls)GameObject.Find("Controls").GetComponent("Controls");
-	}
+        baseImage = joyBase.GetComponent<SpriteRenderer>();
+        padImage = this.GetComponent<SpriteRenderer>();
+        baseImage.enabled = false;
+        padImage.enabled = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -66,9 +72,13 @@ public class Joystick : MonoBehaviour {
 					{
 							if (touch.phase == TouchPhase.Began)
 							{
-								controlScript.Catch();
-								//catchRender.color = pressedButton;
-								Invoke("EndCatch", 0.2f);
+                                baseImage.enabled = true;
+                                padImage.enabled = true;
+                                joyBase.transform.position = padPos;
+                                transform.position = padPos;
+
+                                //controlScript.Catch();
+								//Invoke("EndCatch", 0.2f);
 								
 							}
 							if(touch.phase == TouchPhase.Moved)
@@ -80,8 +90,11 @@ public class Joystick : MonoBehaviour {
 							}
 							else if (touch.phase == TouchPhase.Ended)
 							{
-							standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
-							transform.position = standardPosition;
+                                baseImage.enabled = false;
+                                padImage.enabled = false;
+                                transform.position = joyBase.transform.position;
+							//standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
+							//transform.position = standardPosition;
 							}
 					Vector3 dir = standardPosition - transform.position;
 					angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);

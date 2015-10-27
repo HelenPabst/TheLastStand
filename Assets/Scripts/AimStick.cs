@@ -4,7 +4,9 @@ using System.Collections;
 public class AimStick : MonoBehaviour {
 	
 	public GameObject aimBase;
-	Vector3 aimStandardPosition;
+    SpriteRenderer baseImage;
+    SpriteRenderer padImage;
+    Vector3 aimStandardPosition;
 	public float angle;
 	Vector3 dir;
 	public float fireAimOffset;
@@ -13,7 +15,7 @@ public class AimStick : MonoBehaviour {
 	Player playerScript;
 	//private bool firstTap = false;
 	private float doubleTapTimer = 0;
-	private float timerValue = 0.3f;
+	private float timerValue = 0.2f;
 	Vector3 returnDir;
 	//Vector3 dir;
 	public bool aimEnabled = true;
@@ -31,6 +33,10 @@ public class AimStick : MonoBehaviour {
 		//cameraWidth = Camera.main.orthographicSize* Screen.width / Screen.height;
 		aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y,this.transform.position.z);
 		controlScript = (Controls)GameObject.Find("Controls").GetComponent("Controls");
+        baseImage = aimBase.GetComponent<SpriteRenderer>();
+        padImage = this.GetComponent<SpriteRenderer>();
+        baseImage.enabled = false;
+        padImage.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -67,16 +73,26 @@ public class AimStick : MonoBehaviour {
 				{
 					if (touch.phase == TouchPhase.Began)
 					{
-                        touchStart = touchPos;
-						if(doubleTapTimer == 0)
+                        baseImage.enabled = true;
+                        padImage.enabled = true;
+                        if (aimEnabled == true)
+                        {
+                            aimBase.transform.position = padPos;
+                            transform.position = padPos;
+                        }
+                        ///single tap to catch, double tap to fire
+                        //touchStart = touchPos;
+                        if (doubleTapTimer == 0)
 						{
-							//set how long player has to tap again
-							doubleTapTimer = timerValue;
+                            controlScript.Catch();
+                            Invoke("EndCatch", 0.2f);
+                            //set how long player has to tap again
+                            doubleTapTimer = timerValue;
 						}
 						else
 						{
 							aimEnabled = false;
-							Invoke ("EnableAim", 0.2f);
+							//Invoke ("EnableAim", 0.2f);
 							playerScript.Fire();
 						}
                         
@@ -92,25 +108,42 @@ public class AimStick : MonoBehaviour {
 					}
 					if(touch.phase == TouchPhase.Moved)
 					{
-                        touchDistance = touchPos - touchStart;
-						//set the position of the pad to the touch position
-						if(aimEnabled == true && touchDistance.magnitude > 0.1)
-						{
-							transform.position = padPos;
-						}
-							//Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
-						//keep control pad visible
-						//transform.position = new Vector3(transform.position.x,transform.position.y, -2);
+                        //touchDistance = touchPos - touchStart;
+                        //set the position of the pad to the touch position
+                        //if(aimEnabled == true && touchDistance.magnitude > 0.1)
+                        //{
+                        //if double tap isnt happening
+                        if (aimEnabled == true)
+                        {
+                            transform.position = padPos;
+                           
+                        }
 
-					}
+
+                        //}
+                        //Camera.main.ScreenToWorldPoint(Input.GetTouch(i).position);
+                        //keep control pad visible
+                        //transform.position = new Vector3(transform.position.x,transform.position.y, -2);
+
+                    }
+                    else if (touch.phase == TouchPhase.Ended)
+                    {
+                        baseImage.enabled = false;
+                        padImage.enabled = false;
+                        aimEnabled = true;
+                        transform.position = aimBase.transform.position;
+                        //standardPosition = new Vector3 (joyBase.transform.position.x, joyBase.transform.position.y, this.transform.position.z);
+                        //transform.position = standardPosition;
+                    }
+                    /*
 					else if (touch.phase == TouchPhase.Ended && doubleTapTimer == 0)
 					{
 						aimStandardPosition = new Vector3 (aimBase.transform.position.x, aimBase.transform.position.y, this.transform.position.z);
 						transform.position = aimStandardPosition;
-					}
+					}*/
 
 
-						dir = aimStandardPosition - transform.position;
+                    dir = aimStandardPosition - transform.position;
 						angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
 
 				}
@@ -130,10 +163,12 @@ public class AimStick : MonoBehaviour {
 	{
 		controlScript.grab = false;
 	}
+    /*
 	public void EnableAim()
 	{
 		aimEnabled = true;
 	}
+    */
 	public Vector3 getTransform() {
 		//removed center neutral zone
 		if (Vector2.Distance(transform.position, aimStandardPosition) < minStickDist) {
