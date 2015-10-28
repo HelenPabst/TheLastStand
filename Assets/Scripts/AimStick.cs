@@ -24,7 +24,7 @@ public class AimStick : MonoBehaviour {
     private Vector3 touchDistance;
 
 	private float maxStickDist = 8;
-	private float minStickDist = 1.5f;
+	private float minStickDist = 0.5f;
 	// Use this for initialization
 	void Start () 
 	{
