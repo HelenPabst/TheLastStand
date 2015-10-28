@@ -19,6 +19,7 @@ public class AimStick : MonoBehaviour {
 	Vector3 returnDir;
 	//Vector3 dir;
 	public bool aimEnabled = true;
+    bool touching = false;
     private Vector3 touchStart;
     private Vector3 touchDistance;
 
@@ -73,6 +74,7 @@ public class AimStick : MonoBehaviour {
 				{
 					if (touch.phase == TouchPhase.Began)
 					{
+                        touching = true;
                         baseImage.enabled = true;
                         padImage.enabled = true;
                         if (aimEnabled == true)
@@ -128,6 +130,7 @@ public class AimStick : MonoBehaviour {
                     }
                     else if (touch.phase == TouchPhase.Ended)
                     {
+                        touching = false;
                         baseImage.enabled = false;
                         padImage.enabled = false;
                         aimEnabled = true;
@@ -171,7 +174,7 @@ public class AimStick : MonoBehaviour {
     */
 	public Vector3 getTransform() {
 		//removed center neutral zone
-		if (Vector2.Distance(transform.position, aimStandardPosition) < minStickDist) {
+		if (Vector2.Distance(transform.position, aimStandardPosition) < minStickDist || touching == false) {
 			return returnDir;//new Vector3 (0, 0, 0);// //
 		} else { 
 			returnDir = new Vector3(Mathf.Cos(angle * Mathf.PI/180) * -1, Mathf.Sin(angle * Mathf.PI/180) * -1);
