@@ -38,6 +38,7 @@ public class SplashScreen : MonoBehaviour {
 	}
 	void Menu()
 	{
-		Application.LoadLevel("StartMenu");
+        fadeImage.color = Color.black;
+        Application.LoadLevel("StartMenu");
 	}
 }

@@ -328,7 +328,7 @@ public class StartMenu : MonoBehaviour {
 	{
 		buttonSound.Play ();
 		////remove this for pc build
-		Handheld.Vibrate ();
+		//Handheld.Vibrate ();
 		PlayerPrefs.SetFloat("Vibrate",1);
 		
 	}
