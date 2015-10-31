@@ -33,7 +33,7 @@ public class PlayerHit : MonoBehaviour {
             //cause vibration on damage(only mobile)
             if (PlayerPrefs.GetFloat("Vibrate")==1)
 			{
-				//Handheld.Vibrate();
+				Handheld.Vibrate();
 			}
 			/////////////////////////////////////
 
@@ -48,7 +48,7 @@ public class PlayerHit : MonoBehaviour {
 			//cause vibration on damage(only mobile)
 			if(PlayerPrefs.GetFloat("Vibrate")==1)
 			{
-				//Handheld.Vibrate();
+				Handheld.Vibrate();
 			}
 			//////////////////////////////////
 			
