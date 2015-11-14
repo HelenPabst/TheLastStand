@@ -327,9 +327,11 @@ public class StartMenu : MonoBehaviour {
 	public void OnClickVibrateOn()
 	{
 		buttonSound.Play ();
-		////remove this for pc build
-		Handheld.Vibrate ();
-		PlayerPrefs.SetFloat("Vibrate",1);
+        ////remove this for pc build
+#if UNITY_IPHONE || UNITY_ANDROID      
+        Handheld.Vibrate ();
+#endif
+        PlayerPrefs.SetFloat("Vibrate",1);
 		
 	}
 	public void OnClickVibrateOff()

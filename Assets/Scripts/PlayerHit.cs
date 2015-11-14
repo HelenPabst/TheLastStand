@@ -33,11 +33,14 @@ public class PlayerHit : MonoBehaviour {
             //cause vibration on damage(only mobile)
             if (PlayerPrefs.GetFloat("Vibrate")==1)
 			{
-				Handheld.Vibrate();
-			}
-			/////////////////////////////////////
+#if UNITY_IPHONE || UNITY_ANDROID
+                Handheld.Vibrate();
+#endif
 
-			Debug.Log("Damage Taken!");
+            }
+            /////////////////////////////////////
+
+            Debug.Log("Damage Taken!");
 			playerRender.color = new Color(255f, 0f, 0f, 255f); //set to red
 			Invoke("ReturnColor" , 0.2f);
 			playerScript.health--;
@@ -48,11 +51,13 @@ public class PlayerHit : MonoBehaviour {
 			//cause vibration on damage(only mobile)
 			if(PlayerPrefs.GetFloat("Vibrate")==1)
 			{
-				Handheld.Vibrate();
-			}
-			//////////////////////////////////
-			
-			Debug.Log("5 Damage Taken!");
+#if UNITY_IPHONE || UNITY_ANDROID
+                Handheld.Vibrate();
+#endif
+            }
+            //////////////////////////////////
+
+            Debug.Log("5 Damage Taken!");
 			playerRender.color = new Color(255f, 0f, 0f, 255f); //set to red
 			Invoke("ReturnColor" , 0.2f);
 			playerScript.health-=5;

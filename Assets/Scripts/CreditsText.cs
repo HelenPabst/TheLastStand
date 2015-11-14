@@ -37,7 +37,7 @@ public class CreditsText : MonoBehaviour {
 				//double its size
 				//this.transform.localScale = this.transform.localScale *2;
 				//speed it up to accomodate size change
-				//speed = speed * 2;
+				speed = speed * 2;
 			//}
             /*
 			else//for tablets
