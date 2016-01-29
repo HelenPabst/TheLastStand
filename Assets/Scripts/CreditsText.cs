@@ -9,6 +9,7 @@ public class CreditsText : MonoBehaviour {
 	public string level;
 	public float runTime;
 	public AudioSource audioSource;
+    public Button skipButton;
 
 	//cursor texture code
 	public Texture2D cursorTexture;
@@ -22,9 +23,10 @@ public class CreditsText : MonoBehaviour {
 
 	void Start()
 	{
-		//float screenHeightInInch =  Screen.height / Screen.dpi;
-		//audioSource = Camera.main.transform.Find("Main Camera").GetComponent<AudioSource>();
-		if(Application.isMobilePlatform )
+        skipButton.gameObject.SetActive(false);
+        //float screenHeightInInch =  Screen.height / Screen.dpi;
+        //audioSource = Camera.main.transform.Find("Main Camera").GetComponent<AudioSource>();
+        if (Application.isMobilePlatform )
 		{
 			//if(screenHeightInInch < 3.1)
 			//{
@@ -73,6 +75,10 @@ public class CreditsText : MonoBehaviour {
 		{
 			Application.LoadLevel (level);
 		}
+        if(Input.GetButton("Fire1"))
+        {
+            skipButton.gameObject.SetActive(true);
+        }
 		
 	}
 	
@@ -86,6 +92,11 @@ public class CreditsText : MonoBehaviour {
 	{
 		audioSource.Play();
 	}
+   
+    public void ClickedSkip()
+    {
+        Application.LoadLevel(level);
+    }
 
 	
 	
