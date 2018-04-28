@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.EventSystems;
 
 public class StartMenu : MonoBehaviour {
 
@@ -341,4 +340,7 @@ public class StartMenu : MonoBehaviour {
 		PlayerPrefs.SetFloat("Vibrate",0);
 		
 	}
+
+
+
 }
