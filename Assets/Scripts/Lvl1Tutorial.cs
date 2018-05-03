@@ -8,6 +8,8 @@ public class Lvl1Tutorial : MonoBehaviour {
 	public Text tutorialText, tutorialText2, tutorialText3, tutorialText4;
 	public bool tutEnemyDead = false;
 	public bool tutArrowCaught = false;
+
+	[SerializeField] private float ControllsReminderTime;
 	public bool displayText2 = true;
 	public bool displayText3 = true;
     public bool displayText4 = true;
@@ -86,9 +88,29 @@ public class Lvl1Tutorial : MonoBehaviour {
     void RemoveText()
 	{
 		tutorialText3.gameObject.SetActive(false);
+		StartCoroutine(CoWaitToRemindControlls());
 	}
     void RemovePauseText()
     {
         tutorialText4.gameObject.SetActive(false);
     }
+
+	IEnumerator CoWaitToRemindControlls()
+	{
+		while(true)
+		{
+			yield return new WaitForSeconds(ControllsReminderTime);
+			tutorialText.gameObject.SetActive(true);
+			yield return new WaitForSeconds(8);
+			tutorialText.gameObject.SetActive(false);
+			tutorialText2.gameObject.SetActive(true);
+			yield return new WaitForSeconds(8);
+			tutorialText2.gameObject.SetActive(false);
+			tutorialText3.gameObject.SetActive(true);
+			yield return new WaitForSeconds(8);
+			tutorialText3.gameObject.SetActive(false);
+		}
+	}
 }
+
+
